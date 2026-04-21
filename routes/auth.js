@@ -34,56 +34,79 @@ router.post('/register', async (req, res) => {
     });
   }
 
-  try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+  db.get(
+    'SELECT id FROM users WHERE username = ?',
+    [username],
+    async (checkErr, existingUser) => {
+      if (checkErr) {
+        console.error('ERRO A VERIFICAR USERNAME:', checkErr.message);
+        return res.render('register', {
+          page: 'register',
+          error: 'Erro ao verificar o username.',
+          success: null
+        });
+      }
 
-    db.run(
-      `
-      INSERT INTO users (
-        primeiro_nome,
-        ultimo_nome,
-        username,
-        password,
-        is_admin,
-        force_password_change
-      ) VALUES (?, ?, ?, ?, 0, 0)
-      `,
-      [primeiro_nome, ultimo_nome, username, hashedPassword],
-      function (err) {
-        if (err) {
-          console.error('ERRO NO REGISTO:', err.message);
+      if (existingUser) {
+        return res.render('register', {
+          page: 'register',
+          error: 'Esse username já existe. Escolhe outro.',
+          success: null
+        });
+      }
 
-          if (err.message.includes('UNIQUE constraint failed')) {
+      try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        db.run(
+          `
+          INSERT INTO users (
+            primeiro_nome,
+            ultimo_nome,
+            username,
+            password,
+            is_admin,
+            force_password_change
+          ) VALUES (?, ?, ?, ?, 0, 0)
+          `,
+          [primeiro_nome, ultimo_nome, username, hashedPassword],
+          function (err) {
+            if (err) {
+              console.error('ERRO NO REGISTO:', err.message);
+
+              if (err.message.includes('UNIQUE constraint failed')) {
+                return res.render('register', {
+                  page: 'register',
+                  error: 'Esse username já existe. Escolhe outro.',
+                  success: null
+                });
+              }
+
+              return res.render('register', {
+                page: 'register',
+                error: 'Erro ao criar conta.',
+                success: null
+              });
+            }
+
             return res.render('register', {
               page: 'register',
-              error: 'Esse username já existe.',
-              success: null
+              error: null,
+              success: 'Conta criada com sucesso. Agora já podes fazer login.'
             });
           }
-
-          return res.render('register', {
-            page: 'register',
-            error: 'Erro ao criar conta.',
-            success: null
-          });
-        }
+        );
+      } catch (error) {
+        console.error('ERRO INTERNO NO REGISTO:', error);
 
         return res.render('register', {
           page: 'register',
-          error: null,
-          success: 'Conta criada com sucesso. Agora já podes fazer login.'
+          error: 'Erro interno ao criar conta.',
+          success: null
         });
       }
-    );
-  } catch (error) {
-    console.error('ERRO INTERNO NO REGISTO:', error);
-
-    return res.render('register', {
-      page: 'register',
-      error: 'Erro interno ao criar conta.',
-      success: null
-    });
-  }
+    }
+  );
 });
 
 /* =========================
@@ -102,7 +125,7 @@ router.post('/login', (req, res) => {
   if (!username || !password) {
     return res.render('login', {
       page: 'login',
-      error: 'Preenche todos os campos.'
+      error: 'Preenche username e password.'
     });
   }
 
@@ -114,14 +137,14 @@ router.post('/login', (req, res) => {
         console.error('ERRO NO LOGIN:', err.message);
         return res.render('login', {
           page: 'login',
-          error: 'Erro interno.'
+          error: 'Erro interno no login.'
         });
       }
 
       if (!user) {
         return res.render('login', {
           page: 'login',
-          error: 'Credenciais inválidas.'
+          error: 'Username ou password incorretos.'
         });
       }
 
@@ -131,7 +154,7 @@ router.post('/login', (req, res) => {
         if (!match) {
           return res.render('login', {
             page: 'login',
-            error: 'Credenciais inválidas.'
+            error: 'Username ou password incorretos.'
           });
         }
 
@@ -153,7 +176,7 @@ router.post('/login', (req, res) => {
         console.error('ERRO INTERNO NO LOGIN:', error);
         return res.render('login', {
           page: 'login',
-          error: 'Erro interno.'
+          error: 'Erro interno no login.'
         });
       }
     }
@@ -161,7 +184,7 @@ router.post('/login', (req, res) => {
 });
 
 /* =========================
-   MUDANÇA OBRIGATÓRIA DE PASSWORD
+   FORÇAR MUDANÇA DE PASSWORD
 ========================= */
 router.get('/force-password-change', (req, res) => {
   if (!req.session.user) {
