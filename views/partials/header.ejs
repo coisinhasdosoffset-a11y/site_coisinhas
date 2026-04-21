@@ -4,38 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coisinhas dos Offset</title>
+  <meta name="theme-color" content="#0f0f10" />
+  <link rel="icon" type="image/png" href="/images/favicon.png?v=999" />
   <link rel="stylesheet" href="/css/style.css" />
-  <link rel="icon" type="image/png" href="/images/favicon.png?v=3">
 </head>
 
 <body class="<%= typeof page !== 'undefined' ? page : '' %>">
-
-<header class="topbar">
-  <div class="topbar-inner">
-    <a href="/" class="brand brand-only-text">
-      <img src="/images/logo_txt.png" alt="Coisinhas dos Offset" class="logo-text logo-text-main" />
-    </a>
-
-    <nav class="main-nav">
-      <% if (!user) { %>
-        <a href="/login">Login</a>
-        <a href="/register" class="nav-cta">Registo</a>
-      <% } else { %>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/barragem">Barragem</a>
-        <a href="/armas">Armas</a>
-        <a href="/acessorios">Acessórios</a>
-        <a href="/carregadores">Carregadores</a>
-        <a href="/items-fight">Items para Fight</a>
-
-        <% if (user.is_admin === 1) { %>
-          <a href="/admin">Admin</a>
-        <% } %>
-
-        <a href="/logout" class="nav-cta nav-logout">Sair</a>
-      <% } %>
-    </nav>
+  <div id="page-loader" class="page-loader">
+    <div class="loader-ring"></div>
+    <div class="loader-text">A carregar...</div>
   </div>
-</header>
 
-<main class="page fade-in">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="/" class="brand brand-only-text">
+        <img src="/images/logo_txt.png" alt="Coisinhas dos Offset" class="logo-text logo-text-main" />
+      </a>
+
+      <button class="mobile-nav-toggle" id="mobileNavToggle" type="button" aria-label="Abrir menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" id="mainNav">
+        <% if (!user) { %>
+          <a href="/login">Login</a>
+          <a href="/register" class="nav-cta">Registo</a>
+        <% } else { %>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/barragem">Barragem</a>
+          <a href="/armas">Armas</a>
+          <a href="/acessorios">Acessórios</a>
+          <a href="/carregadores">Carregadores</a>
+          <a href="/items-fight">Items para Fight</a>
+
+          <% if (user.is_admin === 1) { %>
+            <a href="/admin">Admin</a>
+          <% } %>
+
+          <a href="/logout" class="nav-cta nav-logout">Sair</a>
+        <% } %>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page fade-in">
