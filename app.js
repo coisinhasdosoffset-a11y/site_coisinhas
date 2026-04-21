@@ -1,88 +1,72 @@
-
-
 const express = require('express');
 const session = require('express-session');
-const SQLiteStore = require('connect-sqlite3')(session);
 const path = require('path');
 const helmet = require('helmet');
 const compression = require('compression');
 
-const app = express();
+const authRoutes = require('./routes/auth');
+const dashboardRoutes = require('./routes/dashboard');
+const adminRoutes = require('./routes/admin');
 
-/* ===== CONFIG BASE ===== */
+const { checkForcePasswordChange } = require('./middlewares/auth');
+
+const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-/* ===== MIDDLEWARE ===== */
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-/* Segurança */
 app.use(helmet({
   contentSecurityPolicy: false
 }));
 
-/* Performance */
 app.use(compression());
 
-/* Ficheiros estáticos */
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 app.use(express.static(path.join(__dirname, 'public'), {
-  maxAge: '1d'
+  maxAge: '7d'
 }));
 
-/* ===== SESSÕES ===== */
-
 app.use(session({
-  store: new SQLiteStore({
-    db: 'sessions.db',
-    dir: './'
-  }),
-  secret: process.env.SESSION_SECRET || 'segredo_super_secreto',
+  secret: process.env.SESSION_SECRET || 'troca_isto_por_um_segredo_seguro',
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: false, // TRUE só se usares HTTPS com proxy
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 // 1 dia
+    secure: false,
+    sameSite: 'lax',
+    maxAge: 1000 * 60 * 60 * 24 * 7
   }
 }));
-
-/* ===== GLOBAL USER ===== */
 
 app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
   next();
 });
 
-/* ===== ROUTES ===== */
+app.use(checkForcePasswordChange);
 
-const authRoutes = require('./routes/auth');
-const dashboardRoutes = require('./routes/dashboard');
-const adminRoutes = require('./routes/admin');
-
-app.use('/', authRoutes);
-app.use('/', dashboardRoutes);
-app.use('/', adminRoutes);
-
-/* ===== HOME ===== */
+app.use(authRoutes);
+app.use(dashboardRoutes);
+app.use(adminRoutes);
 
 app.get('/', (req, res) => {
-  if (!req.session.user) return res.redirect('/login');
-  res.redirect('/dashboard');
+  if (req.session.user) {
+    return res.redirect('/dashboard');
+  }
+  return res.redirect('/login');
 });
-
-/* ===== 404 ===== */
 
 app.use((req, res) => {
-  res.status(404).render('404', { page: '404' });
+  res.status(404).render('404', {
+    page: '',
+    user: req.session.user || null
+  });
 });
-
-/* ===== START SERVER ===== */
 
 const PORT = process.env.PORT || 10000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor a correr na porta ${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Servidor a correr na porta ${PORT}`);
 });
