@@ -1,12 +1,30 @@
-<%- include('partials/header') %>
+<%- include('partials/header', { page: 'login' }) %>
 
 <section class="form-section">
   <div class="form-card glass">
-    <h2>Entrar</h2>
+    <h2>Login</h2>
 
-    <form method="POST" action="/login">
-      <input type="text" name="username" placeholder="Identificador" required />
-      <input type="password" name="password" placeholder="Palavra-passe" required />
+    <% if (error) { %>
+      <div class="info-box" style="border-left-color:#ff5959;">
+        <%= error %>
+      </div>
+    <% } %>
+
+    <form action="/login" method="POST">
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        required
+      >
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+      >
+
       <button type="submit" class="btn btn-primary">Entrar</button>
     </form>
   </div>
