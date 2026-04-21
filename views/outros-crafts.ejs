@@ -1,0 +1,139 @@
+<%- include('partials/header', { page: 'outros-crafts' }) %>
+
+<section class="fishing-page">
+
+  <!-- HEADER -->
+  <div class="fishing-header glass">
+    <div>
+      <div class="fishing-tag">🎣 Pesca</div>
+      <h1>Outros Crafts</h1>
+      <p>Gestão completa de pesca: venda, loja e crafting.</p>
+    </div>
+
+    <!-- SELECTOR DE PREÇO -->
+    <div class="price-mode">
+      <label>Modo de preço:</label>
+      <select id="priceMode">
+        <option value="civil">Civil</option>
+        <option value="parceria">Parceria</option>
+        <option value="custom">Personalizado</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="fishing-grid">
+
+    <!-- PEIXES -->
+    <div class="fishing-section glass">
+
+      <h2>🐟 Venda de Peixes</h2>
+
+      <h3 class="illegal-title">Ilegais</h3>
+      <div id="illegalFish" class="fishing-list"></div>
+
+      <h3 class="legal-title">Legais</h3>
+      <div id="legalFish" class="fishing-list"></div>
+
+    </div>
+
+    <!-- LOJA + CRAFT -->
+    <div class="fishing-section glass">
+
+      <h2>🛒 Loja & Crafts</h2>
+
+      <h3>Loja</h3>
+      <div id="shopItems" class="fishing-list"></div>
+
+      <h3>Crafts</h3>
+      <div class="craft-box">
+        <p><strong>Cana de Pesca</strong><br>25 couro + 40 ferro + 15 molas + 15 parafusos + 40 vidro</p>
+        <p><strong>Armadilha</strong><br>25 cobre + 40 estanho + 40 ferro + 10 trutas</p>
+        <p><strong>Pager</strong><br>30 prata + 30 restos eletrónicos + 2 telemóveis</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+const illegal = [
+  ["Raia", 3510],
+  ["Polvo", 4550],
+  ["Tubarão Branco", 9100],
+  ["Tubarão Martelo", 10400],
+  ["Orca", 65000],
+  ["Baleia", 650000]
+];
+
+const legal = [
+  ["Robalo Pequeno", 2880],
+  ["Garoupa Pequena", 3520],
+  ["Atum Pequeno", 9600],
+  ["Robalo Grande", 4800],
+  ["Garoupa Grande", 7520],
+  ["Atum Grande", 24000]
+];
+
+const shopCivil = [
+  ["Licença de Pesca", 50000],
+  ["Segunda Via", 10000],
+  ["Minhoca", 400],
+  ["Armadilha", 75000],
+  ["Cana de Pesca", 80000],
+  ["Pager", 40000]
+];
+
+const shopParceria = [
+  ["Licença de Pesca", 50000],
+  ["Segunda Via", 10000],
+  ["Minhoca", 300],
+  ["Armadilha", 45000],
+  ["Cana de Pesca", 48000],
+  ["Pager", 24000]
+];
+
+function renderList(container, data, mode) {
+  container.innerHTML = "";
+
+  data.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "fish-card";
+
+    let price = item[1];
+
+    if (mode === "custom") {
+      price = `<input type="number" value="${price}" />`;
+    } else {
+      price = price + "€";
+    }
+
+    div.innerHTML = `
+      <span>${item[0]}</span>
+      <strong>${price}</strong>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+function renderAll() {
+  const mode = document.getElementById("priceMode").value;
+
+  renderList(document.getElementById("illegalFish"), illegal, mode);
+  renderList(document.getElementById("legalFish"), legal, mode);
+
+  if (mode === "parceria") {
+    renderList(document.getElementById("shopItems"), shopParceria, mode);
+  } else {
+    renderList(document.getElementById("shopItems"), shopCivil, mode);
+  }
+}
+
+document.getElementById("priceMode").addEventListener("change", renderAll);
+
+renderAll();
+</script>
+
+<%- include('partials/footer') %>
