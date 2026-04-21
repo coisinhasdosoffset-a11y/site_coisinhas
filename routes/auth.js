@@ -8,7 +8,11 @@ const router = express.Router();
    REGISTO
 ========================= */
 router.get('/register', (req, res) => {
-  res.render('register', { error: null, page: 'register' });
+  res.render('register', {
+    page: 'register',
+    error: null,
+    success: null
+  });
 });
 
 router.post('/register', async (req, res) => {
@@ -16,8 +20,17 @@ router.post('/register', async (req, res) => {
 
   if (!primeiro_nome || !ultimo_nome || !username || !password) {
     return res.render('register', {
+      page: 'register',
       error: 'Preenche todos os campos.',
-      page: 'register'
+      success: null
+    });
+  }
+
+  if (password.length < 3) {
+    return res.render('register', {
+      page: 'register',
+      error: 'A password tem de ter pelo menos 3 caracteres.',
+      success: null
     });
   }
 
@@ -38,21 +51,37 @@ router.post('/register', async (req, res) => {
       [primeiro_nome, ultimo_nome, username, hashedPassword],
       function (err) {
         if (err) {
-          console.error(err.message);
+          console.error('ERRO NO REGISTO:', err.message);
+
+          if (err.message.includes('UNIQUE constraint failed')) {
+            return res.render('register', {
+              page: 'register',
+              error: 'Esse username já existe.',
+              success: null
+            });
+          }
+
           return res.render('register', {
-            error: 'Erro ao criar conta. Username pode já existir.',
-            page: 'register'
+            page: 'register',
+            error: 'Erro ao criar conta.',
+            success: null
           });
         }
 
-        res.redirect('/login');
+        return res.render('register', {
+          page: 'register',
+          error: null,
+          success: 'Conta criada com sucesso. Agora já podes fazer login.'
+        });
       }
     );
   } catch (error) {
-    console.error(error);
-    res.render('register', {
+    console.error('ERRO INTERNO NO REGISTO:', error);
+
+    return res.render('register', {
+      page: 'register',
       error: 'Erro interno ao criar conta.',
-      page: 'register'
+      success: null
     });
   }
 });
@@ -61,7 +90,10 @@ router.post('/register', async (req, res) => {
    LOGIN
 ========================= */
 router.get('/login', (req, res) => {
-  res.render('login', { error: null, page: 'login' });
+  res.render('login', {
+    page: 'login',
+    error: null
+  });
 });
 
 router.post('/login', (req, res) => {
@@ -69,8 +101,8 @@ router.post('/login', (req, res) => {
 
   if (!username || !password) {
     return res.render('login', {
-      error: 'Preenche todos os campos.',
-      page: 'login'
+      page: 'login',
+      error: 'Preenche todos os campos.'
     });
   }
 
@@ -79,19 +111,28 @@ router.post('/login', (req, res) => {
     [username],
     async (err, user) => {
       if (err) {
-        console.error(err.message);
-        return res.render('login', { error: 'Erro interno.', page: 'login' });
+        console.error('ERRO NO LOGIN:', err.message);
+        return res.render('login', {
+          page: 'login',
+          error: 'Erro interno.'
+        });
       }
 
       if (!user) {
-        return res.render('login', { error: 'Credenciais inválidas.', page: 'login' });
+        return res.render('login', {
+          page: 'login',
+          error: 'Credenciais inválidas.'
+        });
       }
 
       try {
         const match = await bcrypt.compare(password, user.password);
 
         if (!match) {
-          return res.render('login', { error: 'Credenciais inválidas.', page: 'login' });
+          return res.render('login', {
+            page: 'login',
+            error: 'Credenciais inválidas.'
+          });
         }
 
         req.session.user = {
@@ -109,8 +150,11 @@ router.post('/login', (req, res) => {
 
         return res.redirect('/dashboard');
       } catch (error) {
-        console.error(error);
-        return res.render('login', { error: 'Erro interno.', page: 'login' });
+        console.error('ERRO INTERNO NO LOGIN:', error);
+        return res.render('login', {
+          page: 'login',
+          error: 'Erro interno.'
+        });
       }
     }
   );
@@ -170,7 +214,7 @@ router.post('/force-password-change', async (req, res) => {
       [hashedPassword, req.session.user.id],
       (err) => {
         if (err) {
-          console.error(err.message);
+          console.error('ERRO AO MUDAR PASSWORD:', err.message);
           return res.render('force-password-change', {
             page: 'login',
             error: 'Erro ao atualizar a password.'
@@ -182,7 +226,7 @@ router.post('/force-password-change', async (req, res) => {
       }
     );
   } catch (error) {
-    console.error(error);
+    console.error('ERRO INTERNO AO MUDAR PASSWORD:', error);
     return res.render('force-password-change', {
       page: 'login',
       error: 'Erro interno.'
