@@ -2053,3 +2053,80 @@ body.items-fight .barragem-header::after {
     flex-direction: column;
   }
 }
+
+/* ===== OUTROS CRAFTS (PESCA) ===== */
+
+.fishing-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fishing-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding: 26px;
+  gap: 20px;
+}
+
+.fishing-tag {
+  background: rgba(0, 180, 255, 0.15);
+  border: 1px solid rgba(0, 180, 255, 0.25);
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: #9cd6ff;
+  margin-bottom: 10px;
+}
+
+.price-mode select {
+  padding: 10px;
+  border-radius: 10px;
+  background: #111;
+  color: white;
+}
+
+.fishing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.fishing-section {
+  padding: 22px;
+}
+
+.fishing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fish-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+}
+
+.illegal-title {
+  color: #ff6b6b;
+}
+
+.legal-title {
+  color: #6bff95;
+}
+
+.craft-box p {
+  background: rgba(255,255,255,0.04);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* cor da página */
+body.outros-crafts .fishing-tag {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+}
