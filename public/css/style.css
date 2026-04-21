@@ -13,7 +13,7 @@ body {
 
 body {
   background:
-    radial-gradient(circle at top, rgba(255, 0, 0, 0.12), transparent 30%),
+    radial-gradient(circle at top, rgba(255, 0, 0, 0.10), transparent 30%),
     linear-gradient(135deg, #050505, #111111 45%, #1a1a1a 100%);
   color: #ffffff;
   min-height: 100vh;
@@ -30,10 +30,70 @@ body::before {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 40px 40px;
   opacity: 0.15;
+  z-index: -1;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0d0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.16);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.26);
+}
+
+/* ===== PAGE LOADER ===== */
+.page-loader {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 5, 5, 0.96);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 9999;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.page-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-ring {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,0.12);
+  border-top: 4px solid #ff2a2a;
+  animation: spinLoader 0.9s linear infinite;
+  box-shadow: 0 0 18px rgba(255, 0, 0, 0.18);
+}
+
+.loader-text {
+  color: #e5e5e5;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+}
+
+@keyframes spinLoader {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ===== HEADER ===== */
@@ -43,7 +103,7 @@ body::before {
   z-index: 50;
   padding: 14px 0;
   backdrop-filter: blur(16px);
-  background: rgba(7, 7, 7, 0.68);
+  background: rgba(7, 7, 7, 0.78);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -54,6 +114,7 @@ body::before {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
+  position: relative;
 }
 
 .brand {
@@ -114,6 +175,41 @@ body::before {
   color: #ffb0b0 !important;
 }
 
+/* ===== MOBILE NAV ===== */
+.mobile-nav-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mobile-nav-toggle span {
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  border-radius: 999px;
+  transition: 0.25s ease;
+}
+
+.mobile-nav-toggle.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-nav-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-nav-toggle.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 /* ===== LAYOUT BASE ===== */
 .page {
   width: min(1200px, 92%);
@@ -140,6 +236,30 @@ body::before {
   max-width: 1000px;
 }
 
+.form-card,
+.panel,
+.calc-panel,
+.hub-card,
+.item-card,
+.loot-card,
+.weapon-card,
+.accessory-card,
+.calc-item,
+.hub-info-card {
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
+}
+
+.form-card:hover,
+.panel:hover,
+.calc-panel:hover,
+.hub-info-card:hover {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.30);
+}
+
 /* ===== BOTÕES ===== */
 .btn {
   padding: 12px 22px;
@@ -150,10 +270,31 @@ body::before {
   display: inline-block;
   transition: 0.25s ease;
   font-weight: bold;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn:hover {
   transform: translateY(-2px) scale(1.02);
+}
+
+.btn::after,
+.add-item-btn::after,
+.weapon-add-btn::after,
+.accessory-add-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.12), transparent);
+  transform: translateX(-120%);
+  transition: transform 0.45s ease;
+}
+
+.btn:hover::after,
+.add-item-btn:hover::after,
+.weapon-add-btn:hover::after,
+.accessory-add-btn:hover::after {
+  transform: translateX(120%);
 }
 
 .btn-primary {
@@ -253,6 +394,13 @@ textarea::placeholder {
   color: #cfcfcf;
 }
 
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(255, 70, 70, 0.45);
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.10);
+}
+
 .info-box {
   margin-bottom: 15px;
   padding: 12px;
@@ -260,6 +408,7 @@ textarea::placeholder {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   font-size: 0.9rem;
+  line-height: 1.55;
 }
 
 /* ===== LISTAS / CARDS ===== */
@@ -781,6 +930,8 @@ textarea::placeholder {
   letter-spacing: 0.2px;
   transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
   box-shadow: 0 12px 24px rgba(120, 0, 0, 0.26), 0 0 16px rgba(255, 0, 0, 0.16);
+  position: relative;
+  overflow: hidden;
 }
 
 .add-item-btn:hover {
@@ -997,6 +1148,7 @@ textarea::placeholder {
   font-weight: 600;
   letter-spacing: 0.2px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18), 0 0 18px rgba(255, 0, 0, 0.08);
+  font-size: 0.95rem;
 }
 
 .save-message:empty {
@@ -1217,6 +1369,8 @@ textarea::placeholder {
   letter-spacing: 0.2px;
   transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
   box-shadow: 0 12px 24px rgba(120, 0, 0, 0.26), 0 0 16px rgba(255, 0, 0, 0.16);
+  position: relative;
+  overflow: hidden;
 }
 
 .weapon-add-btn:hover {
@@ -1504,6 +1658,8 @@ textarea::placeholder {
   letter-spacing: 0.2px;
   transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
   box-shadow: 0 12px 24px rgba(120, 0, 0, 0.26), 0 0 16px rgba(255, 0, 0, 0.16);
+  position: relative;
+  overflow: hidden;
 }
 
 .accessory-add-btn:hover {
@@ -1551,6 +1707,12 @@ textarea::placeholder {
   position: sticky;
   top: 108px;
   border-radius: 24px;
+}
+
+/* ===== ITEMS FIGHT ===== */
+.items-fight-card .loot-card,
+.item-fight-card .loot-card {
+  border-color: rgba(19, 194, 150, 0.16);
 }
 
 /* ===== ANIMAÇÕES ===== */
@@ -1736,6 +1898,17 @@ body.armas .weapons-hero::before {
     radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.04), transparent 24%);
 }
 
+/* 🟢 ITEMS FIGHT */
+body.items-fight .barragem-tag,
+body.items-fight .btn-primary {
+  background: linear-gradient(135deg, #13c296, #0a7e67);
+  box-shadow: 0 0 12px rgba(19, 194, 150, 0.24);
+}
+
+body.items-fight .barragem-header::after {
+  background: radial-gradient(circle, rgba(19, 194, 150, 0.16), transparent 70%);
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1100px) {
   .hub-hero,
@@ -1769,13 +1942,36 @@ body.armas .weapons-hero::before {
   }
 
   .topbar-inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
+    align-items: center;
+  }
+
+  .mobile-nav-toggle {
+    display: inline-flex;
   }
 
   .main-nav {
-    justify-content: center;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 3%;
+    right: 3%;
+    display: none;
+    flex-direction: column;
+    padding: 14px;
+    gap: 8px;
+    background: rgba(10, 10, 10, 0.96);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.28);
+  }
+
+  .main-nav.open {
+    display: flex;
+  }
+
+  .main-nav a {
+    width: 100%;
+    text-align: center;
   }
 
   .hero h1 {
@@ -1796,6 +1992,20 @@ body.armas .weapons-hero::before {
 
   .section-subtext {
     text-align: left;
+  }
+
+  .hub-grid,
+  .hub-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hub-hero {
+    gap: 18px;
+  }
+
+  .page {
+    width: min(94%, 1200px);
+    padding: 28px 0 48px;
   }
 }
 
@@ -1842,15 +2052,4 @@ body.armas .weapons-hero::before {
   .calc-item-top {
     flex-direction: column;
   }
-}
-
-/* ===== ITEMS PARA FIGHT ===== */
-body.items-fight .barragem-tag,
-body.items-fight .btn-primary {
-  background: linear-gradient(135deg, #13c296, #0a7e67);
-  box-shadow: 0 0 12px rgba(19, 194, 150, 0.24);
-}
-
-body.items-fight .barragem-header::after {
-  background: radial-gradient(circle, rgba(19, 194, 150, 0.16), transparent 70%);
 }
