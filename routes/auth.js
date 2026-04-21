@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const db = require('../config/db');
+const pool = require('../config/db');
 
 const router = express.Router();
 
@@ -34,79 +34,51 @@ router.post('/register', async (req, res) => {
     });
   }
 
-  db.get(
-    'SELECT id FROM users WHERE username = ?',
-    [username],
-    async (checkErr, existingUser) => {
-      if (checkErr) {
-        console.error('ERRO A VERIFICAR USERNAME:', checkErr.message);
-        return res.render('register', {
-          page: 'register',
-          error: 'Erro ao verificar o username.',
-          success: null
-        });
-      }
+  try {
+    const existingUser = await pool.query(
+      'SELECT id FROM users WHERE username = $1',
+      [username]
+    );
 
-      if (existingUser) {
-        return res.render('register', {
-          page: 'register',
-          error: 'Esse username já existe. Escolhe outro.',
-          success: null
-        });
-      }
-
-      try {
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        db.run(
-          `
-          INSERT INTO users (
-            primeiro_nome,
-            ultimo_nome,
-            username,
-            password,
-            is_admin,
-            force_password_change
-          ) VALUES (?, ?, ?, ?, 0, 0)
-          `,
-          [primeiro_nome, ultimo_nome, username, hashedPassword],
-          function (err) {
-            if (err) {
-              console.error('ERRO NO REGISTO:', err.message);
-
-              if (err.message.includes('UNIQUE constraint failed')) {
-                return res.render('register', {
-                  page: 'register',
-                  error: 'Esse username já existe. Escolhe outro.',
-                  success: null
-                });
-              }
-
-              return res.render('register', {
-                page: 'register',
-                error: 'Erro ao criar conta.',
-                success: null
-              });
-            }
-
-            return res.render('register', {
-              page: 'register',
-              error: null,
-              success: 'Conta criada com sucesso. Agora já podes fazer login.'
-            });
-          }
-        );
-      } catch (error) {
-        console.error('ERRO INTERNO NO REGISTO:', error);
-
-        return res.render('register', {
-          page: 'register',
-          error: 'Erro interno ao criar conta.',
-          success: null
-        });
-      }
+    if (existingUser.rows.length > 0) {
+      return res.render('register', {
+        page: 'register',
+        error: 'Esse username já existe. Escolhe outro.',
+        success: null
+      });
     }
-  );
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await pool.query(
+      `
+      INSERT INTO users (
+        primeiro_nome,
+        ultimo_nome,
+        username,
+        password,
+        is_admin,
+        force_password_change
+      )
+      VALUES ($1, $2, $3, $4, 0, 0)
+      `,
+      [primeiro_nome, ultimo_nome, username, hashedPassword]
+    );
+
+    return res.render('register', {
+      page: 'register',
+      error: null,
+      success: 'Conta criada com sucesso. Agora já podes fazer login.'
+    });
+  } catch (error) {
+    console.error('ERRO NO REGISTO:', error);
+
+    return res.render('register', {
+      page: 'register',
+      error: 'Erro ao criar conta.',
+      success: null
+    });
+  }
 });
 
 /* =========================
@@ -119,7 +91,7 @@ router.get('/login', (req, res) => {
   });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
@@ -129,58 +101,51 @@ router.post('/login', (req, res) => {
     });
   }
 
-  db.get(
-    'SELECT * FROM users WHERE username = ?',
-    [username],
-    async (err, user) => {
-      if (err) {
-        console.error('ERRO NO LOGIN:', err.message);
-        return res.render('login', {
-          page: 'login',
-          error: 'Erro interno no login.'
-        });
-      }
+  try {
+    const result = await pool.query(
+      'SELECT * FROM users WHERE username = $1',
+      [username]
+    );
 
-      if (!user) {
-        return res.render('login', {
-          page: 'login',
-          error: 'Username ou password incorretos.'
-        });
-      }
-
-      try {
-        const match = await bcrypt.compare(password, user.password);
-
-        if (!match) {
-          return res.render('login', {
-            page: 'login',
-            error: 'Username ou password incorretos.'
-          });
-        }
-
-        req.session.user = {
-          id: user.id,
-          primeiro_nome: user.primeiro_nome,
-          ultimo_nome: user.ultimo_nome,
-          username: user.username,
-          is_admin: user.is_admin,
-          force_password_change: user.force_password_change || 0
-        };
-
-        if (user.force_password_change === 1) {
-          return res.redirect('/force-password-change');
-        }
-
-        return res.redirect('/dashboard');
-      } catch (error) {
-        console.error('ERRO INTERNO NO LOGIN:', error);
-        return res.render('login', {
-          page: 'login',
-          error: 'Erro interno no login.'
-        });
-      }
+    if (result.rows.length === 0) {
+      return res.render('login', {
+        page: 'login',
+        error: 'Username ou password incorretos.'
+      });
     }
-  );
+
+    const user = result.rows[0];
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
+      return res.render('login', {
+        page: 'login',
+        error: 'Username ou password incorretos.'
+      });
+    }
+
+    req.session.user = {
+      id: user.id,
+      primeiro_nome: user.primeiro_nome,
+      ultimo_nome: user.ultimo_nome,
+      username: user.username,
+      is_admin: user.is_admin,
+      force_password_change: user.force_password_change || 0
+    };
+
+    if (user.force_password_change === 1) {
+      return res.redirect('/force-password-change');
+    }
+
+    return res.redirect('/dashboard');
+  } catch (error) {
+    console.error('ERRO NO LOGIN:', error);
+
+    return res.render('login', {
+      page: 'login',
+      error: 'Erro interno no login.'
+    });
+  }
 });
 
 /* =========================
@@ -228,31 +193,23 @@ router.post('/force-password-change', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    db.run(
+    await pool.query(
       `
       UPDATE users
-      SET password = ?, force_password_change = 0
-      WHERE id = ?
+      SET password = $1, force_password_change = 0
+      WHERE id = $2
       `,
-      [hashedPassword, req.session.user.id],
-      (err) => {
-        if (err) {
-          console.error('ERRO AO MUDAR PASSWORD:', err.message);
-          return res.render('force-password-change', {
-            page: 'login',
-            error: 'Erro ao atualizar a password.'
-          });
-        }
-
-        req.session.user.force_password_change = 0;
-        return res.redirect('/dashboard');
-      }
+      [hashedPassword, req.session.user.id]
     );
+
+    req.session.user.force_password_change = 0;
+    return res.redirect('/dashboard');
   } catch (error) {
-    console.error('ERRO INTERNO AO MUDAR PASSWORD:', error);
+    console.error('ERRO AO MUDAR PASSWORD:', error);
+
     return res.render('force-password-change', {
       page: 'login',
-      error: 'Erro interno.'
+      error: 'Erro ao atualizar a password.'
     });
   }
 });
