@@ -1,6 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const compression = require('compression');
+const helmet = require('helmet');
 
 const authRoutes = require('./routes/auth');
 const dashboardRoutes = require('./routes/dashboard');
@@ -13,18 +15,38 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(helmet({
+  contentSecurityPolicy: false
+}));
+
+app.use(compression());
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: '7d'
+}));
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'troca_isto_por_um_segredo_seguro',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: false,
+    sameSite: 'lax',
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  }
 }));
 
 app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
+  next();
+});
+
+app.use((req, res, next) => {
+  res.setHeader('X-Powered-By', 'Coisinhas dos Offset');
   next();
 });
 
@@ -38,7 +60,14 @@ app.get('/', (req, res) => {
   if (req.session.user) {
     return res.redirect('/dashboard');
   }
-  res.redirect('/login');
+  return res.redirect('/login');
+});
+
+app.use((req, res) => {
+  res.status(404).render('404', {
+    page: '',
+    user: req.session.user || null
+  });
 });
 
 const PORT = process.env.PORT || 3000;
