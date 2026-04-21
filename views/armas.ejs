@@ -1,0 +1,757 @@
+<%- include('partials/header', { page: 'armas' }) %>
+
+<section class="weapons-page">
+  <div class="weapons-hero glass">
+    <div class="weapons-hero-text">
+      <span class="weapons-badge">Módulo de armas</span>
+      <h1>Blueprints, Peças e Armas</h1>
+      <p>
+        Nesta página tens três áreas separadas. Podes calcular blueprints,
+        calcular peças, ou escolher diretamente uma arma e ver automaticamente
+        tudo o que é necessário para a criar.
+      </p>
+    </div>
+
+    <div class="weapons-hero-side">
+      <div class="weapons-mini-panel glass">
+        <strong>3 secções</strong>
+        <span>Blueprints</span>
+        <span>Peças</span>
+        <span>Armas</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="weapons-layout">
+    <div class="weapons-left">
+      <section class="weapon-section glass">
+        <div class="weapon-section-head">
+          <div>
+            <span class="weapon-section-tag">Secção 1</span>
+            <h2>Blueprints</h2>
+          </div>
+        </div>
+
+        <div class="weapons-list">
+          <div class="weapon-card glass weapon-reveal" data-secao="Blueprints" data-nome="Blueprint de Pistola (6x)" data-recursos='{"pacoteDroga":2,"blueprintPistola":6}'>
+            <div class="weapon-card-info">
+              <h3>6x Blueprint de Pistola</h3>
+              <p>Necessita 2 pacotes de droga.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>2 pacotes</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal" data-secao="Blueprints" data-nome="Blueprint de SMG (6x)" data-recursos='{"pacoteDroga":2,"blueprintSmg":6}'>
+            <div class="weapon-card-info">
+              <h3>6x Blueprint de SMG</h3>
+              <p>Necessita 2 pacotes de droga.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>2 pacotes</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal" data-secao="Blueprints" data-nome="Blueprint de Rifle (6x)" data-recursos='{"pacoteDroga":2,"blueprintRifle":6}'>
+            <div class="weapon-card-info">
+              <h3>6x Blueprint de Rifle</h3>
+              <p>Necessita 2 pacotes de droga.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>2 pacotes</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="weapon-section glass">
+        <div class="weapon-section-head">
+          <div>
+            <span class="weapon-section-tag">Secção 2</span>
+            <h2>Peças</h2>
+          </div>
+        </div>
+
+        <div class="weapons-list">
+          <div class="weapon-card glass weapon-reveal" data-secao="Peças" data-nome="Peças Básicas (2x)" data-recursos='{"dinheiro":400,"abs":2,"aluminio":1,"borracha":1,"metal":2,"pecasBasicas":2}'>
+            <div class="weapon-card-info">
+              <h3>2x Peças Básicas</h3>
+              <p>400€ + 2 ABS + 1 Alumínio + 1 Borracha + 2 Pedaços de Metal</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>Peças</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal" data-secao="Peças" data-nome="Peças Avançadas (2x)" data-recursos='{"dinheiro":600,"aluminio":1,"borracha":1,"aco":2,"polimero":1,"bronze":1,"pecasAvancadas":2}'>
+            <div class="weapon-card-info">
+              <h3>2x Peças Avançadas</h3>
+              <p>600€ + 1 Alumínio + 1 Borracha + 2 Aço + 1 Polímero + 1 Bronze</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>Peças</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="weapon-section glass">
+        <div class="weapon-section-head">
+          <div>
+            <span class="weapon-section-tag">Secção 3</span>
+            <h2>Armas</h2>
+          </div>
+
+          <div class="filter-box weapons-filter-box">
+            <label for="weapon-armas-filter">Filtrar armas</label>
+            <select id="weapon-armas-filter">
+              <option value="all">Todas</option>
+              <option value="ORG">ORG</option>
+              <option value="Bairro">Bairro</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="weapons-list" id="weapons-armas-list">
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="ORG" data-nome="Vintage (ORG)" data-recursos='{"pecasBasicas":15,"dinheiro":20000,"blueprintPistola":3}'>
+            <div class="weapon-card-info">
+              <h3>Vintage (ORG)</h3>
+              <p>15 peças básicas + 20.000€ + 3 blueprints de pistola.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>15 PB + 3 BP</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="ORG" data-nome=".50 (ORG)" data-recursos='{"pecasBasicas":50,"dinheiro":70000,"blueprintPistola":10}'>
+            <div class="weapon-card-info">
+              <h3>.50 (ORG)</h3>
+              <p>50 peças básicas + 70.000€ + 10 blueprints de pistola.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>50 PB + 10 BP</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="ORG" data-nome="Colt (ORG)" data-recursos='{"pecasBasicas":40,"dinheiro":55000,"blueprintPistola":8}'>
+            <div class="weapon-card-info">
+              <h3>Colt (ORG)</h3>
+              <p>40 peças básicas + 55.000€ + 8 blueprints de pistola.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>40 PB + 8 BP</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="ORG" data-nome="PDW (ORG)" data-recursos='{"pecasAvancadas":75,"dinheiro":100000,"blueprintSmg":15}'>
+            <div class="weapon-card-info">
+              <h3>PDW (ORG)</h3>
+              <p>75 peças avançadas + 100.000€ + 15 blueprints de SMG.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>75 PA + 15 BS</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="ORG" data-nome="Famas (ORG)" data-recursos='{"pecasAvancadas":120,"dinheiro":160000,"blueprintRifle":24}'>
+            <div class="weapon-card-info">
+              <h3>Famas (ORG)</h3>
+              <p>120 peças avançadas + 160.000€ + 24 blueprints de rifle.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>120 PA + 24 BR</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="ORG" data-nome="Spas-12 (ORG)" data-recursos='{"pecasAvancadas":30,"dinheiro":40000,"blueprintRifle":6}'>
+            <div class="weapon-card-info">
+              <h3>Spas-12 (ORG)</h3>
+              <p>30 peças avançadas + 40.000€ + 6 blueprints de rifle.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>30 PA + 6 BR</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="ORG" data-nome="TAR-21 (ORG)" data-recursos='{"pecasAvancadas":120,"dinheiro":160000,"blueprintRifle":24}'>
+            <div class="weapon-card-info">
+              <h3>TAR-21 (ORG)</h3>
+              <p>120 peças avançadas + 160.000€ + 24 blueprints de rifle.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>120 PA + 24 BR</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="ORG" data-nome="Thompson (ORG)" data-recursos='{"pecasAvancadas":45,"dinheiro":72000,"blueprintSmg":6}'>
+            <div class="weapon-card-info">
+              <h3>Thompson (ORG)</h3>
+              <p>45 peças avançadas + 72.000€ + 6 blueprints de SMG.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>45 PA + 6 BS</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="ORG" data-nome="Military (ORG)" data-recursos='{"pecasAvancadas":110,"dinheiro":144000,"blueprintRifle":22}'>
+            <div class="weapon-card-info">
+              <h3>Military (ORG)</h3>
+              <p>110 peças avançadas + 144.000€ + 22 blueprints de rifle.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>110 PA + 22 BR</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="ORG" data-nome="Ranger 12 (ORG)" data-recursos='{"pecasBasicas":25,"dinheiro":30000,"blueprintPistola":5}'>
+            <div class="weapon-card-info">
+              <h3>Ranger 12 (ORG)</h3>
+              <p>25 peças básicas + 30.000€ + 5 blueprints de pistola.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>25 PB + 5 BP</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="Bairro" data-nome="Fajuta (Bairro)" data-recursos='{"pecasBasicas":20,"dinheiro":27000,"blueprintPistola":4}'>
+            <div class="weapon-card-info">
+              <h3>Fajuta (Bairro)</h3>
+              <p>20 peças básicas + 27.000€ + 4 blueprints de pistola.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>20 PB + 4 BP</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="Bairro" data-nome="Taurus (Bairro)" data-recursos='{"pecasBasicas":25,"dinheiro":34000,"blueprintPistola":5}'>
+            <div class="weapon-card-info">
+              <h3>Taurus (Bairro)</h3>
+              <p>25 peças básicas + 34.000€ + 5 blueprints de pistola.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>25 PB + 5 BP</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="Bairro" data-nome="TEC-9 (Bairro)" data-recursos='{"pecasBasicas":35,"dinheiro":48000,"blueprintSmg":6}'>
+            <div class="weapon-card-info">
+              <h3>TEC-9 (Bairro)</h3>
+              <p>35 peças básicas + 48.000€ + 6 blueprints de SMG.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>35 PB + 6 BS</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="Bairro" data-nome="Mini Uzi (Bairro)" data-recursos='{"pecasAvancadas":45,"dinheiro":60000,"blueprintSmg":9}'>
+            <div class="weapon-card-info">
+              <h3>Mini Uzi (Bairro)</h3>
+              <p>45 peças avançadas + 60.000€ + 9 blueprints de SMG.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>45 PA + 9 BS</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="Bairro" data-nome="Draco (Bairro)" data-recursos='{"pecasAvancadas":65,"dinheiro":85000,"blueprintRifle":12}'>
+            <div class="weapon-card-info">
+              <h3>Draco (Bairro)</h3>
+              <p>65 peças avançadas + 85.000€ + 12 blueprints de rifle.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>65 PA + 12 BR</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="Bairro" data-nome="P90 (Bairro)" data-recursos='{"pecasAvancadas":80,"dinheiro":105000,"blueprintSmg":16}'>
+            <div class="weapon-card-info">
+              <h3>P90 (Bairro)</h3>
+              <p>80 peças avançadas + 105.000€ + 16 blueprints de SMG.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>80 PA + 16 BS</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+
+          <div class="weapon-card glass weapon-reveal armas-card" data-secao="Armas" data-grupo="Bairro" data-nome="AK (Bairro)" data-recursos='{"pecasAvancadas":110,"dinheiro":144000,"blueprintRifle":22}'>
+            <div class="weapon-card-info">
+              <h3>AK (Bairro)</h3>
+              <p>110 peças avançadas + 144.000€ + 22 blueprints de rifle.</p>
+            </div>
+            <div class="weapon-card-side">
+              <strong>110 PA + 22 BR</strong>
+              <button class="weapon-add-btn" type="button">Adicionar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <aside class="weapons-right">
+      <div class="weapon-calc-panel glass">
+        <div class="weapon-calc-head">
+          <span class="weapons-badge">Resumo</span>
+          <h2>Cálculo atual</h2>
+        </div>
+
+        <div id="weapon-calc-items" class="calc-items">
+          <div class="empty-calc">
+            <span class="empty-dot"></span>
+            Ainda não adicionaste nenhum item.
+          </div>
+        </div>
+
+        <div class="weapon-summary-groups">
+          <div class="weapon-summary-group">
+            <h3>Blueprints e Peças</h3>
+
+            <div class="summary-row">
+              <span>Blueprint Pistola</span>
+              <strong id="weapon-total-bp">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Blueprint SMG</span>
+              <strong id="weapon-total-bs">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Blueprint Rifle</span>
+              <strong id="weapon-total-br">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Peças Básicas</span>
+              <strong id="weapon-total-pb">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Peças Avançadas</span>
+              <strong id="weapon-total-pa">0</strong>
+            </div>
+          </div>
+
+          <div class="weapon-summary-group">
+            <h3>Dinheiro e Materiais</h3>
+
+            <div class="summary-row">
+              <span>Dinheiro</span>
+              <strong id="weapon-total-dinheiro">0€</strong>
+            </div>
+            <div class="summary-row">
+              <span>Pacotes de droga</span>
+              <strong id="weapon-total-droga">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>ABS</span>
+              <strong id="weapon-total-abs">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Alumínio</span>
+              <strong id="weapon-total-aluminio">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Borracha</span>
+              <strong id="weapon-total-borracha">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Pedaço de Metal</span>
+              <strong id="weapon-total-metal">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Aço</span>
+              <strong id="weapon-total-aco">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Polímero</span>
+              <strong id="weapon-total-polimero">0</strong>
+            </div>
+            <div class="summary-row">
+              <span>Bronze</span>
+              <strong id="weapon-total-bronze">0</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-actions">
+          <button type="button" class="btn btn-primary" id="weapon-save-btn">Guardar cálculo</button>
+          <button type="button" class="btn btn-danger" id="weapon-clear-btn">Limpar</button>
+        </div>
+
+        <p id="weapon-save-message" class="save-message"></p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script>
+  const weaponAddButtons = document.querySelectorAll('.weapon-add-btn');
+  const weaponCalcItems = document.getElementById('weapon-calc-items');
+  const weaponSaveBtn = document.getElementById('weapon-save-btn');
+  const weaponClearBtn = document.getElementById('weapon-clear-btn');
+  const weaponSaveMessage = document.getElementById('weapon-save-message');
+  const weaponArmasFilter = document.getElementById('weapon-armas-filter');
+  const armasCards = document.querySelectorAll('.armas-card');
+
+  const totalDinheiro = document.getElementById('weapon-total-dinheiro');
+  const totalDroga = document.getElementById('weapon-total-droga');
+  const totalAbs = document.getElementById('weapon-total-abs');
+  const totalAluminio = document.getElementById('weapon-total-aluminio');
+  const totalBorracha = document.getElementById('weapon-total-borracha');
+  const totalMetal = document.getElementById('weapon-total-metal');
+  const totalAco = document.getElementById('weapon-total-aco');
+  const totalPolimero = document.getElementById('weapon-total-polimero');
+  const totalBronze = document.getElementById('weapon-total-bronze');
+  const totalBP = document.getElementById('weapon-total-bp');
+  const totalBS = document.getElementById('weapon-total-bs');
+  const totalBR = document.getElementById('weapon-total-br');
+  const totalPB = document.getElementById('weapon-total-pb');
+  const totalPA = document.getElementById('weapon-total-pa');
+
+  const selecionados = {};
+  const calculosGuardados = <%- JSON.stringify(typeof calculos !== 'undefined' ? calculos : []) %>;
+
+  function formatarEuro(valor) {
+    return Number(valor).toLocaleString('pt-PT') + '€';
+  }
+
+  function formatarNumero(valor) {
+    return Number(valor).toLocaleString('pt-PT');
+  }
+
+  function calcularMateriaisDerivados(totaisBase) {
+    const derivados = {
+      dinheiro: totaisBase.dinheiro,
+      pacoteDroga: totaisBase.pacoteDroga,
+      abs: totaisBase.abs,
+      aluminio: totaisBase.aluminio,
+      borracha: totaisBase.borracha,
+      metal: totaisBase.metal,
+      aco: totaisBase.aco,
+      polimero: totaisBase.polimero,
+      bronze: totaisBase.bronze,
+      blueprintPistola: totaisBase.blueprintPistola,
+      blueprintSmg: totaisBase.blueprintSmg,
+      blueprintRifle: totaisBase.blueprintRifle,
+      pecasBasicas: totaisBase.pecasBasicas,
+      pecasAvancadas: totaisBase.pecasAvancadas
+    };
+
+    const packsPB = derivados.pecasBasicas / 2;
+    const packsPA = derivados.pecasAvancadas / 2;
+
+    derivados.dinheiro += packsPB * 400;
+    derivados.abs += packsPB * 2;
+    derivados.aluminio += packsPB * 1;
+    derivados.borracha += packsPB * 1;
+    derivados.metal += packsPB * 2;
+
+    derivados.dinheiro += packsPA * 600;
+    derivados.aluminio += packsPA * 1;
+    derivados.borracha += packsPA * 1;
+    derivados.aco += packsPA * 2;
+    derivados.polimero += packsPA * 1;
+    derivados.bronze += packsPA * 1;
+
+    const packsBP = derivados.blueprintPistola / 6;
+    const packsBS = derivados.blueprintSmg / 6;
+    const packsBR = derivados.blueprintRifle / 6;
+
+    derivados.pacoteDroga += packsBP * 2;
+    derivados.pacoteDroga += packsBS * 2;
+    derivados.pacoteDroga += packsBR * 2;
+
+    return derivados;
+  }
+
+  function totaisArmas() {
+    const base = {
+      dinheiro: 0,
+      pacoteDroga: 0,
+      abs: 0,
+      aluminio: 0,
+      borracha: 0,
+      metal: 0,
+      aco: 0,
+      polimero: 0,
+      bronze: 0,
+      blueprintPistola: 0,
+      blueprintSmg: 0,
+      blueprintRifle: 0,
+      pecasBasicas: 0,
+      pecasAvancadas: 0
+    };
+
+    Object.values(selecionados).forEach(item => {
+      const q = item.quantidade;
+      base.dinheiro += (item.recursos.dinheiro || 0) * q;
+      base.pacoteDroga += (item.recursos.pacoteDroga || 0) * q;
+      base.abs += (item.recursos.abs || 0) * q;
+      base.aluminio += (item.recursos.aluminio || 0) * q;
+      base.borracha += (item.recursos.borracha || 0) * q;
+      base.metal += (item.recursos.metal || 0) * q;
+      base.aco += (item.recursos.aco || 0) * q;
+      base.polimero += (item.recursos.polimero || 0) * q;
+      base.bronze += (item.recursos.bronze || 0) * q;
+      base.blueprintPistola += (item.recursos.blueprintPistola || 0) * q;
+      base.blueprintSmg += (item.recursos.blueprintSmg || 0) * q;
+      base.blueprintRifle += (item.recursos.blueprintRifle || 0) * q;
+      base.pecasBasicas += (item.recursos.pecasBasicas || 0) * q;
+      base.pecasAvancadas += (item.recursos.pecasAvancadas || 0) * q;
+    });
+
+    return calcularMateriaisDerivados(base);
+  }
+
+  function atualizarResumoArmas() {
+    const totais = totaisArmas();
+
+    totalDinheiro.textContent = formatarEuro(totais.dinheiro);
+    totalDroga.textContent = formatarNumero(totais.pacoteDroga);
+    totalAbs.textContent = formatarNumero(totais.abs);
+    totalAluminio.textContent = formatarNumero(totais.aluminio);
+    totalBorracha.textContent = formatarNumero(totais.borracha);
+    totalMetal.textContent = formatarNumero(totais.metal);
+    totalAco.textContent = formatarNumero(totais.aco);
+    totalPolimero.textContent = formatarNumero(totais.polimero);
+    totalBronze.textContent = formatarNumero(totais.bronze);
+    totalBP.textContent = formatarNumero(totais.blueprintPistola);
+    totalBS.textContent = formatarNumero(totais.blueprintSmg);
+    totalBR.textContent = formatarNumero(totais.blueprintRifle);
+    totalPB.textContent = formatarNumero(totais.pecasBasicas);
+    totalPA.textContent = formatarNumero(totais.pecasAvancadas);
+  }
+
+  function textoRecursos(recursos, quantidade) {
+    const partes = [];
+
+    if (recursos.dinheiro) partes.push(formatarEuro(recursos.dinheiro * quantidade));
+    if (recursos.pacoteDroga) partes.push(`${formatarNumero(recursos.pacoteDroga * quantidade)} pacote(s) de droga`);
+    if (recursos.abs) partes.push(`${formatarNumero(recursos.abs * quantidade)} ABS`);
+    if (recursos.aluminio) partes.push(`${formatarNumero(recursos.aluminio * quantidade)} alumínio`);
+    if (recursos.borracha) partes.push(`${formatarNumero(recursos.borracha * quantidade)} borracha`);
+    if (recursos.metal) partes.push(`${formatarNumero(recursos.metal * quantidade)} metal`);
+    if (recursos.aco) partes.push(`${formatarNumero(recursos.aco * quantidade)} aço`);
+    if (recursos.polimero) partes.push(`${formatarNumero(recursos.polimero * quantidade)} polímero`);
+    if (recursos.bronze) partes.push(`${formatarNumero(recursos.bronze * quantidade)} bronze`);
+    if (recursos.blueprintPistola) partes.push(`${formatarNumero(recursos.blueprintPistola * quantidade)} blueprint(s) pistola`);
+    if (recursos.blueprintSmg) partes.push(`${formatarNumero(recursos.blueprintSmg * quantidade)} blueprint(s) SMG`);
+    if (recursos.blueprintRifle) partes.push(`${formatarNumero(recursos.blueprintRifle * quantidade)} blueprint(s) rifle`);
+    if (recursos.pecasBasicas) partes.push(`${formatarNumero(recursos.pecasBasicas * quantidade)} peça(s) básicas`);
+    if (recursos.pecasAvancadas) partes.push(`${formatarNumero(recursos.pecasAvancadas * quantidade)} peça(s) avançadas`);
+
+    return partes.join(' + ');
+  }
+
+  function ligarEventosCalcArmas() {
+    document.querySelectorAll('.weapon-qty-input').forEach(input => {
+      input.addEventListener('input', (e) => {
+        const key = e.target.dataset.key;
+        const limpo = e.target.value.replace(/[^0-9]/g, '');
+        e.target.value = limpo;
+
+        if (limpo !== '') {
+          selecionados[key].quantidade = parseInt(limpo, 10);
+          renderCalcArmas();
+        }
+      });
+
+      input.addEventListener('blur', (e) => {
+        const key = e.target.dataset.key;
+        if (!e.target.value || Number(e.target.value) < 1) {
+          selecionados[key].quantidade = 1;
+          renderCalcArmas();
+        }
+      });
+    });
+
+    document.querySelectorAll('.weapon-remove-btn').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const key = e.target.dataset.key;
+        delete selecionados[key];
+        renderCalcArmas();
+      });
+    });
+  }
+
+  function renderCalcArmas() {
+    const itens = Object.values(selecionados);
+
+    if (itens.length === 0) {
+      weaponCalcItems.innerHTML = `
+        <div class="empty-calc">
+          <span class="empty-dot"></span>
+          Ainda não adicionaste nenhum item.
+        </div>
+      `;
+    } else {
+      weaponCalcItems.innerHTML = itens.map(item => `
+        <div class="calc-item">
+          <div class="calc-item-top">
+            <div>
+              <h3>${item.nome}</h3>
+              <p>${item.tipoSecao}</p>
+            </div>
+            <div class="calc-item-total">${item.quantidade}x</div>
+          </div>
+
+          <p style="margin-bottom: 12px; color: #d7d7d7;">
+            ${textoRecursos(item.recursos, item.quantidade)}
+          </p>
+
+          <div class="calc-item-controls">
+            <input
+              type="text"
+              inputmode="numeric"
+              value="${item.quantidade}"
+              data-key="${item.nome}"
+              class="weapon-qty-input"
+            >
+            <button type="button" class="remove-btn weapon-remove-btn" data-key="${item.nome}">
+              Remover
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    atualizarResumoArmas();
+    ligarEventosCalcArmas();
+  }
+
+  weaponAddButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      const card = e.target.closest('.weapon-card');
+      const nome = card.dataset.nome;
+      const tipoSecao = card.dataset.secao;
+      const recursos = JSON.parse(card.dataset.recursos);
+
+      card.classList.add('weapon-pulse');
+      setTimeout(() => card.classList.remove('weapon-pulse'), 450);
+
+      if (selecionados[nome]) {
+        selecionados[nome].quantidade += 1;
+      } else {
+        selecionados[nome] = {
+          nome,
+          tipoSecao,
+          quantidade: 1,
+          recursos: {
+            dinheiro: recursos.dinheiro || 0,
+            abs: recursos.abs || 0,
+            aluminio: recursos.aluminio || 0,
+            borracha: recursos.borracha || 0,
+            metal: recursos.metal || 0,
+            aco: recursos.aco || 0,
+            polimero: recursos.polimero || 0,
+            bronze: recursos.bronze || 0,
+            pacoteDroga: recursos.pacoteDroga || 0,
+            blueprintPistola: recursos.blueprintPistola || 0,
+            blueprintSmg: recursos.blueprintSmg || 0,
+            blueprintRifle: recursos.blueprintRifle || 0,
+            pecasBasicas: recursos.pecasBasicas || 0,
+            pecasAvancadas: recursos.pecasAvancadas || 0
+          }
+        };
+      }
+
+      renderCalcArmas();
+    });
+  });
+
+  weaponArmasFilter.addEventListener('change', () => {
+    const valor = weaponArmasFilter.value;
+
+    armasCards.forEach(card => {
+      const grupo = card.dataset.grupo;
+
+      if (valor === 'all' || grupo === valor) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+
+  weaponSaveBtn.addEventListener('click', async () => {
+    const items = Object.values(selecionados);
+
+    if (items.length === 0) {
+      weaponSaveMessage.textContent = 'Não tens itens para guardar.';
+      return;
+    }
+
+    const response = await fetch('/armas/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ items })
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      weaponSaveMessage.textContent = 'Cálculo guardado com sucesso.';
+    } else {
+      weaponSaveMessage.textContent = 'Erro ao guardar cálculo.';
+    }
+  });
+
+  weaponClearBtn.addEventListener('click', async () => {
+    Object.keys(selecionados).forEach(key => delete selecionados[key]);
+    renderCalcArmas();
+
+    await fetch('/armas/clear', {
+      method: 'POST'
+    });
+
+    weaponSaveMessage.textContent = 'Cálculo limpo.';
+  });
+
+  if (calculosGuardados.length > 0) {
+    calculosGuardados.forEach(item => {
+      selecionados[item.nome_item] = {
+        nome: item.nome_item,
+        tipoSecao: item.tipo_secao,
+        quantidade: Number(item.quantidade),
+        recursos: {
+          dinheiro: Number(item.dinheiro || 0),
+          abs: Number(item.abs || 0),
+          aluminio: Number(item.aluminio || 0),
+          borracha: Number(item.borracha || 0),
+          metal: Number(item.metal || 0),
+          aco: Number(item.aco || 0),
+          polimero: Number(item.polimero || 0),
+          bronze: Number(item.bronze || 0),
+          pacoteDroga: Number(item.pacote_droga || 0),
+          blueprintPistola: Number(item.blueprint_pistola || 0),
+          blueprintSmg: Number(item.blueprint_smg || 0),
+          blueprintRifle: Number(item.blueprint_rifle || 0),
+          pecasBasicas: Number(item.pecas_basicas || 0),
+          pecasAvancadas: Number(item.pecas_avancadas || 0)
+        }
+      };
+    });
+  }
+
+  renderCalcArmas();
+</script>
+
+<%- include('partials/footer') %>

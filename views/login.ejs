@@ -1,0 +1,15 @@
+<%- include('partials/header') %>
+
+<section class="form-section">
+  <div class="form-card glass">
+    <h2>Entrar</h2>
+
+    <form method="POST" action="/login">
+      <input type="text" name="username" placeholder="Identificador" required />
+      <input type="password" name="password" placeholder="Palavra-passe" required />
+      <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,20 @@
+<%- include('partials/header') %>
+
+<section class="form-section">
+  <div class="form-card glass">
+    <h2>Criar conta</h2>
+
+    <div class="info-box">
+      Estas informações não serão utilizadas para mais nada, apenas para teres a tua conta criada.
+    </div>
+
+    <form method="POST" action="/register">
+      <input type="text" name="primeiro_nome" placeholder="Primeiro nome" required />
+      <input type="text" name="ultimo_nome" placeholder="Último nome" required />
+      <input type="password" name="password" placeholder="Palavra-passe" required />
+      <button type="submit" class="btn btn-primary">Criar conta</button>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,62 @@
+<%- include('partials/header', { page: 'admin' }) %>
+
+<section class="panel glass admin-panel">
+  <div class="section-title-row" style="margin-bottom: 22px;">
+    <div>
+      <span class="hub-small-badge">Admin</span>
+      <h2>Painel de Administração</h2>
+    </div>
+    <p class="section-subtext" style="text-align:left; max-width: none;">
+      Escolhe um utilizador para ver tudo o que ele tem guardado por categoria.
+    </p>
+  </div>
+
+  <form action="/admin" method="GET" class="admin-search-form" style="margin-bottom: 24px;">
+    <input
+      type="text"
+      name="q"
+      placeholder="Pesquisar por username, primeiro nome ou último nome..."
+      value="<%= pesquisa || '' %>"
+    >
+    <button type="submit" class="btn btn-primary">Pesquisar</button>
+
+    <% if (pesquisa) { %>
+      <a href="/admin" class="btn btn-secondary">Limpar</a>
+    <% } %>
+  </form>
+
+  <% if (pesquisa) { %>
+    <p style="margin-bottom: 18px; color: #d8d8d8;">
+      Resultados para: <strong><%= pesquisa %></strong>
+    </p>
+  <% } %>
+
+  <% if (!users || users.length === 0) { %>
+    <div class="empty-calc">
+      <span class="empty-dot"></span>
+      Não foram encontrados utilizadores.
+    </div>
+  <% } else { %>
+    <div class="hub-grid">
+      <% users.forEach((userItem) => { %>
+        <a href="/admin/user/<%= userItem.id %>" class="hub-card hub-card-active glass">
+          <div class="hub-card-top">
+            <div class="hub-card-icon"><%= userItem.id %></div>
+            <span class="hub-card-state">
+              <%= userItem.is_admin === 1 ? 'Admin' : 'Utilizador' %>
+            </span>
+          </div>
+
+          <h3><%= userItem.username %></h3>
+          <p>
+            <strong>Nome:</strong>
+            <%= userItem.primeiro_nome %> <%= userItem.ultimo_nome %>
+          </p>
+          <span class="hub-card-link">Ver dados deste utilizador</span>
+        </a>
+      <% }) %>
+    </div>
+  <% } %>
+</section>
+
+<%- include('partials/footer') %>

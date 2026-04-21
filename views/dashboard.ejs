@@ -1,0 +1,119 @@
+<%- include('partials/header', { page: 'dashboard' }) %>
+
+<section class="hub-dashboard">
+  <div class="hub-hero glass">
+    <div class="hub-hero-content">
+      <span class="hub-badge">Centro de cálculo</span>
+      <h1>Bem-vindo ao <span>Coisinhas dos Offset</span></h1>
+      <p>
+        Este é o teu centro principal. Aqui podes entrar nas categorias,
+        usar calculadoras, guardar informações na tua conta e voltar mais tarde
+        com tudo exatamente como deixaste.
+      </p>
+
+      <div class="hub-actions">
+        <a href="/barragem" class="btn btn-secondary">Abrir Barragem</a>
+        <a href="/armas" class="btn btn-secondary">Abrir Armas</a>
+        <a href="/acessorios" class="btn btn-secondary">Abrir Acessórios</a>
+        <a href="/carregadores" class="btn btn-secondary">Abrir Carregadores</a>
+        <a href="/items-fight" class="btn btn-secondary">Abrir Items para Fight</a>
+      </div>
+    </div>
+
+    <div class="hub-hero-visual">
+      <div class="hub-orb hub-orb-1"></div>
+      <div class="hub-orb hub-orb-2"></div>
+      <div class="hub-orb hub-orb-3"></div>
+
+      <div class="hub-visual-card glass">
+        <img src="/images/logo_txt.png" alt="Coisinhas dos Offset" class="hub-logo" />
+        <div class="hub-visual-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <p>Plataforma de organização e cálculo pessoal</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="hub-section">
+    <div class="section-title-row">
+      <div>
+        <span class="hub-small-badge">Categorias</span>
+        <h2>Ferramentas disponíveis</h2>
+      </div>
+      <p class="section-subtext">
+        Cada área foi pensada para guardar apenas os teus próprios dados.
+      </p>
+    </div>
+
+    <div class="hub-grid">
+      <a href="/barragem" class="hub-card hub-card-active glass">
+        <div class="hub-card-top">
+          <div class="hub-card-icon">01</div>
+          <span class="hub-card-state">Disponível</span>
+        </div>
+        <h3>Barragem</h3>
+        <p>
+          Calcula valores, ajusta quantidades, aplica percentagens e guarda tudo
+          automaticamente na tua conta.
+        </p>
+        <span class="hub-card-link">Entrar na Barragem</span>
+      </a>
+
+      <a href="/armas" class="hub-card hub-card-active glass">
+        <div class="hub-card-top">
+          <div class="hub-card-icon">02</div>
+          <span class="hub-card-state">Disponível</span>
+        </div>
+        <h3>Armas</h3>
+        <p>
+          Calcula blueprints, peças e armas numa área dedicada, com visual próprio
+          e materiais organizados por secção.
+        </p>
+        <span class="hub-card-link">Entrar em Armas</span>
+      </a>
+
+      <a href="/acessorios" class="hub-card hub-card-active glass">
+        <div class="hub-card-top">
+          <div class="hub-card-icon">03</div>
+          <span class="hub-card-state">Disponível</span>
+        </div>
+        <h3>Acessórios</h3>
+        <p>
+          Calcula acessórios por categoria e filtra rapidamente por arma para ver
+          só o que interessa.
+        </p>
+        <span class="hub-card-link">Entrar em Acessórios</span>
+      </a>
+
+      <a href="/carregadores" class="hub-card hub-card-active glass">
+        <div class="hub-card-top">
+          <div class="hub-card-icon">04</div>
+          <span class="hub-card-state">Disponível</span>
+        </div>
+        <h3>Carregadores</h3>
+        <p>
+          Calcula custos e materiais dos carregadores por tipo de arma.
+        </p>
+        <span class="hub-card-link">Entrar em Carregadores</span>
+      </a>
+
+      <a href="/items-fight" class="hub-card hub-card-active glass">
+        <div class="hub-card-top">
+          <div class="hub-card-icon">05</div>
+          <span class="hub-card-state">Disponível</span>
+        </div>
+        <h3>Items para Fight</h3>
+        <p>
+          Calcula coletes, energéticos, medkits e outros items de combate com os
+          materiais necessários.
+        </p>
+        <span class="hub-card-link">Entrar em Items para Fight</span>
+      </a>
+
+  </section>
+</section>
+
+<%- include('partials/footer') %>

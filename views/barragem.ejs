@@ -1,0 +1,474 @@
+<%- include('partials/header', { page: 'barragem' }) %>
+
+<section class="barragem-shell">
+  <div class="barragem-header glass">
+    <div>
+      <p class="barragem-tag">Calculadora</p>
+      <h1>Barragem</h1>
+      <p class="barragem-subtitle">
+        Seleciona os itens, ajusta quantidades e calcula o valor final com percentagem.
+      </p>
+    </div>
+
+    <div class="filter-box">
+      <label for="filtro">Tipo de assalto</label>
+      <select id="filtro">
+        <option value="all">Todos</option>
+        <option value="Contentores">Contentores</option>
+        <option value="Carrinhas">Carrinhas</option>
+        <option value="Casas">Casas</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="barragem-grid">
+    <div class="barragem-left">
+      <div class="loot-list" id="lista">
+
+        <div class="loot-card glass reveal-card" data-tipo="Contentores" data-nome="Perfume" data-valor="300">
+          <div class="loot-info">
+            <span class="loot-type">Contentores</span>
+            <h3>Perfume</h3>
+            <p>Item encontrado em contentores.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>300€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Contentores" data-nome="Pack de Vinho" data-valor="600">
+          <div class="loot-info">
+            <span class="loot-type">Contentores</span>
+            <h3>Pack de Vinho</h3>
+            <p>Item encontrado em contentores.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>600€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Contentores" data-nome="Phone 7" data-valor="960">
+          <div class="loot-info">
+            <span class="loot-type">Contentores</span>
+            <h3>Phone 7</h3>
+            <p>Item encontrado em contentores.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>960€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Contentores Casas" data-nome="Computador" data-valor="1200">
+          <div class="loot-info">
+            <span class="loot-type">Contentores e Casas</span>
+            <h3>Computador</h3>
+            <p>Disponível em contentores e casas.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>1.200€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Contentores" data-nome="TV LED 75" data-valor="3600">
+          <div class="loot-info">
+            <span class="loot-type">Contentores</span>
+            <h3>TV LED 75</h3>
+            <p>Item encontrado em contentores.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>3.600€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Contentores" data-nome="Águia de Bronze" data-valor="120000">
+          <div class="loot-info">
+            <span class="loot-type">Contentores</span>
+            <h3>Águia de Bronze</h3>
+            <p>Item raro encontrado em contentores.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>120.000€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Carrinhas" data-nome="Documento" data-valor="1620">
+          <div class="loot-info">
+            <span class="loot-type">Carrinhas</span>
+            <h3>Documento</h3>
+            <p>Item encontrado em carrinhas.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>1.620€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Carrinhas" data-nome="Coroa" data-valor="600000">
+          <div class="loot-info">
+            <span class="loot-type">Carrinhas</span>
+            <h3>Coroa</h3>
+            <p>Item raro encontrado em carrinhas.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>600.000€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Carrinhas Casas" data-nome="Quadro" data-valor="1752">
+          <div class="loot-info">
+            <span class="loot-type">Carrinhas e Casas</span>
+            <h3>Quadro</h3>
+            <p>Disponível em carrinhas e casas.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>1.752€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Casas" data-nome="Tigre" data-valor="1620">
+          <div class="loot-info">
+            <span class="loot-type">Casas</span>
+            <h3>Tigre</h3>
+            <p>Item encontrado em casas.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>1.620€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Casas" data-nome="Relógio de ouro" data-valor="3000">
+          <div class="loot-info">
+            <span class="loot-type">Casas</span>
+            <h3>Relógio de ouro</h3>
+            <p>Item encontrado em casas.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>3.000€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Casas" data-nome="Arma de Coleção" data-valor="8400">
+          <div class="loot-info">
+            <span class="loot-type">Casas</span>
+            <h3>Arma de Coleção</h3>
+            <p>Item encontrado em casas.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>8.400€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-tipo="Casas" data-nome="Crypto Pen" data-valor="120000">
+          <div class="loot-info">
+            <span class="loot-type">Casas</span>
+            <h3>Crypto Pen</h3>
+            <p>Item raro encontrado em casas.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>120.000€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <aside class="barragem-right">
+      <div class="calc-panel glass">
+        <div class="calc-head">
+          <p class="barragem-tag">Resumo</p>
+          <h2>Calculadora</h2>
+        </div>
+
+        <div id="calc-items" class="calc-items">
+          <div class="empty-calc">
+            <span class="empty-dot"></span>
+            Ainda não adicionaste nenhum item.
+          </div>
+        </div>
+
+        <div class="calc-summary">
+          <div class="summary-row">
+            <span>Total bruto</span>
+            <strong id="total-bruto">0€</strong>
+          </div>
+
+          <div class="percent-box">
+            <label for="percentagem">Percentagem a retirar</label>
+            <div class="percent-input-wrap">
+              <input type="text" id="percentagem" inputmode="numeric" value="0">
+              <span>%</span>
+            </div>
+          </div>
+
+          <div class="summary-row">
+            <span>Valor retirado</span>
+            <strong id="valor-retirado">0€</strong>
+          </div>
+
+          <div class="summary-row final-row">
+            <span>Total final</span>
+            <strong id="total-final">0€</strong>
+          </div>
+        </div>
+
+        <div class="calc-actions">
+          <button type="button" class="btn btn-primary" id="guardar-calculo">Guardar cálculo</button>
+          <button type="button" class="btn btn-danger" id="limpar-calculo">Limpar</button>
+        </div>
+
+        <p id="save-message" class="save-message"></p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script>
+  const filtro = document.getElementById('filtro');
+  const cards = document.querySelectorAll('.loot-card');
+  const addButtons = document.querySelectorAll('.add-item-btn');
+  const calcItems = document.getElementById('calc-items');
+  const percentagemInput = document.getElementById('percentagem');
+  const totalBrutoEl = document.getElementById('total-bruto');
+  const valorRetiradoEl = document.getElementById('valor-retirado');
+  const totalFinalEl = document.getElementById('total-final');
+  const guardarBtn = document.getElementById('guardar-calculo');
+  const limparBtn = document.getElementById('limpar-calculo');
+  const saveMessage = document.getElementById('save-message');
+
+  const selecionados = {};
+  const calculosGuardados = <%- JSON.stringify(typeof calculos !== 'undefined' ? calculos : []) %>;
+
+  function formatarEuro(valor) {
+    return Number(valor).toLocaleString('pt-PT') + '€';
+  }
+
+  function obterResumo() {
+    const itens = Object.values(selecionados);
+    const totalBruto = itens.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
+
+    let percentagem = parseInt(percentagemInput.value || '0', 10);
+    if (isNaN(percentagem)) percentagem = 0;
+    if (percentagem < 0) percentagem = 0;
+    if (percentagem > 100) percentagem = 100;
+
+    const valorRetirado = totalBruto * (percentagem / 100);
+    const totalFinal = totalBruto - valorRetirado;
+
+    return {
+      totalBruto,
+      valorRetirado,
+      totalFinal
+    };
+  }
+
+  function atualizarTotais() {
+    const resumo = obterResumo();
+    totalBrutoEl.textContent = formatarEuro(resumo.totalBruto);
+    valorRetiradoEl.textContent = formatarEuro(resumo.valorRetirado);
+    totalFinalEl.textContent = formatarEuro(resumo.totalFinal);
+
+    Object.values(selecionados).forEach(item => {
+      const bloco = document.querySelector(`[data-calc-key="${item.nome}"]`);
+      if (bloco) {
+        const totalItem = bloco.querySelector('.calc-item-total');
+        if (totalItem) {
+          totalItem.textContent = formatarEuro(item.valor * item.quantidade);
+        }
+      }
+    });
+  }
+
+  function ligarEventosCalculadora() {
+    document.querySelectorAll('.qty-input').forEach(input => {
+      input.addEventListener('input', (e) => {
+        const key = e.target.dataset.key;
+        const limpo = e.target.value.replace(/[^0-9]/g, '');
+
+        e.target.value = limpo;
+
+        if (limpo !== '') {
+          selecionados[key].quantidade = parseInt(limpo, 10);
+          atualizarTotais();
+        }
+      });
+
+      input.addEventListener('blur', (e) => {
+        const key = e.target.dataset.key;
+
+        if (!e.target.value || Number(e.target.value) < 1) {
+          selecionados[key].quantidade = 1;
+          renderCalculadora();
+        }
+      });
+    });
+
+    document.querySelectorAll('.remove-btn').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const key = e.target.dataset.key;
+        delete selecionados[key];
+        renderCalculadora();
+      });
+    });
+  }
+
+  function renderCalculadora() {
+    const itens = Object.values(selecionados);
+
+    if (itens.length === 0) {
+      calcItems.innerHTML = `
+        <div class="empty-calc">
+          <span class="empty-dot"></span>
+          Ainda não adicionaste nenhum item.
+        </div>
+      `;
+    } else {
+      calcItems.innerHTML = itens.map(item => `
+        <div class="calc-item" data-calc-key="${item.nome}">
+          <div class="calc-item-top">
+            <div>
+              <h3>${item.nome}</h3>
+              <p>${formatarEuro(item.valor)} cada</p>
+            </div>
+            <div class="calc-item-total">${formatarEuro(item.valor * item.quantidade)}</div>
+          </div>
+
+          <div class="calc-item-controls">
+            <input
+              type="text"
+              inputmode="numeric"
+              value="${item.quantidade}"
+              data-key="${item.nome}"
+              class="qty-input"
+            >
+            <button type="button" class="remove-btn" data-key="${item.nome}">
+              Remover
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    atualizarTotais();
+    ligarEventosCalculadora();
+  }
+
+  addButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      const card = e.target.closest('.loot-card');
+      const nome = card.dataset.nome;
+      const valor = Number(card.dataset.valor);
+
+      card.classList.add('pulse-added');
+      setTimeout(() => card.classList.remove('pulse-added'), 450);
+
+      if (selecionados[nome]) {
+        selecionados[nome].quantidade += 1;
+      } else {
+        selecionados[nome] = {
+          nome,
+          valor,
+          quantidade: 1
+        };
+      }
+
+      renderCalculadora();
+    });
+  });
+
+  filtro.addEventListener('change', () => {
+    const valor = filtro.value;
+
+    cards.forEach(card => {
+      const tipo = card.dataset.tipo;
+      if (valor === 'all' || tipo.includes(valor)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+
+  percentagemInput.addEventListener('input', () => {
+    percentagemInput.value = percentagemInput.value.replace(/[^0-9]/g, '');
+    atualizarTotais();
+  });
+
+  percentagemInput.addEventListener('blur', () => {
+    let valor = parseInt(percentagemInput.value || '0', 10);
+    if (isNaN(valor)) valor = 0;
+    if (valor < 0) valor = 0;
+    if (valor > 100) valor = 100;
+    percentagemInput.value = valor;
+    atualizarTotais();
+  });
+
+  guardarBtn.addEventListener('click', async () => {
+    const items = Object.values(selecionados);
+
+    if (items.length === 0) {
+      saveMessage.textContent = 'Não tens itens para guardar.';
+      return;
+    }
+
+    const body = {
+      items,
+      percentagem: Number(percentagemInput.value || 0)
+    };
+
+    const response = await fetch('/barragem/save', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      saveMessage.textContent = 'Cálculo guardado com sucesso.';
+    } else {
+      saveMessage.textContent = 'Erro ao guardar cálculo.';
+    }
+  });
+
+  limparBtn.addEventListener('click', async () => {
+    Object.keys(selecionados).forEach(key => delete selecionados[key]);
+    percentagemInput.value = 0;
+    renderCalculadora();
+
+    await fetch('/barragem/clear', {
+      method: 'POST'
+    });
+
+    saveMessage.textContent = 'Cálculo limpo.';
+  });
+
+  if (calculosGuardados.length > 0) {
+    calculosGuardados.forEach(item => {
+      selecionados[item.nome_item] = {
+        nome: item.nome_item,
+        valor: Number(item.valor_unitario),
+        quantidade: Number(item.quantidade)
+      };
+    });
+
+    percentagemInput.value = calculosGuardados[0].percentagem || 0;
+  }
+
+  renderCalculadora();
+</script>
+
+<%- include('partials/footer') %>

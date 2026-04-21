@@ -1,0 +1,330 @@
+<%- include('partials/header', { page: 'carregadores' }) %>
+
+<section class="barragem-shell">
+  <div class="barragem-header glass">
+    <div>
+      <span class="barragem-tag">Módulo</span>
+      <h1>Carregadores</h1>
+      <p class="barragem-subtitle">
+        Calcula rapidamente os materiais necessários para carregadores.
+      </p>
+    </div>
+  </div>
+
+  <div class="barragem-grid">
+    <div class="barragem-left">
+      <div class="loot-list">
+        <div
+          class="loot-card glass carregador-item"
+          data-nome="Pistola"
+          data-recursos='{"dinheiroSujo":1000,"polvora":1,"niquel":1,"cobre":1}'
+        >
+          <div class="loot-info">
+            <h3>Pistola</h3>
+            <p>1.000€ + 1 pólvora + 1 níquel + 1 cobre</p>
+          </div>
+
+          <div class="loot-actions">
+            <strong>1.000€</strong>
+            <button type="button" class="add-item-btn">Adicionar</button>
+          </div>
+        </div>
+
+        <div
+          class="loot-card glass carregador-item"
+          data-nome="SMG"
+          data-recursos='{"dinheiroSujo":1500,"polvora":2,"niquel":2,"cobre":1}'
+        >
+          <div class="loot-info">
+            <h3>SMG</h3>
+            <p>1.500€ + 2 pólvora + 2 níquel + 1 cobre</p>
+          </div>
+
+          <div class="loot-actions">
+            <strong>1.500€</strong>
+            <button type="button" class="add-item-btn">Adicionar</button>
+          </div>
+        </div>
+
+        <div
+          class="loot-card glass carregador-item"
+          data-nome="Shotgun"
+          data-recursos='{"dinheiroSujo":1000,"polvora":2,"niquel":2,"cobre":1}'
+        >
+          <div class="loot-info">
+            <h3>Shotgun</h3>
+            <p>1.000€ + 2 pólvora + 2 níquel + 1 cobre</p>
+          </div>
+
+          <div class="loot-actions">
+            <strong>1.000€</strong>
+            <button type="button" class="add-item-btn">Adicionar</button>
+          </div>
+        </div>
+
+        <div
+          class="loot-card glass carregador-item"
+          data-nome="Rifle"
+          data-recursos='{"dinheiroSujo":2000,"polvora":3,"niquel":3,"cobre":1}'
+        >
+          <div class="loot-info">
+            <h3>Rifle</h3>
+            <p>2.000€ + 3 pólvora + 3 níquel + 1 cobre</p>
+          </div>
+
+          <div class="loot-actions">
+            <strong>2.000€</strong>
+            <button type="button" class="add-item-btn">Adicionar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="barragem-right">
+      <div class="calc-panel glass">
+        <div class="calc-head">
+          <span class="barragem-tag">Resumo</span>
+          <h2>Cálculo atual</h2>
+        </div>
+
+        <div id="calc-items" class="calc-items">
+          <div class="empty-calc">
+            <span class="empty-dot"></span>
+            Ainda não adicionaste nenhum item.
+          </div>
+        </div>
+
+        <div class="calc-summary">
+          <div class="summary-row">
+            <span>Dinheiro Sujo</span>
+            <strong id="total-dinheiro">0€</strong>
+          </div>
+          <div class="summary-row">
+            <span>Pólvora</span>
+            <strong id="total-polvora">0</strong>
+          </div>
+          <div class="summary-row">
+            <span>Níquel</span>
+            <strong id="total-niquel">0</strong>
+          </div>
+          <div class="summary-row">
+            <span>Cobre</span>
+            <strong id="total-cobre">0</strong>
+          </div>
+        </div>
+
+        <div class="calc-actions">
+          <button type="button" class="btn btn-primary" id="save-btn">Guardar</button>
+          <button type="button" class="btn btn-danger" id="clear-btn">Limpar</button>
+        </div>
+
+        <p id="save-msg" class="save-message"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const items = document.querySelectorAll('.carregador-item');
+  const calcDiv = document.getElementById('calc-items');
+  const totalDinheiroEl = document.getElementById('total-dinheiro');
+  const totalPolvoraEl = document.getElementById('total-polvora');
+  const totalNiquelEl = document.getElementById('total-niquel');
+  const totalCobreEl = document.getElementById('total-cobre');
+  const saveMsg = document.getElementById('save-msg');
+
+  const calculosGuardados = <%- JSON.stringify(typeof calculos !== 'undefined' ? calculos : []) %>;
+  const selecionados = {};
+
+  function formatarEuro(valor) {
+    return Number(valor).toLocaleString('pt-PT') + '€';
+  }
+
+  function formatarNumero(valor) {
+    return Number(valor).toLocaleString('pt-PT');
+  }
+
+  function calcularTotais() {
+    const total = {
+      dinheiroSujo: 0,
+      polvora: 0,
+      niquel: 0,
+      cobre: 0
+    };
+
+    Object.values(selecionados).forEach((item) => {
+      total.dinheiroSujo += item.recursos.dinheiroSujo * item.quantidade;
+      total.polvora += item.recursos.polvora * item.quantidade;
+      total.niquel += item.recursos.niquel * item.quantidade;
+      total.cobre += item.recursos.cobre * item.quantidade;
+    });
+
+    return total;
+  }
+
+  function render() {
+    const lista = Object.values(selecionados);
+
+    if (lista.length === 0) {
+      calcDiv.innerHTML = `
+        <div class="empty-calc">
+          <span class="empty-dot"></span>
+          Ainda não adicionaste nenhum item.
+        </div>
+      `;
+    } else {
+      calcDiv.innerHTML = lista.map((item) => `
+        <div class="calc-item">
+          <div class="calc-item-top">
+            <div>
+              <h3>${item.nome}</h3>
+              <p>Carregador</p>
+            </div>
+            <div class="calc-item-total">${item.quantidade}x</div>
+          </div>
+
+          <p style="margin-bottom: 12px; color: #d7d7d7;">
+            ${formatarEuro(item.recursos.dinheiroSujo * item.quantidade)} + 
+            ${formatarNumero(item.recursos.polvora * item.quantidade)} pólvora + 
+            ${formatarNumero(item.recursos.niquel * item.quantidade)} níquel + 
+            ${formatarNumero(item.recursos.cobre * item.quantidade)} cobre
+          </p>
+
+          <div class="calc-item-controls">
+            <input
+              type="text"
+              inputmode="numeric"
+              value="${item.quantidade}"
+              data-key="${item.nome}"
+              class="carregador-qty-input"
+            >
+            <button type="button" class="remove-btn carregador-remove-btn" data-key="${item.nome}">
+              Remover
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    const total = calcularTotais();
+    totalDinheiroEl.textContent = formatarEuro(total.dinheiroSujo);
+    totalPolvoraEl.textContent = formatarNumero(total.polvora);
+    totalNiquelEl.textContent = formatarNumero(total.niquel);
+    totalCobreEl.textContent = formatarNumero(total.cobre);
+
+    ligarEventos();
+  }
+
+  function ligarEventos() {
+    document.querySelectorAll('.carregador-qty-input').forEach((input) => {
+      input.addEventListener('input', (e) => {
+        const key = e.target.dataset.key;
+        const limpo = e.target.value.replace(/[^0-9]/g, '');
+        e.target.value = limpo;
+
+        if (limpo !== '') {
+          selecionados[key].quantidade = parseInt(limpo, 10);
+          render();
+        }
+      });
+
+      input.addEventListener('blur', (e) => {
+        const key = e.target.dataset.key;
+        if (!e.target.value || Number(e.target.value) < 1) {
+          selecionados[key].quantidade = 1;
+          render();
+        }
+      });
+    });
+
+    document.querySelectorAll('.carregador-remove-btn').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const key = e.target.dataset.key;
+        delete selecionados[key];
+        render();
+      });
+    });
+  }
+
+  items.forEach((card) => {
+    const button = card.querySelector('.add-item-btn');
+
+    button.addEventListener('click', () => {
+      const nome = card.dataset.nome;
+      const recursos = JSON.parse(card.dataset.recursos);
+
+      card.classList.add('pulse-added');
+      setTimeout(() => card.classList.remove('pulse-added'), 450);
+
+      if (!selecionados[nome]) {
+        selecionados[nome] = {
+          nome,
+          quantidade: 1,
+          recursos
+        };
+      } else {
+        selecionados[nome].quantidade += 1;
+      }
+
+      render();
+    });
+  });
+
+  document.getElementById('save-btn').addEventListener('click', async () => {
+    const lista = Object.values(selecionados);
+
+    if (lista.length === 0) {
+      saveMsg.textContent = 'Não tens itens para guardar.';
+      return;
+    }
+
+    try {
+      const response = await fetch('/carregadores/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: lista })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        saveMsg.textContent = 'Cálculo guardado com sucesso.';
+      } else {
+        saveMsg.textContent = 'Erro ao guardar cálculo.';
+      }
+    } catch (error) {
+      saveMsg.textContent = 'Erro ao guardar cálculo.';
+    }
+  });
+
+  document.getElementById('clear-btn').addEventListener('click', async () => {
+    Object.keys(selecionados).forEach((key) => delete selecionados[key]);
+    render();
+
+    try {
+      await fetch('/carregadores/clear', { method: 'POST' });
+      saveMsg.textContent = 'Cálculo limpo.';
+    } catch (error) {
+      saveMsg.textContent = 'Erro ao limpar cálculo.';
+    }
+  });
+
+  if (calculosGuardados.length > 0) {
+    calculosGuardados.forEach((item) => {
+      selecionados[item.tipo] = {
+        nome: item.tipo,
+        quantidade: Number(item.quantidade),
+        recursos: {
+          dinheiroSujo: Number(item.dinheiro_sujo || 0),
+          polvora: Number(item.polvora || 0),
+          niquel: Number(item.niquel || 0),
+          cobre: Number(item.cobre || 0)
+        }
+      };
+    });
+  }
+
+  render();
+</script>
+
+<%- include('partials/footer') %>

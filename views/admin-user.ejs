@@ -1,0 +1,199 @@
+<%- include('partials/header', { page: 'admin' }) %>
+
+<section class="panel glass admin-panel" style="max-width: 1200px;">
+  <div class="section-title-row" style="margin-bottom: 22px;">
+    <div>
+      <span class="hub-small-badge">Admin</span>
+      <h2>Utilizador: <%= userTarget.username %></h2>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <a href="/admin" class="btn btn-secondary">Voltar</a>
+    </div>
+  </div>
+
+  <div class="hub-info-grid" style="margin-bottom: 24px;">
+    <div class="hub-info-card glass">
+      <strong>Primeiro Nome</strong>
+      <p><%= userTarget.primeiro_nome %></p>
+    </div>
+
+    <div class="hub-info-card glass">
+      <strong>Último Nome</strong>
+      <p><%= userTarget.ultimo_nome %></p>
+    </div>
+
+    <div class="hub-info-card glass">
+      <strong>Tipo de Conta</strong>
+      <p><%= userTarget.is_admin === 1 ? 'Admin' : 'Utilizador' %></p>
+    </div>
+  </div>
+
+  <section class="glass" style="padding: 22px; margin-bottom: 20px;">
+    <h3 style="margin-bottom: 16px;">Segurança da Conta</h3>
+
+    <p style="margin-bottom: 14px; color: #d8d8d8;">
+      Estado atual:
+      <strong>
+        <%= userTarget.force_password_change === 1 ? 'Vai ser obrigado a mudar a password no próximo login' : 'Sem pedido de mudança de password' %>
+      </strong>
+    </p>
+
+    <form action="/admin/reset-password-temp/<%= userTarget.id %>" method="POST" style="margin-bottom: 16px;">
+      <button type="submit" class="btn btn-primary">
+        Gerar password temporária
+      </button>
+    </form>
+
+    <% if (tempPassword) { %>
+      <div class="save-message" style="display:flex;">
+        Password temporária gerada:
+        <strong style="margin-left: 8px;"><%= tempPassword %></strong>
+      </div>
+    <% } %>
+  </section>
+
+  <section class="glass" style="padding: 22px; margin-bottom: 20px;">
+    <h3 style="margin-bottom: 16px;">Barragem</h3>
+
+    <% if (!barragem || barragem.length === 0) { %>
+      <div class="empty-calc">
+        <span class="empty-dot"></span>
+        Sem cálculos guardados na Barragem.
+      </div>
+    <% } else { %>
+      <div class="items-list">
+        <% barragem.forEach((item) => { %>
+          <div class="item-card glass">
+            <h3><%= item.nome_item %></h3>
+            <p>Quantidade: <strong><%= item.quantidade %></strong></p>
+            <p>Valor unitário: <strong><%= Number(item.valor_unitario).toLocaleString('pt-PT') %>€</strong></p>
+            <p>Percentagem: <strong><%= Number(item.percentagem || 0) %>%</strong></p>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+
+  <section class="glass" style="padding: 22px; margin-bottom: 20px;">
+    <h3 style="margin-bottom: 16px;">Armas</h3>
+
+    <% if (!armas || armas.length === 0) { %>
+      <div class="empty-calc">
+        <span class="empty-dot"></span>
+        Sem cálculos guardados em Armas.
+      </div>
+    <% } else { %>
+      <div class="items-list">
+        <% armas.forEach((item) => { %>
+          <div class="item-card glass">
+            <h3><%= item.nome_item %></h3>
+            <p>Secção: <strong><%= item.tipo_secao %></strong></p>
+            <p>Quantidade: <strong><%= item.quantidade %></strong></p>
+            <p>
+              Dinheiro: <strong><%= Number(item.dinheiro || 0).toLocaleString('pt-PT') %>€</strong> |
+              BP Pistola: <strong><%= item.blueprint_pistola || 0 %></strong> |
+              BP SMG: <strong><%= item.blueprint_smg || 0 %></strong> |
+              BP Rifle: <strong><%= item.blueprint_rifle || 0 %></strong>
+            </p>
+            <p>
+              PB: <strong><%= item.pecas_basicas || 0 %></strong> |
+              PA: <strong><%= item.pecas_avancadas || 0 %></strong> |
+              ABS: <strong><%= item.abs || 0 %></strong> |
+              Alumínio: <strong><%= item.aluminio || 0 %></strong> |
+              Borracha: <strong><%= item.borracha || 0 %></strong>
+            </p>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+
+  <section class="glass" style="padding: 22px; margin-bottom: 20px;">
+    <h3 style="margin-bottom: 16px;">Acessórios</h3>
+
+    <% if (!acessorios || acessorios.length === 0) { %>
+      <div class="empty-calc">
+        <span class="empty-dot"></span>
+        Sem cálculos guardados em Acessórios.
+      </div>
+    <% } else { %>
+      <div class="items-list">
+        <% acessorios.forEach((item) => { %>
+          <div class="item-card glass">
+            <h3><%= item.nome_item %></h3>
+            <p>Categoria: <strong><%= item.categoria %></strong></p>
+            <p>Quantidade: <strong><%= item.quantidade %></strong></p>
+            <p>
+              Dinheiro Sujo: <strong><%= Number(item.dinheiro_sujo || 0).toLocaleString('pt-PT') %>€</strong> |
+              Alumínio: <strong><%= item.aluminio || 0 %></strong> |
+              Plástico: <strong><%= item.plastico || 0 %></strong> |
+              Aço: <strong><%= item.aco || 0 %></strong> |
+              Restos: <strong><%= item.restos || 0 %></strong>
+            </p>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+
+  <section class="glass" style="padding: 22px; margin-bottom: 20px;">
+    <h3 style="margin-bottom: 16px;">Carregadores</h3>
+
+    <% if (!carregadores || carregadores.length === 0) { %>
+      <div class="empty-calc">
+        <span class="empty-dot"></span>
+        Sem cálculos guardados em Carregadores.
+      </div>
+    <% } else { %>
+      <div class="items-list">
+        <% carregadores.forEach((item) => { %>
+          <div class="item-card glass">
+            <h3><%= item.tipo %></h3>
+            <p>Quantidade: <strong><%= item.quantidade %></strong></p>
+            <p>
+              Dinheiro Sujo: <strong><%= Number(item.dinheiro_sujo || 0).toLocaleString('pt-PT') %>€</strong> |
+              Pólvora: <strong><%= item.polvora || 0 %></strong> |
+              Níquel: <strong><%= item.niquel || 0 %></strong> |
+              Cobre: <strong><%= item.cobre || 0 %></strong>
+            </p>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+
+  <section class="glass" style="padding: 22px; margin-bottom: 0;">
+    <h3 style="margin-bottom: 16px;">Items para Fight</h3>
+
+    <% if (!itemsFight || itemsFight.length === 0) { %>
+      <div class="empty-calc">
+        <span class="empty-dot"></span>
+        Sem cálculos guardados em Items para Fight.
+      </div>
+    <% } else { %>
+      <div class="items-list">
+        <% itemsFight.forEach((item) => { %>
+          <div class="item-card glass">
+            <h3><%= item.nome_item %></h3>
+            <p>Quantidade: <strong><%= item.quantidade %></strong></p>
+            <p>
+              Fibra: <strong><%= item.fibra || 0 %></strong> |
+              Pele: <strong><%= item.pele || 0 %></strong> |
+              Tecido: <strong><%= item.tecido || 0 %></strong> |
+              Couro: <strong><%= item.couro || 0 %></strong>
+            </p>
+            <p>
+              Estimulantes: <strong><%= item.estimulantes || 0 %></strong> |
+              Lata: <strong><%= item.lata || 0 %></strong> |
+              Óleo Medicinal: <strong><%= item.oleo_medicinal || 0 %></strong> |
+              PB: <strong><%= item.pecas_basicas || 0 %></strong> |
+              Dinheiro: <strong><%= Number(item.dinheiro || 0).toLocaleString('pt-PT') %>€</strong>
+            </p>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </section>
+</section>
+
+<%- include('partials/footer') %>
