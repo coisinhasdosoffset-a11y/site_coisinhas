@@ -20,6 +20,27 @@
         mobileNavToggle.classList.toggle('active');
       });
     }
+
+    const sectionTabs = document.querySelectorAll('.section-tab');
+    sectionTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const wrapper = tab.closest('[data-tab-scope]') || document;
+        const target = tab.dataset.target;
+
+        const localTabs = wrapper.querySelectorAll('.section-tab');
+        const localGroups = wrapper.querySelectorAll('.section-group');
+
+        localTabs.forEach(t => t.classList.remove('active'));
+        localGroups.forEach(g => g.classList.remove('active'));
+
+        tab.classList.add('active');
+
+        const targetEl = wrapper.querySelector(`#${target}`);
+        if (targetEl) {
+          targetEl.classList.add('active');
+        }
+      });
+    });
   </script>
 </body>
 </html>
