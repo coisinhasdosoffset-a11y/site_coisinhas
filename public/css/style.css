@@ -1856,126 +1856,136 @@ select:focus {
   }
 }
 
-/* ===== ANIMAÇÕES ===== */
-.fade-in {
-  animation: fadeIn 0.7s ease;
-}
+/* ===== LAYOUT FIXO COM SCROLL INTERNO ===== */
+@media (min-width: 1101px) {
+  body.barragem,
+  body.armas,
+  body.acessorios,
+  body.carregadores,
+  body.items-fight {
+    overflow: hidden;
+    height: 100vh;
+  }
 
-.reveal-card {
-  animation: revealUp 0.45s ease both;
-}
+  body.barragem main.page,
+  body.armas main.page,
+  body.acessorios main.page,
+  body.carregadores main.page,
+  body.items-fight main.page {
+    height: calc(100vh - 62px);
+    padding-top: 16px;
+    padding-bottom: 16px;
+    overflow: hidden;
+  }
 
-.reveal-card:nth-child(2) { animation-delay: 0.03s; }
-.reveal-card:nth-child(3) { animation-delay: 0.06s; }
-.reveal-card:nth-child(4) { animation-delay: 0.09s; }
-.reveal-card:nth-child(5) { animation-delay: 0.12s; }
-.reveal-card:nth-child(6) { animation-delay: 0.15s; }
-.reveal-card:nth-child(7) { animation-delay: 0.18s; }
-.reveal-card:nth-child(8) { animation-delay: 0.21s; }
-.reveal-card:nth-child(9) { animation-delay: 0.24s; }
-.reveal-card:nth-child(10) { animation-delay: 0.27s; }
-.reveal-card:nth-child(11) { animation-delay: 0.30s; }
-.reveal-card:nth-child(12) { animation-delay: 0.33s; }
-.reveal-card:nth-child(13) { animation-delay: 0.36s; }
+  body.barragem .barragem-shell,
+  body.armas .weapons-page,
+  body.acessorios .accessories-page,
+  body.carregadores .carregadores-page,
+  body.items-fight .barragem-shell {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
 
-.pulse-added {
-  animation: pulseAdded 0.42s ease;
-}
+  body.barragem .barragem-header,
+  body.armas .weapons-hero,
+  body.acessorios .accessories-hero,
+  body.carregadores .barragem-header,
+  body.items-fight .barragem-header {
+    flex: 0 0 auto;
+    margin-bottom: 16px;
+  }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+  body.barragem .barragem-grid,
+  body.armas .weapons-layout,
+  body.acessorios .accessories-layout,
+  body.carregadores .carregadores-layout,
+  body.items-fight .barragem-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: stretch;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-@keyframes floatLogo {
-  0%, 100% {
-    transform: translateY(0px);
+  body.barragem .barragem-left,
+  body.armas .weapons-left,
+  body.acessorios .accessories-left,
+  body.carregadores .carregadores-left,
+  body.items-fight .barragem-left,
+  body.barragem .barragem-right,
+  body.armas .weapons-right,
+  body.acessorios .accessories-right,
+  body.carregadores .carregadores-right,
+  body.items-fight .barragem-right {
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
-  50% {
-    transform: translateY(-8px);
-  }
-}
 
-@keyframes revealUp {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
+  /* esquerda ocupa tudo e faz scroll por dentro */
+  body.barragem .loot-list,
+  body.armas .weapons-list,
+  body.acessorios .accessories-list,
+  body.carregadores .loot-list,
+  body.items-fight .loot-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 6px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-@keyframes calcFade {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
+  /* grupos com tabs também ocupam tudo */
+  body.armas .section-group,
+  body.acessorios .section-group {
+    flex: 1 1 auto;
+    min-height: 0;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
-@keyframes pulseAdded {
-  0% {
-    transform: scale(1);
+  body.armas .section-group.active,
+  body.acessorios .section-group.active {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
-  50% {
-    transform: scale(1.015);
-    box-shadow: 0 0 0 1px rgba(255, 70, 70, 0.30), 0 0 28px rgba(255, 0, 0, 0.14);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 
-@keyframes hubFloatOrb {
-  0%, 100% {
-    transform: translateY(0px) translateX(0px);
+  body.armas .weapon-section,
+  body.acessorios .accessory-section {
+    flex: 1 1 auto;
+    min-height: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
-  50% {
-    transform: translateY(-10px) translateX(6px);
-  }
-}
 
-@keyframes hubIntroCardFloat {
-  0%, 100% {
-    transform: translateY(0px);
+  body.armas .weapon-section-head,
+  body.acessorios .accessory-section-head,
+  body.armas .section-tabs,
+  body.acessorios .section-tabs {
+    flex: 0 0 auto;
   }
-  50% {
-    transform: translateY(-8px);
-  }
-}
 
-@keyframes weaponPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.012); }
-  100% { transform: scale(1); }
-}
-
-@keyframes weaponReveal {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
+  /* direita ocupa tudo e scroll é interno */
+  body.barragem .calc-panel,
+  body.armas .weapon-calc-panel,
+  body.acessorios .accessories-calc-panel,
+  body.carregadores .carregadores-calc-panel,
+  body.items-fight .calc-panel {
+    flex: 1 1 auto;
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    position: relative !important;
+    top: 0 !important;
+    max-height: none !important;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes accessoryPulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.012); }
-  100% { transform: scale(1); }
 }
 
 /* ===== CORES POR MÓDULO ===== */
