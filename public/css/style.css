@@ -47,12 +47,12 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.16);
+  background: rgba(255, 255, 255, 0.16);
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.26);
+  background: rgba(255, 255, 255, 0.26);
 }
 
 /* ===== PAGE LOADER ===== */
@@ -78,7 +78,7 @@ body::before {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  border: 4px solid rgba(255,255,255,0.12);
+  border: 4px solid rgba(255, 255, 255, 0.12);
   border-top: 4px solid #ff2a2a;
   animation: spinLoader 0.9s linear infinite;
   box-shadow: 0 0 18px rgba(255, 0, 0, 0.18);
@@ -101,19 +101,19 @@ body::before {
   position: sticky;
   top: 0;
   z-index: 50;
-  padding: 14px 0;
+  padding: 8px 0;
   backdrop-filter: blur(16px);
-  background: rgba(7, 7, 7, 0.78);
+  background: rgba(7, 7, 7, 0.84);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .topbar-inner {
-  width: min(1240px, 94%);
+  width: min(1280px, 94%);
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  gap: 14px;
   position: relative;
 }
 
@@ -128,30 +128,30 @@ body::before {
 }
 
 .logo-text {
-  width: 170px;
+  width: 150px;
   display: block;
 }
 
 .logo-text-main {
-  width: 185px;
-  filter: drop-shadow(0 0 14px rgba(255, 0, 0, 0.14));
+  width: 150px;
+  filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.12));
 }
 
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 .main-nav a {
   color: #f4f4f4;
   text-decoration: none;
-  transition: 0.25s ease;
+  transition: 0.22s ease;
   position: relative;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 0.95rem;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.88rem;
   border: 1px solid transparent;
 }
 
@@ -181,8 +181,8 @@ body::before {
   width: 46px;
   height: 46px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -214,7 +214,7 @@ body::before {
 .page {
   width: min(1200px, 92%);
   margin: 0 auto;
-  padding: 40px 0 60px;
+  padding: 24px 0 32px;
 }
 
 .glass {
@@ -285,7 +285,7 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.12), transparent);
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.12), transparent);
   transform: translateX(-120%);
   transition: transform 0.45s ease;
 }
@@ -572,14 +572,14 @@ select:focus {
 }
 
 .hub-visual-card {
-  width: min(100%, 420px);
-  min-height: 280px;
+  width: min(100%, 380px);
+  min-height: 240px;
   padding: 28px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 22px;
+  gap: 16px;
   position: relative;
   overflow: hidden;
   animation: hubIntroCardFloat 5s ease-in-out infinite;
@@ -598,29 +598,6 @@ select:focus {
   filter: drop-shadow(0 0 18px rgba(255, 0, 0, 0.18));
   position: relative;
   z-index: 1;
-}
-
-.hub-visual-lines {
-  display: flex;
-  gap: 10px;
-  position: relative;
-  z-index: 1;
-}
-
-.hub-visual-lines span {
-  width: 48px;
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.18), rgba(255, 0, 0, 0.6));
-  animation: hubPulseLine 2.2s ease-in-out infinite;
-}
-
-.hub-visual-lines span:nth-child(2) {
-  animation-delay: 0.25s;
-}
-
-.hub-visual-lines span:nth-child(3) {
-  animation-delay: 0.5s;
 }
 
 .hub-visual-card p {
@@ -775,7 +752,7 @@ select:focus {
 .barragem-shell {
   width: min(1450px, 94%);
   margin: 0 auto;
-  padding: 28px 0 60px;
+  padding: 0;
 }
 
 .barragem-header {
@@ -784,9 +761,10 @@ select:focus {
   align-items: end;
   gap: 24px;
   padding: 24px 26px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .barragem-header::after {
@@ -831,7 +809,7 @@ select:focus {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .barragem-left,
@@ -947,8 +925,6 @@ select:focus {
 .calc-panel {
   padding: 24px;
   border-radius: 24px;
-  position: sticky;
-  top: 108px;
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -1174,11 +1150,49 @@ select:focus {
   min-width: 220px;
 }
 
+/* ===== TABS / SECÇÕES ===== */
+.section-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.section-tab {
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  font-weight: 600;
+}
+
+.section-tab:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.section-tab.active {
+  background: linear-gradient(135deg, rgba(255, 35, 35, 0.95), rgba(145, 0, 0, 0.95));
+  border-color: rgba(255, 70, 70, 0.28);
+  box-shadow: 0 8px 18px rgba(255, 0, 0, 0.14);
+}
+
+.section-group {
+  display: none;
+}
+
+.section-group.active {
+  display: block;
+}
+
 /* ===== ARMAS PAGE ===== */
 .weapons-page {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .weapons-hero {
@@ -1188,6 +1202,7 @@ select:focus {
   padding: 30px;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .weapons-hero::before {
@@ -1255,15 +1270,16 @@ select:focus {
   color: #d4d4d4;
   padding: 10px 12px;
   border-radius: 12px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .weapons-layout {
   display: grid;
   grid-template-columns: 1.12fr 0.88fr;
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
+  min-height: 0;
 }
 
 .weapons-left,
@@ -1273,7 +1289,7 @@ select:focus {
 
 .weapon-section {
   padding: 24px;
-  margin-bottom: 22px;
+  margin-bottom: 0;
 }
 
 .weapon-section-head {
@@ -1288,7 +1304,7 @@ select:focus {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
   color: #d7d7d7;
   font-size: 0.82rem;
   margin-bottom: 10px;
@@ -1327,7 +1343,7 @@ select:focus {
 .weapon-card:hover {
   transform: translateY(-4px);
   border-color: rgba(255, 90, 90, 0.18);
-  box-shadow: 0 18px 32px rgba(0,0,0,0.24), 0 0 18px rgba(180, 80, 255, 0.08);
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.24), 0 0 18px rgba(180, 80, 255, 0.08);
 }
 
 .weapon-card-info,
@@ -1389,8 +1405,6 @@ select:focus {
 
 .weapon-calc-panel {
   padding: 24px;
-  position: sticky;
-  top: 108px;
   border-radius: 24px;
 }
 
@@ -1421,8 +1435,8 @@ select:focus {
 .weapon-summary-group {
   padding: 18px;
   border-radius: 18px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .weapon-summary-group h3 {
@@ -1435,7 +1449,7 @@ select:focus {
 .accessories-page {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .accessories-hero {
@@ -1445,6 +1459,7 @@ select:focus {
   padding: 30px;
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .accessories-hero::before {
@@ -1512,15 +1527,16 @@ select:focus {
   color: #d4d4d4;
   padding: 10px 12px;
   border-radius: 12px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .accessories-layout {
   display: grid;
   grid-template-columns: 1.12fr 0.88fr;
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
+  min-height: 0;
 }
 
 .accessories-left,
@@ -1530,6 +1546,7 @@ select:focus {
 
 .accessory-section {
   padding: 24px;
+  margin-bottom: 0;
 }
 
 .accessory-section-head {
@@ -1545,7 +1562,7 @@ select:focus {
   display: inline-block;
   padding: 6px 12px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
   color: #d7d7d7;
   font-size: 0.82rem;
   margin-bottom: 10px;
@@ -1609,14 +1626,14 @@ select:focus {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(140deg, rgba(0, 170, 255, 0.08), transparent 45%, rgba(255,255,255,0.03));
+  background: linear-gradient(140deg, rgba(0, 170, 255, 0.08), transparent 45%, rgba(255, 255, 255, 0.03));
   pointer-events: none;
 }
 
 .accessory-card:hover {
   transform: translateY(-4px);
   border-color: rgba(120, 200, 255, 0.18);
-  box-shadow: 0 18px 32px rgba(0,0,0,0.24), 0 0 18px rgba(0,170,255,0.08);
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.24), 0 0 18px rgba(0, 170, 255, 0.08);
 }
 
 .accessory-card-info,
@@ -1674,8 +1691,6 @@ select:focus {
 
 .accessories-calc-panel {
   padding: 24px;
-  position: sticky;
-  top: 108px;
   border-radius: 24px;
 }
 
@@ -1687,14 +1702,15 @@ select:focus {
 .carregadores-page {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .carregadores-layout {
   display: grid;
   grid-template-columns: 1.12fr 0.88fr;
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
+  min-height: 0;
 }
 
 .carregadores-left,
@@ -1704,8 +1720,6 @@ select:focus {
 
 .carregadores-calc-panel {
   padding: 24px;
-  position: sticky;
-  top: 108px;
   border-radius: 24px;
 }
 
@@ -1713,6 +1727,133 @@ select:focus {
 .items-fight-card .loot-card,
 .item-fight-card .loot-card {
   border-color: rgba(19, 194, 150, 0.16);
+}
+
+/* ===== LAYOUT FIXO COM SCROLL INTERNO ===== */
+@media (min-width: 1101px) {
+  body.barragem,
+  body.armas,
+  body.acessorios,
+  body.carregadores,
+  body.items-fight {
+    overflow: hidden;
+  }
+
+  body.barragem main.page,
+  body.armas main.page,
+  body.acessorios main.page,
+  body.carregadores main.page,
+  body.items-fight main.page {
+    height: calc(100vh - 76px);
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+
+  body.barragem .barragem-shell,
+  body.armas .weapons-page,
+  body.acessorios .accessories-page,
+  body.carregadores .carregadores-page,
+  body.items-fight .barragem-shell {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  body.barragem .barragem-header,
+  body.armas .weapons-hero,
+  body.acessorios .accessories-hero,
+  body.carregadores .barragem-header,
+  body.items-fight .barragem-header {
+    flex-shrink: 0;
+    margin-bottom: 18px;
+  }
+
+  body.barragem .barragem-grid,
+  body.armas .weapons-layout,
+  body.acessorios .accessories-layout,
+  body.carregadores .carregadores-layout,
+  body.items-fight .barragem-grid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  body.barragem .barragem-left,
+  body.armas .weapons-left,
+  body.acessorios .accessories-left,
+  body.carregadores .carregadores-left,
+  body.items-fight .barragem-left {
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.barragem .barragem-right,
+  body.armas .weapons-right,
+  body.acessorios .accessories-right,
+  body.carregadores .carregadores-right,
+  body.items-fight .barragem-right {
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.barragem .loot-list,
+  body.armas .weapons-list,
+  body.acessorios .accessories-list,
+  body.carregadores .loot-list,
+  body.items-fight .loot-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+
+  body.armas .section-group,
+  body.acessorios .section-group {
+    height: 100%;
+    min-height: 0;
+  }
+
+  body.armas .section-group.active,
+  body.acessorios .section-group.active {
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.armas .weapon-section,
+  body.acessorios .accessory-section {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.armas .weapon-section-head,
+  body.acessorios .accessory-section-head,
+  body.armas .section-tabs,
+  body.acessorios .section-tabs {
+    flex-shrink: 0;
+  }
+
+  body.barragem .calc-panel,
+  body.armas .weapon-calc-panel,
+  body.acessorios .accessories-calc-panel,
+  body.carregadores .carregadores-calc-panel,
+  body.items-fight .calc-panel {
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+    position: relative !important;
+    top: 0 !important;
+  }
 }
 
 /* ===== ANIMAÇÕES ===== */
@@ -1811,17 +1952,6 @@ select:focus {
   }
   50% {
     transform: translateY(-8px);
-  }
-}
-
-@keyframes hubPulseLine {
-  0%, 100% {
-    opacity: 0.45;
-    transform: scaleX(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scaleX(1.08);
   }
 }
 
@@ -1924,10 +2054,32 @@ body.items-fight .barragem-header::after {
     grid-template-columns: 1fr;
   }
 
+  body.barragem,
+  body.armas,
+  body.acessorios,
+  body.carregadores,
+  body.items-fight {
+    overflow: auto;
+  }
+
+  body.barragem main.page,
+  body.armas main.page,
+  body.acessorios main.page,
+  body.carregadores main.page,
+  body.items-fight main.page {
+    height: auto;
+  }
+
+  .barragem-left,
+  .weapons-left,
+  .accessories-left,
+  .carregadores-left,
   .calc-panel,
   .weapon-calc-panel,
   .accessories-calc-panel,
   .carregadores-calc-panel {
+    max-height: none;
+    overflow: visible;
     position: static;
   }
 }
@@ -1938,7 +2090,7 @@ body.items-fight .barragem-header::after {
   }
 
   .topbar {
-    padding: 12px 0;
+    padding: 10px 0;
   }
 
   .topbar-inner {
@@ -1959,10 +2111,10 @@ body.items-fight .barragem-header::after {
     padding: 14px;
     gap: 8px;
     background: rgba(10, 10, 10, 0.96);
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
     backdrop-filter: blur(18px);
-    box-shadow: 0 16px 36px rgba(0,0,0,0.28);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
   }
 
   .main-nav.open {
@@ -1978,12 +2130,8 @@ body.items-fight .barragem-header::after {
     font-size: 2.2rem;
   }
 
-  .logo-text {
-    width: 150px;
-  }
-
   .logo-text-main {
-    width: 170px;
+    width: 138px;
   }
 
   body.home {
@@ -2005,7 +2153,7 @@ body.items-fight .barragem-header::after {
 
   .page {
     width: min(94%, 1200px);
-    padding: 28px 0 48px;
+    padding: 18px 0 28px;
   }
 }
 
@@ -2051,292 +2199,5 @@ body.items-fight .barragem-header::after {
 
   .calc-item-top {
     flex-direction: column;
-  }
-}
-
-/* ===== OUTROS CRAFTS (PESCA) ===== */
-
-.fishing-page {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.fishing-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  padding: 26px;
-  gap: 20px;
-}
-
-.fishing-tag {
-  background: rgba(0, 180, 255, 0.15);
-  border: 1px solid rgba(0, 180, 255, 0.25);
-  padding: 6px 12px;
-  border-radius: 999px;
-  color: #9cd6ff;
-  margin-bottom: 10px;
-}
-
-.price-mode select {
-  padding: 10px;
-  border-radius: 10px;
-  background: #111;
-  color: white;
-}
-
-.fishing-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-
-.fishing-section {
-  padding: 22px;
-}
-
-.fishing-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.fish-card {
-  display: flex;
-  justify-content: space-between;
-  padding: 12px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.04);
-}
-
-.illegal-title {
-  color: #ff6b6b;
-}
-
-.legal-title {
-  color: #6bff95;
-}
-
-.craft-box p {
-  background: rgba(255,255,255,0.04);
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-/* cor da página */
-body.outros-crafts .fishing-tag {
-  background: linear-gradient(135deg, #00c6ff, #0072ff);
-  color: white;
-}
-
-/* ===== HEADER MAIS PEQUENO ===== */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  padding: 8px 0;
-  backdrop-filter: blur(16px);
-  background: rgba(7, 7, 7, 0.84);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.topbar-inner {
-  width: min(1280px, 94%);
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  position: relative;
-}
-
-.logo-text-main {
-  width: 150px;
-  filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.12));
-}
-
-.main-nav {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.main-nav a {
-  color: #f4f4f4;
-  text-decoration: none;
-  transition: 0.22s ease;
-  padding: 8px 12px;
-  border-radius: 10px;
-  font-size: 0.88rem;
-  border: 1px solid transparent;
-}
-
-.main-nav a:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-/* ===== HERO MAIS LIMPO ===== */
-.hub-visual-card {
-  width: min(100%, 380px);
-  min-height: 240px;
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  position: relative;
-  overflow: hidden;
-  animation: hubIntroCardFloat 5s ease-in-out infinite;
-}
-
-.hub-visual-card p {
-  color: #dadada;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-}
-
-/* ===== LAYOUT COM SCROLL INTERNO ===== */
-.barragem-grid,
-.weapons-layout,
-.accessories-layout,
-.carregadores-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  align-items: stretch;
-  min-height: calc(100vh - 170px);
-}
-
-.barragem-left,
-.weapons-left,
-.accessories-left,
-.carregadores-left {
-  min-width: 0;
-  max-height: calc(100vh - 170px);
-  overflow-y: auto;
-  padding-right: 6px;
-}
-
-.barragem-right,
-.weapons-right,
-.accessories-right,
-.carregadores-right {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.calc-panel,
-.weapon-calc-panel,
-.accessories-calc-panel,
-.carregadores-calc-panel {
-  height: 100%;
-  max-height: calc(100vh - 170px);
-  overflow-y: auto;
-  position: sticky;
-  top: 88px;
-}
-
-/* ===== TABS / FILTROS EM CIMA ===== */
-.section-tabs {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
-
-.section-tab {
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
-  color: #fff;
-  padding: 10px 14px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.2s ease;
-  font-weight: 600;
-}
-
-.section-tab:hover {
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.08);
-}
-
-.section-tab.active {
-  background: linear-gradient(135deg, rgba(255, 35, 35, 0.95), rgba(145, 0, 0, 0.95));
-  border-color: rgba(255, 70, 70, 0.28);
-  box-shadow: 0 8px 18px rgba(255, 0, 0, 0.14);
-}
-
-.section-group {
-  display: none;
-}
-
-.section-group.active {
-  display: block;
-}
-
-/* ===== RESPONSIVO ===== */
-@media (max-width: 1100px) {
-  .barragem-grid,
-  .weapons-layout,
-  .accessories-layout,
-  .carregadores-layout {
-    grid-template-columns: 1fr;
-    min-height: auto;
-  }
-
-  .barragem-left,
-  .weapons-left,
-  .accessories-left,
-  .carregadores-left,
-  .calc-panel,
-  .weapon-calc-panel,
-  .accessories-calc-panel,
-  .carregadores-calc-panel {
-    max-height: none;
-    overflow: visible;
-    position: static;
-  }
-}
-
-@media (max-width: 900px) {
-  .logo-text-main {
-    width: 138px;
-  }
-
-  .topbar {
-    padding: 10px 0;
-  }
-
-  .main-nav {
-    position: absolute;
-    top: calc(100% + 12px);
-    left: 3%;
-    right: 3%;
-    display: none;
-    flex-direction: column;
-    padding: 14px;
-    gap: 8px;
-    background: rgba(10, 10, 10, 0.96);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 18px;
-    backdrop-filter: blur(18px);
-    box-shadow: 0 16px 36px rgba(0,0,0,0.28);
-  }
-
-  .main-nav.open {
-    display: flex;
-  }
-
-  .main-nav a {
-    width: 100%;
-    text-align: center;
   }
 }
