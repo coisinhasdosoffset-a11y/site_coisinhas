@@ -13,18 +13,18 @@
     </div>
 
     <div class="weapons-hero-side">
-      <div class="weapons-mini-panel glass">
+      <div class="weapons-mini-panel glass weapon-tabs">
         <strong>3 secções</strong>
-        <span>Blueprints</span>
-        <span>Peças</span>
-        <span>Armas</span>
+        <button type="button" class="weapon-tab-btn active" data-tab="blueprints">Blueprints</button>
+        <button type="button" class="weapon-tab-btn" data-tab="pecas">Peças</button>
+        <button type="button" class="weapon-tab-btn" data-tab="armas">Armas</button>
       </div>
     </div>
   </div>
 
   <div class="weapons-layout">
     <div class="weapons-left">
-      <section class="weapon-section glass">
+      <section class="weapon-section glass weapon-tab-panel active" data-tab-panel="blueprints">
         <div class="weapon-section-head">
           <div>
             <span class="weapon-section-tag">Secção 1</span>
@@ -68,7 +68,7 @@
         </div>
       </section>
 
-      <section class="weapon-section glass">
+      <section class="weapon-section glass weapon-tab-panel" data-tab-panel="pecas">
         <div class="weapon-section-head">
           <div>
             <span class="weapon-section-tag">Secção 2</span>
@@ -101,7 +101,7 @@
         </div>
       </section>
 
-      <section class="weapon-section glass">
+      <section class="weapon-section glass weapon-tab-panel" data-tab-panel="armas">
         <div class="weapon-section-head">
           <div>
             <span class="weapon-section-tag">Secção 3</span>
@@ -402,6 +402,95 @@
   </div>
 </section>
 
+<style>
+  .weapon-tabs button {
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.2s ease;
+  }
+
+  .weapon-tabs button:hover,
+  .weapon-tabs button.active {
+    background: linear-gradient(135deg, #9b5cff, #5a2bd6);
+    border-color: rgba(180,130,255,0.35);
+    box-shadow: 0 8px 18px rgba(140, 80, 255, 0.18);
+    transform: translateY(-1px);
+  }
+
+  .weapon-tab-panel {
+    display: none;
+  }
+
+  .weapon-tab-panel.active {
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (min-width: 1101px) {
+    body.armas main.page {
+      height: calc(100vh - 150px);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    body.armas .weapons-page {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.armas .weapons-hero {
+      flex-shrink: 0;
+    }
+
+    body.armas .weapons-layout {
+      flex: 1;
+      min-height: 0;
+      align-items: stretch;
+    }
+
+    body.armas .weapons-left,
+    body.armas .weapons-right {
+      min-height: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.armas .weapon-tab-panel.active,
+    body.armas .weapon-calc-panel {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    body.armas .weapon-tab-panel .weapons-list,
+    body.armas .weapon-calc-panel {
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    body.armas .weapon-card {
+      flex-shrink: 0;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .weapon-tab-panel.active {
+      display: flex;
+    }
+  }
+</style>
+
 <script>
   const weaponAddButtons = document.querySelectorAll('.weapon-add-btn');
   const weaponCalcItems = document.getElementById('weapon-calc-items');
@@ -410,6 +499,21 @@
   const weaponSaveMessage = document.getElementById('weapon-save-message');
   const weaponArmasFilter = document.getElementById('weapon-armas-filter');
   const armasCards = document.querySelectorAll('.armas-card');
+  const weaponTabButtons = document.querySelectorAll('.weapon-tab-btn');
+  const weaponTabPanels = document.querySelectorAll('.weapon-tab-panel');
+
+  weaponTabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const target = button.dataset.tab;
+
+      weaponTabButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      weaponTabPanels.forEach(panel => {
+        panel.classList.toggle('active', panel.dataset.tabPanel === target);
+      });
+    });
+  });
 
   const totalDinheiro = document.getElementById('weapon-total-dinheiro');
   const totalDroga = document.getElementById('weapon-total-droga');
@@ -677,19 +781,21 @@
     });
   });
 
-  weaponArmasFilter.addEventListener('change', () => {
-    const valor = weaponArmasFilter.value;
+  if (weaponArmasFilter) {
+    weaponArmasFilter.addEventListener('change', () => {
+      const valor = weaponArmasFilter.value;
 
-    armasCards.forEach(card => {
-      const grupo = card.dataset.grupo;
+      armasCards.forEach(card => {
+        const grupo = card.dataset.grupo;
 
-      if (valor === 'all' || grupo === valor) {
-        card.style.display = 'flex';
-      } else {
-        card.style.display = 'none';
-      }
+        if (valor === 'all' || grupo === valor) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     });
-  });
+  }
 
   weaponSaveBtn.addEventListener('click', async () => {
     const items = Object.values(selecionados);
