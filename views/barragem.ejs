@@ -1,8 +1,6 @@
 <%- include('partials/header', { page: 'barragem' }) %>
 
 <section class="barragem-shell">
-
-  <!-- HEADER -->
   <div class="barragem-header glass">
     <div>
       <span class="barragem-tag">Módulo • Barragem</span>
@@ -12,7 +10,6 @@
       </p>
     </div>
 
-    <!-- FILTRO -->
     <div class="filter-box barragem-header-filter">
       <label for="barragemFilter">Filtrar por</label>
       <select id="barragemFilter">
@@ -24,15 +21,10 @@
     </div>
   </div>
 
-  <!-- GRID -->
   <div class="barragem-grid">
-
-    <!-- ESQUERDA -->
-    <div class="barragem-left">
+    <div class="barragem-left" data-tab-scope>
       <div class="loot-list">
-
-        <!-- ITEM -->
-        <div class="loot-card glass" data-name="Perfume" data-type="Contentores" data-price="300">
+        <div class="loot-card glass reveal-card" data-name="Perfume" data-type="Contentores" data-price="300">
           <div class="loot-info">
             <span class="loot-type">Contentores</span>
             <h3>Perfume</h3>
@@ -40,53 +32,167 @@
           </div>
           <div class="loot-actions">
             <strong>300€</strong>
-            <button class="add-item-btn">Adicionar</button>
+            <button class="add-item-btn" type="button">Adicionar</button>
           </div>
         </div>
 
-        <div class="loot-card glass" data-name="Pack de Vinho" data-type="Contentores" data-price="600">
+        <div class="loot-card glass reveal-card" data-name="Pack de Vinho" data-type="Contentores" data-price="600">
           <div class="loot-info">
             <span class="loot-type">Contentores</span>
             <h3>Pack de Vinho</h3>
+            <p>Item da barragem para venda.</p>
           </div>
           <div class="loot-actions">
             <strong>600€</strong>
-            <button class="add-item-btn">Adicionar</button>
+            <button class="add-item-btn" type="button">Adicionar</button>
           </div>
         </div>
 
-        <div class="loot-card glass" data-name="Phone 7" data-type="Contentores" data-price="960">
+        <div class="loot-card glass reveal-card" data-name="Phone 7" data-type="Contentores" data-price="960">
           <div class="loot-info">
             <span class="loot-type">Contentores</span>
             <h3>Phone 7</h3>
+            <p>Item da barragem para venda.</p>
           </div>
           <div class="loot-actions">
             <strong>960€</strong>
-            <button class="add-item-btn">Adicionar</button>
+            <button class="add-item-btn" type="button">Adicionar</button>
           </div>
         </div>
 
-        <div class="loot-card glass" data-name="Computador" data-type="Casas" data-price="1200">
+        <div class="loot-card glass reveal-card" data-name="Computador" data-type="Contentores e Casas" data-price="1200">
           <div class="loot-info">
-            <span class="loot-type">Casas</span>
+            <span class="loot-type">Contentores e Casas</span>
             <h3>Computador</h3>
+            <p>Item da barragem para venda.</p>
           </div>
           <div class="loot-actions">
             <strong>1.200€</strong>
-            <button class="add-item-btn">Adicionar</button>
+            <button class="add-item-btn" type="button">Adicionar</button>
           </div>
         </div>
 
+        <div class="loot-card glass reveal-card" data-name="TV LED 75" data-type="Contentores" data-price="3600">
+          <div class="loot-info">
+            <span class="loot-type">Contentores</span>
+            <h3>TV LED 75</h3>
+            <p>Item da barragem para venda.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>3.600€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-name="Águia de Bronze" data-type="Contentores" data-price="120000">
+          <div class="loot-info">
+            <span class="loot-type">Contentores</span>
+            <h3>Águia de Bronze</h3>
+            <p>Item raro da barragem.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>120.000€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-name="Documento" data-type="Carrinhas" data-price="1620">
+          <div class="loot-info">
+            <span class="loot-type">Carrinhas</span>
+            <h3>Documento</h3>
+            <p>Item da barragem para venda.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>1.620€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-name="Coroa" data-type="Carrinhas" data-price="600000">
+          <div class="loot-info">
+            <span class="loot-type">Carrinhas</span>
+            <h3>Coroa</h3>
+            <p>Item raro da barragem.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>600.000€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-name="Quadro" data-type="Carrinhas e Casas" data-price="1752">
+          <div class="loot-info">
+            <span class="loot-type">Carrinhas e Casas</span>
+            <h3>Quadro</h3>
+            <p>Item da barragem para venda.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>1.752€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-name="Tigre" data-type="Casas" data-price="1620">
+          <div class="loot-info">
+            <span class="loot-type">Casas</span>
+            <h3>Tigre</h3>
+            <p>Item da barragem para venda.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>1.620€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-name="Relógio de ouro" data-type="Casas" data-price="3000">
+          <div class="loot-info">
+            <span class="loot-type">Casas</span>
+            <h3>Relógio de ouro</h3>
+            <p>Item da barragem para venda.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>3.000€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-name="Arma de Coleção" data-type="Casas" data-price="8400">
+          <div class="loot-info">
+            <span class="loot-type">Casas</span>
+            <h3>Arma de Coleção</h3>
+            <p>Item raro da barragem.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>8.400€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
+
+        <div class="loot-card glass reveal-card" data-name="Crypto Pen" data-type="Casas" data-price="120000">
+          <div class="loot-info">
+            <span class="loot-type">Casas</span>
+            <h3>Crypto Pen</h3>
+            <p>Item raro da barragem.</p>
+          </div>
+          <div class="loot-actions">
+            <strong>120.000€</strong>
+            <button class="add-item-btn" type="button">Adicionar</button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- DIREITA -->
     <div class="barragem-right">
       <div class="calc-panel glass">
+        <div class="calc-head">
+          <span class="hub-small-badge">Calculadora</span>
+          <h2>Resumo da Barragem</h2>
+          <p class="section-subtext" style="text-align:left; max-width:none;">
+            Adiciona os itens na esquerda e ajusta as quantidades aqui.
+          </p>
+        </div>
 
-        <h2>Resumo da Barragem</h2>
-
-        <div id="calcItems" class="calc-items">
+        <div class="calc-items" id="calcItems">
           <div class="empty-calc">
             <span class="empty-dot"></span>
             Ainda não tens itens adicionados.
@@ -100,106 +206,212 @@
           </div>
 
           <div class="percent-box">
-            <label>Percentagem a retirar</label>
-            <input id="percentInput" type="number" value="0">
+            <label for="percentInput">Percentagem a retirar</label>
+            <div class="percent-input-wrap">
+              <input id="percentInput" type="number" min="0" max="100" value="0" />
+              <span>%</span>
+            </div>
           </div>
 
-          <div class="summary-row">
+          <div class="summary-row final-row">
             <span>Total final</span>
             <strong id="finalTotal">0€</strong>
           </div>
 
           <div class="calc-actions">
-            <button id="clearBarragemBtn" class="btn btn-secondary">Limpar</button>
+            <button type="button" class="btn btn-primary" id="saveBarragemBtn">Guardar</button>
+            <button type="button" class="btn btn-secondary" id="clearBarragemBtn">Limpar</button>
           </div>
-        </div>
 
+          <div class="save-message" id="saveMessage"></div>
+        </div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- SCRIPT -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+  window.CURRENT_MODULE = 'barragem';
+  window.BARRAGEM_CALCULOS = <%- JSON.stringify(calculos || []) %>;
 
-  const items = {};
-  const calcItems = document.getElementById('calcItems');
-  const grossTotal = document.getElementById('grossTotal');
-  const finalTotal = document.getElementById('finalTotal');
-  const percentInput = document.getElementById('percentInput');
-  const filter = document.getElementById('barragemFilter');
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = {};
+    const calcItems = document.getElementById('calcItems');
+    const grossTotal = document.getElementById('grossTotal');
+    const finalTotal = document.getElementById('finalTotal');
+    const percentInput = document.getElementById('percentInput');
+    const clearBtn = document.getElementById('clearBarragemBtn');
+    const saveBtn = document.getElementById('saveBarragemBtn');
+    const saveMessage = document.getElementById('saveMessage');
+    const filter = document.getElementById('barragemFilter');
 
-  const format = v => new Intl.NumberFormat('pt-PT').format(v) + '€';
+    const formatMoney = (value) => new Intl.NumberFormat('pt-PT').format(Number(value || 0)) + '€';
 
-  function updateTotals() {
-    let total = 0;
-    Object.values(items).forEach(i => total += i.price * i.qty);
-
-    const percent = Number(percentInput.value || 0);
-    const final = total - (total * percent / 100);
-
-    grossTotal.textContent = format(total);
-    finalTotal.textContent = format(final);
-  }
-
-  function render() {
-    const list = Object.values(items);
-    calcItems.innerHTML = '';
-
-    if (!list.length) {
-      calcItems.innerHTML = `
-        <div class="empty-calc">
-          <span class="empty-dot"></span>
-          Ainda não tens itens adicionados.
-        </div>`;
-      updateTotals();
-      return;
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
     }
 
-    list.forEach(i => {
-      calcItems.innerHTML += `
-        <div class="calc-item">
-          <strong>${i.name}</strong> (${i.qty}) - ${format(i.price * i.qty)}
-        </div>`;
-    });
+    function getTotals() {
+      const gross = Object.values(items).reduce((sum, item) => sum + item.price * item.qty, 0);
+      const percent = Math.min(100, Math.max(0, Number(percentInput.value || 0)));
+      const final = gross - (gross * percent / 100);
+      return { gross, percent, final };
+    }
 
-    updateTotals();
-  }
+    function updateTotals() {
+      Object.values(items).forEach((item) => {
+        const totalEl = calcItems.querySelector(`[data-total-for="${CSS.escape(item.name)}"]`);
+        if (totalEl) totalEl.textContent = formatMoney(item.price * item.qty);
+      });
 
-  document.addEventListener('click', e => {
+      const totals = getTotals();
+      grossTotal.textContent = formatMoney(totals.gross);
+      finalTotal.textContent = formatMoney(totals.final);
+    }
 
-    if (e.target.classList.contains('add-item-btn')) {
-      const card = e.target.closest('.loot-card');
-      const name = card.dataset.name;
+    function renderItems() {
+      const values = Object.values(items);
 
-      if (!items[name]) {
-        items[name] = {
-          name,
-          type: card.dataset.type,
-          price: Number(card.dataset.price),
-          qty: 1
-        };
-      } else {
-        items[name].qty++;
+      if (!values.length) {
+        calcItems.innerHTML = `
+          <div class="empty-calc">
+            <span class="empty-dot"></span>
+            Ainda não tens itens adicionados.
+          </div>
+        `;
+        updateTotals();
+        return;
       }
 
-      render();
+      calcItems.innerHTML = values.map((item) => `
+        <div class="calc-item" data-calc-item="${escapeHtml(item.name)}">
+          <div class="calc-item-top">
+            <div>
+              <h3>${escapeHtml(item.name)}</h3>
+              <p>${escapeHtml(item.type)} • ${formatMoney(item.price)}</p>
+            </div>
+            <strong class="calc-item-total" data-total-for="${escapeHtml(item.name)}">
+              ${formatMoney(item.price * item.qty)}
+            </strong>
+          </div>
+
+          <div class="calc-item-controls">
+            <input class="qty-input" type="number" min="1" value="${item.qty}" data-name="${escapeHtml(item.name)}" />
+            <button type="button" class="remove-btn" data-name="${escapeHtml(item.name)}">Remover</button>
+          </div>
+        </div>
+      `).join('');
+
+      updateTotals();
     }
-  });
 
-  filter.addEventListener('change', () => {
-    const val = filter.value;
+    document.addEventListener('click', (event) => {
+      const addBtn = event.target.closest('.add-item-btn');
+      if (addBtn) {
+        const card = addBtn.closest('.loot-card');
+        const name = card.dataset.name;
+        const type = card.dataset.type;
+        const price = Number(card.dataset.price || 0);
 
-    document.querySelectorAll('.loot-card').forEach(card => {
-      const type = card.dataset.type;
-      card.style.display =
-        val === 'Todos' || type.includes(val) ? '' : 'none';
+        if (!items[name]) {
+          items[name] = { name, type, price, qty: 1 };
+          renderItems();
+        } else {
+          items[name].qty += 1;
+          const input = calcItems.querySelector(`.qty-input[data-name="${CSS.escape(name)}"]`);
+          if (input) input.value = items[name].qty;
+          updateTotals();
+        }
+      }
+
+      const removeBtn = event.target.closest('.remove-btn');
+      if (removeBtn) {
+        delete items[removeBtn.dataset.name];
+        renderItems();
+      }
+    });
+
+    calcItems.addEventListener('input', (event) => {
+      if (!event.target.classList.contains('qty-input')) return;
+
+      const name = event.target.dataset.name;
+      if (!items[name]) return;
+
+      const rawValue = event.target.value;
+      const qty = rawValue === '' ? 0 : Number(rawValue);
+      items[name].qty = Math.max(0, qty);
+      updateTotals();
+    });
+
+    calcItems.addEventListener('blur', (event) => {
+      if (!event.target.classList.contains('qty-input')) return;
+
+      const name = event.target.dataset.name;
+      if (!items[name]) return;
+
+      if (!event.target.value || Number(event.target.value) < 1) {
+        event.target.value = 1;
+        items[name].qty = 1;
+        updateTotals();
+      }
+    }, true);
+
+    percentInput.addEventListener('input', updateTotals);
+
+    clearBtn.addEventListener('click', () => {
+      Object.keys(items).forEach((key) => delete items[key]);
+      percentInput.value = 0;
+      renderItems();
+      saveMessage.textContent = '';
+    });
+
+    saveBtn.addEventListener('click', async () => {
+      const totals = getTotals();
+      const payload = {
+        modulo: 'barragem',
+        items: Object.values(items),
+        percentagem: totals.percent,
+        totalBruto: totals.gross,
+        totalFinal: totals.final
+      };
+
+      if (!payload.items.length) {
+        saveMessage.textContent = 'Adiciona pelo menos um item antes de guardar.';
+        return;
+      }
+
+      saveMessage.textContent = 'A guardar...';
+
+      try {
+        const response = await fetch('/barragem/guardar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error('Erro ao guardar');
+
+        saveMessage.textContent = 'Guardado com sucesso.';
+      } catch (error) {
+        localStorage.setItem('barragem_ultimo_calculo', JSON.stringify(payload));
+        saveMessage.textContent = 'Guardado localmente. Falta confirmar a rota POST /barragem/guardar no backend.';
+      }
+    });
+
+    filter.addEventListener('change', () => {
+      const selected = filter.value;
+
+      document.querySelectorAll('.loot-card').forEach((card) => {
+        const type = card.dataset.type || '';
+        card.style.display = selected === 'Todos' || type.includes(selected) ? '' : 'none';
+      });
     });
   });
-
-});
 </script>
 
 <%- include('partials/footer') %>
