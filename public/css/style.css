@@ -2294,3 +2294,18 @@ body.items-fight .barragem-header::after {
 .barragem-filter-box select {
   padding: 10px 12px;
 }
+.barragem-header-filter {
+  position: relative;
+  z-index: 2;
+  min-width: 230px;
+}
+
+.barragem-header-filter label {
+  font-size: 0.85rem;
+}
+
+@media (max-width: 760px) {
+  .barragem-header-filter {
+    width: 100%;
+  }
+}
