@@ -2431,3 +2431,122 @@ body.armas .weapon-section.active {
     flex-shrink: 0 !important;
   }
 }
+
+/* ===== ACESSÓRIOS - TABS/FILTRO COM SCROLL INTERNO CORRETO ===== */
+.accessory-tab-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 700;
+  transition: 0.22s ease;
+}
+
+.accessory-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateY(-1px);
+}
+
+.accessory-tab-btn.active {
+  background: linear-gradient(135deg, #009dff, #0047cc);
+  border-color: rgba(120, 200, 255, 0.28);
+  box-shadow: 0 10px 22px rgba(0, 140, 255, 0.18);
+}
+
+@media (min-width: 1101px) {
+  body.acessorios {
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.acessorios .topbar {
+    flex-shrink: 0;
+  }
+
+  body.acessorios main.page {
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: hidden !important;
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  body.acessorios .accessories-page {
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+  }
+
+  body.acessorios .accessories-hero {
+    flex-shrink: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.acessorios .accessories-layout {
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+    align-items: stretch !important;
+    overflow: hidden !important;
+  }
+
+  body.acessorios .accessories-left,
+  body.acessorios .accessories-right {
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  body.acessorios .accessory-section {
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  body.acessorios .accessory-section-head {
+    flex-shrink: 0 !important;
+  }
+
+  body.acessorios .accessories-list {
+    flex: 1 !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 8px !important;
+    padding-bottom: 18px !important;
+  }
+
+  body.acessorios .accessories-calc-panel {
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-bottom: 28px !important;
+  }
+
+  body.acessorios .accessory-card,
+  body.acessorios .accessory-group-title {
+    flex-shrink: 0 !important;
+  }
+}
