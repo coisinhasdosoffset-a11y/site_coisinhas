@@ -569,43 +569,45 @@
   renderCalcAcessorios();
 </script>
 
+
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const filterButtons = document.querySelectorAll('.accessory-filter-btn');
-  const filterSelect = document.querySelector('#accessoryFilter, #accessoryFilterSelect, #accessoryWeaponFilter, #acessorioFilter, #acessoriosFilter, select');
   const accessoryCards = document.querySelectorAll('.accessory-card');
   const groupTitles = document.querySelectorAll('.accessory-group-title');
+  const filterSelect = document.querySelector('.accessories-filter-box select, #accessoryFilter, #accessoryFilterSelect, #accessoryWeaponFilter, #acessorioFilter, #acessoriosFilter');
 
-  function normalize(value) {
+  function norm(value) {
     return String(value || '').trim().toLowerCase();
   }
 
-  function getCardCategory(card) {
+  function cardCategory(card) {
     return card.dataset.categoria || card.dataset.category || card.dataset.weapon || card.dataset.type || '';
   }
 
   function applyAccessoryFilter(selected) {
-    const selectedNorm = normalize(selected);
+    const selectedNorm = norm(selected);
 
-    filterButtons.forEach(btn => {
-      btn.classList.toggle('active', normalize(btn.dataset.filter) === selectedNorm);
+    filterButtons.forEach(button => {
+      button.classList.toggle('active', norm(button.dataset.filter) === selectedNorm);
     });
 
     if (filterSelect) {
       Array.from(filterSelect.options).forEach(option => {
-        if (normalize(option.value) === selectedNorm || normalize(option.textContent) === selectedNorm) {
+        if (norm(option.value) === selectedNorm || norm(option.textContent) === selectedNorm) {
           filterSelect.value = option.value;
         }
       });
     }
 
     accessoryCards.forEach(card => {
-      const category = normalize(getCardCategory(card));
+      const category = norm(cardCategory(card));
       card.style.display = category === selectedNorm ? 'flex' : 'none';
     });
 
     groupTitles.forEach(title => {
-      title.style.display = normalize(title.textContent) === selectedNorm ? 'block' : 'none';
+      title.style.display = norm(title.textContent) === selectedNorm ? 'block' : 'none';
     });
   }
 
@@ -617,18 +619,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (filterSelect) {
     filterSelect.addEventListener('change', () => {
-      const optionText = filterSelect.options[filterSelect.selectedIndex]?.textContent || filterSelect.value;
-      const selected = optionText === 'Todas' ? 'Pistola' : optionText;
-      applyAccessoryFilter(selected);
+      const selectedText = filterSelect.options[filterSelect.selectedIndex]?.textContent || filterSelect.value;
+      applyAccessoryFilter(selectedText === 'Todas' ? 'Pistola' : selectedText);
     });
   }
 
-  const activeButton = document.querySelector('.accessory-filter-btn.active') || document.querySelector('.accessory-filter-btn');
-  if (activeButton) {
-    applyAccessoryFilter(activeButton.dataset.filter);
-  }
-
-  window.applyAccessoryFilter = applyAccessoryFilter;
+  const active = document.querySelector('.accessory-filter-btn.active') || document.querySelector('.accessory-filter-btn');
+  if (active) applyAccessoryFilter(active.dataset.filter);
 });
 </script>
 
