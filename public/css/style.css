@@ -1925,7 +1925,7 @@ body.items-fight .barragem-header::after {
     flex-direction: column;
   }
 }
-/* ===== FIX: 2 FORMAS COM SCROLL INTERNO ===== */
+/* ===== LAYOUT 2 CAIXAS COM SCROLL INTERNO ===== */
 
 @media (min-width: 1101px) {
   body.barragem,
@@ -1933,16 +1933,25 @@ body.items-fight .barragem-header::after {
   body.items-fight,
   body.armas,
   body.acessorios {
+    height: 100vh;
     overflow: hidden;
   }
 
   body.barragem .barragem-shell,
   body.carregadores .barragem-shell,
   body.items-fight .barragem-shell,
-  body.armas .barragem-shell,
-  body.acessorios .barragem-shell {
-    height: calc(100vh - 86px);
-    padding-bottom: 24px;
+  body.armas .weapons-page,
+  body.acessorios .accessories-page {
+    height: calc(100vh - 90px);
+    overflow: hidden;
+  }
+
+  body.barragem .barragem-header,
+  body.carregadores .barragem-header,
+  body.items-fight .barragem-header,
+  body.armas .weapons-hero,
+  body.acessorios .accessories-hero {
+    display: none !important;
   }
 
   .barragem-grid,
@@ -1950,53 +1959,38 @@ body.items-fight .barragem-header::after {
   .weapons-layout,
   .accessories-layout {
     height: calc(100vh - 110px);
+    display: grid;
     align-items: stretch;
+    overflow: hidden;
   }
 
-  .barragem-left,
-  .carregadores-left,
-  .weapons-left,
-  .accessories-left,
-  .barragem-right,
-  .carregadores-right,
-  .weapons-right,
-  .accessories-right {
+  .barragem-grid > *,
+  .carregadores-layout > *,
+  .weapons-layout > *,
+  .accessories-layout > * {
     min-height: 0;
+    height: 100%;
+    overflow: hidden;
   }
 
-  .barragem-left,
-  .carregadores-left,
-  .weapons-left,
-  .accessories-left {
-    height: 100%;
+  .barragem-grid > *:first-child,
+  .carregadores-layout > *:first-child,
+  .weapons-layout > *:first-child,
+  .accessories-layout > *:first-child {
     padding: 24px;
     border-radius: 24px;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(14px);
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .barragem-left .loot-list,
-  .carregadores-left .loot-list,
-  .weapons-left .weapons-list,
-  .accessories-left .accessories-list {
-    flex: 1;
-    min-height: 0;
     overflow-y: auto;
-    padding-right: 8px;
   }
 
-  .barragem-right,
-  .carregadores-right,
-  .weapons-right,
-  .accessories-right {
-    position: sticky;
-    top: 86px;
-    align-self: start;
+  .barragem-grid > *:last-child,
+  .carregadores-layout > *:last-child,
+  .weapons-layout > *:last-child,
+  .accessories-layout > *:last-child {
+    position: static !important;
     height: 100%;
   }
 
@@ -2005,13 +1999,13 @@ body.items-fight .barragem-header::after {
   .weapon-calc-panel,
   .accessories-calc-panel {
     height: 100%;
-    max-height: none;
-    overflow-y: auto;
+    max-height: none !important;
+    overflow-y: auto !important;
   }
 
-  .barragem-header,
-  .weapons-hero,
-  .accessories-hero {
-    display: none;
+  .loot-list,
+  .weapons-list,
+  .accessories-list {
+    padding-right: 8px;
   }
 }
