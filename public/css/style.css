@@ -2680,9 +2680,37 @@ body.armas .weapon-section.active {
   }
 }
 
-/* ===== ACESSÓRIOS - FIX DEFINITIVO: ALTURA, SCROLL E CORES ===== */
+/* ===== ARMAS + ACESSÓRIOS - FIX FINAL 3 CARDS + SCROLL ===== */
 
-/* Botões/categorias com cores consistentes */
+/* Tabs das armas */
+.weapon-tab-btn {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 46px !important;
+  padding: 12px 14px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255,255,255,0.12) !important;
+  background: rgba(255,255,255,0.06) !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  margin-top: 8px !important;
+  font-weight: 800 !important;
+  text-align: left !important;
+  transition: 0.22s ease !important;
+}
+
+.weapon-tab-btn:hover {
+  transform: translateY(-1px) !important;
+  filter: brightness(1.08) !important;
+}
+
+.weapon-tab-btn.active {
+  background: linear-gradient(135deg, #9b5cff, #5a2bd6) !important;
+  box-shadow: 0 10px 24px rgba(140, 80, 255, 0.24) !important;
+}
+
+/* Botões dos acessórios */
 .accessory-tab-btn,
 .accessory-filter-btn {
   width: 100% !important;
@@ -2692,11 +2720,11 @@ body.armas .weapon-section.active {
   padding: 12px 14px !important;
   border-radius: 12px !important;
   border: 1px solid rgba(255,255,255,0.12) !important;
-  color: #fff !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
   font-weight: 800 !important;
   text-align: left !important;
-  cursor: pointer !important;
-  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease !important;
+  transition: 0.22s ease !important;
 }
 
 .accessory-tab-btn:hover,
@@ -2705,7 +2733,7 @@ body.armas .weapon-section.active {
   filter: brightness(1.08) !important;
 }
 
-/* Pistola - azul */
+/* Cores por categoria nos acessórios */
 .accessory-tab-btn[data-filter="Pistola"],
 .accessory-filter-btn[data-filter="Pistola"],
 .pistola-title {
@@ -2719,7 +2747,6 @@ body.armas .weapon-section.active {
   box-shadow: 0 10px 24px rgba(0, 140, 255, 0.24) !important;
 }
 
-/* SMG - dourado */
 .accessory-tab-btn[data-filter="SMG"],
 .accessory-filter-btn[data-filter="SMG"],
 .smg-title {
@@ -2733,7 +2760,6 @@ body.armas .weapon-section.active {
   box-shadow: 0 10px 24px rgba(235, 195, 80, 0.20) !important;
 }
 
-/* Rifle - verde */
 .accessory-tab-btn[data-filter="Rifle"],
 .accessory-filter-btn[data-filter="Rifle"],
 .rifle-title {
@@ -2747,7 +2773,6 @@ body.armas .weapon-section.active {
   box-shadow: 0 10px 24px rgba(90, 190, 110, 0.20) !important;
 }
 
-/* Shotgun - vermelho */
 .accessory-tab-btn[data-filter="Shotgun"],
 .accessory-filter-btn[data-filter="Shotgun"],
 .shotgun-title {
@@ -2761,33 +2786,40 @@ body.armas .weapon-section.active {
   box-shadow: 0 10px 24px rgba(220, 70, 60, 0.22) !important;
 }
 
-/* Cards com tamanho normal, sem achatar */
+/* Só mostra a tab ativa nas armas */
+body.armas .weapon-section {
+  display: none !important;
+}
+
+body.armas .weapon-section.active {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Cards: tamanho normal, mas cabem pelo menos 3 */
+body.armas .weapon-card,
 body.acessorios .accessory-card {
-  min-height: 132px !important;
+  min-height: 112px !important;
   height: auto !important;
   flex: 0 0 auto !important;
   flex-shrink: 0 !important;
-  padding: 22px !important;
+  padding: 18px 20px !important;
   align-items: center !important;
 }
 
+body.armas .weapon-card-info h3,
 body.acessorios .accessory-card-info h3 {
-  margin-bottom: 8px !important;
+  margin-bottom: 6px !important;
 }
 
+body.armas .weapon-card-info p,
 body.acessorios .accessory-card-info p {
-  line-height: 1.6 !important;
+  line-height: 1.45 !important;
 }
 
-/* Títulos de grupo também não encolhem */
-body.acessorios .accessory-group-title {
-  flex: 0 0 auto !important;
-  flex-shrink: 0 !important;
-  margin-top: 8px !important;
-}
-
-/* Desktop: página pode ter scroll, mas a lista continua com scroll interno */
+/* Desktop: mantém scroll interno e deixa a página respirar */
 @media (min-width: 1101px) {
+  body.armas,
   body.acessorios {
     height: auto !important;
     min-height: 100vh !important;
@@ -2796,6 +2828,7 @@ body.acessorios .accessory-group-title {
     display: block !important;
   }
 
+  body.armas main.page,
   body.acessorios main.page {
     height: auto !important;
     min-height: calc(100vh - 76px) !important;
@@ -2805,6 +2838,7 @@ body.acessorios .accessory-group-title {
     padding-bottom: 80px !important;
   }
 
+  body.armas .weapons-page,
   body.acessorios .accessories-page {
     height: auto !important;
     min-height: 0 !important;
@@ -2813,20 +2847,16 @@ body.acessorios .accessory-group-title {
     gap: 28px !important;
   }
 
+  body.armas .weapons-hero,
   body.acessorios .accessories-hero {
     flex-shrink: 0 !important;
     margin-bottom: 0 !important;
   }
 
-  /*
-    Altura mais confortável:
-    - não fica pequenina
-    - permite ver pelo menos 3 botões "Adicionar"
-    - se o ecrã for baixo, a página ganha scroll
-  */
+  body.armas .weapons-layout,
   body.acessorios .accessories-layout {
-    height: 860px !important;
-    min-height: 860px !important;
+    height: 760px !important;
+    min-height: 760px !important;
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 24px !important;
@@ -2834,6 +2864,8 @@ body.acessorios .accessory-group-title {
     overflow: visible !important;
   }
 
+  body.armas .weapons-left,
+  body.armas .weapons-right,
   body.acessorios .accessories-left,
   body.acessorios .accessories-right {
     height: 100% !important;
@@ -2843,14 +2875,27 @@ body.acessorios .accessory-group-title {
     flex-direction: column !important;
   }
 
+  body.armas .weapon-section,
   body.acessorios .accessory-section {
     height: 100% !important;
     min-height: 0 !important;
     overflow: hidden !important;
-    display: flex !important;
+    flex: 1 !important;
     flex-direction: column !important;
   }
 
+  body.armas .weapon-section.active {
+    display: flex !important;
+  }
+
+  body.acessorios .accessory-section {
+    display: flex !important;
+  }
+
+  body.armas .weapon-section-head,
+  body.armas .weapon-section-tag,
+  body.armas .weapon-section h2,
+  body.armas .weapons-filter-box,
   body.acessorios .accessory-section-head,
   body.acessorios .accessory-section-tag,
   body.acessorios .accessory-section h2,
@@ -2858,13 +2903,10 @@ body.acessorios .accessory-group-title {
     flex-shrink: 0 !important;
   }
 
-  body.acessorios .accessory-section-head {
-    margin-bottom: 20px !important;
-  }
-
+  body.armas .weapons-list,
   body.acessorios .accessories-list {
     flex: 1 1 auto !important;
-    min-height: 520px !important;
+    min-height: 430px !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 16px !important;
@@ -2874,6 +2916,7 @@ body.acessorios .accessory-group-title {
     padding-bottom: 28px !important;
   }
 
+  body.armas .weapon-calc-panel,
   body.acessorios .accessories-calc-panel {
     height: 100% !important;
     min-height: 0 !important;
@@ -2883,13 +2926,22 @@ body.acessorios .accessory-group-title {
   }
 }
 
-/* Mobile/tablet: volta ao scroll normal da página */
+/* Mobile/tablet: scroll normal */
 @media (max-width: 1100px) {
+  body.armas,
   body.acessorios {
     overflow-y: auto !important;
     height: auto !important;
   }
 
+  body.armas main.page,
+  body.armas .weapons-page,
+  body.armas .weapons-layout,
+  body.armas .weapons-left,
+  body.armas .weapons-right,
+  body.armas .weapon-section,
+  body.armas .weapons-list,
+  body.armas .weapon-calc-panel,
   body.acessorios main.page,
   body.acessorios .accessories-page,
   body.acessorios .accessories-layout,
