@@ -569,4 +569,67 @@
   renderCalcAcessorios();
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const filterButtons = document.querySelectorAll('.accessory-filter-btn');
+  const filterSelect = document.querySelector('#accessoryFilter, #accessoryFilterSelect, #accessoryWeaponFilter, #acessorioFilter, #acessoriosFilter, select');
+  const accessoryCards = document.querySelectorAll('.accessory-card');
+  const groupTitles = document.querySelectorAll('.accessory-group-title');
+
+  function normalize(value) {
+    return String(value || '').trim().toLowerCase();
+  }
+
+  function getCardCategory(card) {
+    return card.dataset.categoria || card.dataset.category || card.dataset.weapon || card.dataset.type || '';
+  }
+
+  function applyAccessoryFilter(selected) {
+    const selectedNorm = normalize(selected);
+
+    filterButtons.forEach(btn => {
+      btn.classList.toggle('active', normalize(btn.dataset.filter) === selectedNorm);
+    });
+
+    if (filterSelect) {
+      Array.from(filterSelect.options).forEach(option => {
+        if (normalize(option.value) === selectedNorm || normalize(option.textContent) === selectedNorm) {
+          filterSelect.value = option.value;
+        }
+      });
+    }
+
+    accessoryCards.forEach(card => {
+      const category = normalize(getCardCategory(card));
+      card.style.display = category === selectedNorm ? 'flex' : 'none';
+    });
+
+    groupTitles.forEach(title => {
+      title.style.display = normalize(title.textContent) === selectedNorm ? 'block' : 'none';
+    });
+  }
+
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      applyAccessoryFilter(button.dataset.filter);
+    });
+  });
+
+  if (filterSelect) {
+    filterSelect.addEventListener('change', () => {
+      const optionText = filterSelect.options[filterSelect.selectedIndex]?.textContent || filterSelect.value;
+      const selected = optionText === 'Todas' ? 'Pistola' : optionText;
+      applyAccessoryFilter(selected);
+    });
+  }
+
+  const activeButton = document.querySelector('.accessory-filter-btn.active') || document.querySelector('.accessory-filter-btn');
+  if (activeButton) {
+    applyAccessoryFilter(activeButton.dataset.filter);
+  }
+
+  window.applyAccessoryFilter = applyAccessoryFilter;
+});
+</script>
+
 <%- include('partials/footer') %>
