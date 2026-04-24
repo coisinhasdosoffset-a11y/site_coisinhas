@@ -2680,15 +2680,7 @@ body.armas .weapon-section.active {
   }
 }
 
-/* ===== ARMAS + ACESSÓRIOS - FIX EXATO 3 CARDS COM SCROLL INTERNO ===== */
-
-/*
-  Objetivo:
-  - A página pode ter scroll normal se for preciso ver o bloco todo.
-  - A lista da esquerda mostra cerca de 3 cards.
-  - O resto dos cards aparece com scroll DENTRO da lista.
-  - Os cards não ficam achatados.
-*/
+/* ===== ARMAS + ACESSÓRIOS - 3 CARDS COM SCROLL INTERNO ===== */
 
 /* Tabs das armas */
 .weapon-tab-btn {
@@ -2825,6 +2817,31 @@ body.acessorios .accessory-card-info p {
   line-height: 1.4 !important;
 }
 
+/* Cabeçalho da lista de acessórios igual ao de Armas */
+body.acessorios .accessory-section-head {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+  gap: 18px !important;
+  margin-bottom: 18px !important;
+  flex-wrap: nowrap !important;
+}
+
+body.acessorios .accessory-section-head > div:first-child {
+  min-width: 0 !important;
+}
+
+body.acessorios .accessory-section-head .accessories-filter-box,
+body.acessorios .accessories-filter-box {
+  width: 220px !important;
+  min-width: 220px !important;
+  max-width: 220px !important;
+}
+
+body.acessorios .accessory-section h2 {
+  margin-bottom: 0 !important;
+}
+
 /* Desktop */
 @media (min-width: 1101px) {
   body.armas,
@@ -2887,7 +2904,7 @@ body.acessorios .accessory-card-info p {
   body.acessorios .accessory-section {
     height: auto !important;
     min-height: 0 !important;
-    overflow: visible !important;
+    overflow: hidden !important;
     flex: 0 0 auto !important;
     flex-direction: column !important;
   }
@@ -2913,7 +2930,7 @@ body.acessorios .accessory-card-info p {
 
   /*
     Altura exata da lista:
-    3 cards de 112px + 2 gaps de 16px + espaço pequeno = 382px.
+    3 cards de 112px + 2 gaps de 16px + margem = 382px.
     O 4.º card fica escondido e aparece com scroll interno.
   */
   body.armas .weapons-list,
@@ -2930,6 +2947,7 @@ body.acessorios .accessory-card-info p {
     padding-bottom: 0 !important;
   }
 
+  /* Painel direito corrigido: sem corte lateral/folga preta */
   body.armas .weapon-calc-panel,
   body.acessorios .accessories-calc-panel {
     height: 520px !important;
@@ -2938,6 +2956,15 @@ body.acessorios .accessory-card-info p {
     overflow-y: auto !important;
     overflow-x: hidden !important;
     padding-bottom: 32px !important;
+    box-sizing: border-box !important;
+  }
+
+  body.acessorios .accessories-right {
+    overflow: visible !important;
+  }
+
+  body.acessorios .accessories-calc-panel {
+    width: 100% !important;
   }
 }
 
@@ -2969,5 +2996,14 @@ body.acessorios .accessory-card-info p {
     min-height: 0 !important;
     max-height: none !important;
     overflow: visible !important;
+  }
+
+  body.acessorios .accessory-section-head {
+    flex-wrap: wrap !important;
+  }
+
+  body.acessorios .accessories-filter-box {
+    width: 100% !important;
+    max-width: none !important;
   }
 }
