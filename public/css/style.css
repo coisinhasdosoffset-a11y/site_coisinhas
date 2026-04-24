@@ -2128,3 +2128,63 @@ body.items-fight .barragem-header::after {
     flex-direction: column;
   }
 }
+/* ===== BARRAGEM - SCROLL INTERNO CORRETO ===== */
+@media (min-width: 1101px) {
+
+  /* Faz a página ocupar o ecrã */
+  body.barragem main.page {
+    height: calc(100vh - 76px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Container principal */
+  body.barragem .barragem-shell {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  /* Header fixo em cima */
+  body.barragem .barragem-header {
+    flex-shrink: 0;
+  }
+
+  /* Grid ocupa o resto */
+  body.barragem .barragem-grid {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  /* Colunas */
+  body.barragem .barragem-left,
+  body.barragem .barragem-right {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 👇 LISTA COM SCROLL */
+  body.barragem .loot-list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+
+  /* 👇 DIREITA MESMA ALTURA */
+  body.barragem .calc-panel {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  /* 👇 NÃO DEIXA OS CARDS ENCOLHER */
+  body.barragem .loot-card {
+    flex-shrink: 0;
+  }
+}
