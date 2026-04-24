@@ -2680,27 +2680,23 @@ body.armas .weapon-section.active {
   }
 }
 
+/* ===== ACESSÓRIOS - FIX DEFINITIVO: ALTURA, SCROLL E CORES ===== */
 
-/* =====================================================================
-   FIX FINAL - ACESSÓRIOS: CORES POR CATEGORIA + ALTURA + SCROLL
-   Este bloco fica no fim para sobrescrever regras antigas sem partir
-   Barragem, Armas, Carregadores ou Items Fight.
-===================================================================== */
-
-/* botões do painel superior */
+/* Botões/categorias com cores consistentes */
 .accessory-tab-btn,
 .accessory-filter-btn {
   width: 100% !important;
-  display: block !important;
-  text-align: left !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 46px !important;
+  padding: 12px 14px !important;
   border-radius: 12px !important;
   border: 1px solid rgba(255,255,255,0.12) !important;
-  padding: 12px 14px !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+  text-align: left !important;
   cursor: pointer !important;
-  transition: 0.22s ease !important;
-  background: rgba(255,255,255,0.06) !important;
+  transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 .accessory-tab-btn:hover,
@@ -2720,7 +2716,7 @@ body.armas .weapon-section.active {
 .accessory-tab-btn.active[data-filter="Pistola"],
 .accessory-filter-btn.active[data-filter="Pistola"] {
   background: linear-gradient(135deg, #009dff, #0047cc) !important;
-  box-shadow: 0 10px 22px rgba(0, 140, 255, 0.22) !important;
+  box-shadow: 0 10px 24px rgba(0, 140, 255, 0.24) !important;
 }
 
 /* SMG - dourado */
@@ -2734,7 +2730,7 @@ body.armas .weapon-section.active {
 .accessory-tab-btn.active[data-filter="SMG"],
 .accessory-filter-btn.active[data-filter="SMG"] {
   background: linear-gradient(135deg, #f0c94d, #b8860b) !important;
-  box-shadow: 0 10px 22px rgba(235, 195, 80, 0.20) !important;
+  box-shadow: 0 10px 24px rgba(235, 195, 80, 0.20) !important;
 }
 
 /* Rifle - verde */
@@ -2748,7 +2744,7 @@ body.armas .weapon-section.active {
 .accessory-tab-btn.active[data-filter="Rifle"],
 .accessory-filter-btn.active[data-filter="Rifle"] {
   background: linear-gradient(135deg, #5abe6e, #1f7a35) !important;
-  box-shadow: 0 10px 22px rgba(90, 190, 110, 0.20) !important;
+  box-shadow: 0 10px 24px rgba(90, 190, 110, 0.20) !important;
 }
 
 /* Shotgun - vermelho */
@@ -2762,13 +2758,17 @@ body.armas .weapon-section.active {
 .accessory-tab-btn.active[data-filter="Shotgun"],
 .accessory-filter-btn.active[data-filter="Shotgun"] {
   background: linear-gradient(135deg, #ff4b3e, #a80000) !important;
-  box-shadow: 0 10px 22px rgba(220, 70, 60, 0.22) !important;
+  box-shadow: 0 10px 24px rgba(220, 70, 60, 0.22) !important;
 }
 
-/* cards dos acessórios - não ficam achatados */
+/* Cards com tamanho normal, sem achatar */
 body.acessorios .accessory-card {
-  min-height: 122px !important;
+  min-height: 132px !important;
+  height: auto !important;
+  flex: 0 0 auto !important;
   flex-shrink: 0 !important;
+  padding: 22px !important;
+  align-items: center !important;
 }
 
 body.acessorios .accessory-card-info h3 {
@@ -2776,10 +2776,17 @@ body.acessorios .accessory-card-info h3 {
 }
 
 body.acessorios .accessory-card-info p {
-  line-height: 1.55 !important;
+  line-height: 1.6 !important;
 }
 
-/* deixa a página dos acessórios respirar mais */
+/* Títulos de grupo também não encolhem */
+body.acessorios .accessory-group-title {
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
+  margin-top: 8px !important;
+}
+
+/* Desktop: página pode ter scroll, mas a lista continua com scroll interno */
 @media (min-width: 1101px) {
   body.acessorios {
     height: auto !important;
@@ -2795,7 +2802,7 @@ body.acessorios .accessory-card-info p {
     overflow: visible !important;
     display: block !important;
     padding-top: 18px !important;
-    padding-bottom: 70px !important;
+    padding-bottom: 80px !important;
   }
 
   body.acessorios .accessories-page {
@@ -2808,21 +2815,18 @@ body.acessorios .accessory-card-info p {
 
   body.acessorios .accessories-hero {
     flex-shrink: 0 !important;
-  }
-  
-  body.acessorios .accessory-card {
-    min-height: 130px !important;
-    flex-shrink: 0 !important;
+    margin-bottom: 0 !important;
   }
 
-  body.acessorios .accessories-list {
-    padding-bottom: 30px !important;
-    gap: 16px !important;
-  }
-  
+  /*
+    Altura mais confortável:
+    - não fica pequenina
+    - permite ver pelo menos 3 botões "Adicionar"
+    - se o ecrã for baixo, a página ganha scroll
+  */
   body.acessorios .accessories-layout {
-    height: calc(100vh - 260px) !important;
-    min-height: 600px !important;
+    height: 860px !important;
+    min-height: 860px !important;
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 24px !important;
@@ -2840,9 +2844,8 @@ body.acessorios .accessory-card-info p {
   }
 
   body.acessorios .accessory-section {
-    flex: 1 !important;
-    min-height: 0 !important;
     height: 100% !important;
+    min-height: 0 !important;
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
@@ -2855,38 +2858,49 @@ body.acessorios .accessory-card-info p {
     flex-shrink: 0 !important;
   }
 
+  body.acessorios .accessory-section-head {
+    margin-bottom: 20px !important;
+  }
+
   body.acessorios .accessories-list {
-    flex: 1 !important;
-    min-height: 0 !important;
+    flex: 1 1 auto !important;
+    min-height: 520px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     padding-right: 8px !important;
-    padding-bottom: 22px !important;
+    padding-bottom: 28px !important;
   }
 
   body.acessorios .accessories-calc-panel {
-    flex: 1 !important;
-    min-height: 0 !important;
     height: 100% !important;
+    min-height: 0 !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    padding-bottom: 30px !important;
+    padding-bottom: 32px !important;
   }
 }
 
+/* Mobile/tablet: volta ao scroll normal da página */
 @media (max-width: 1100px) {
   body.acessorios {
     overflow-y: auto !important;
+    height: auto !important;
   }
 
+  body.acessorios main.page,
+  body.acessorios .accessories-page,
   body.acessorios .accessories-layout,
   body.acessorios .accessories-left,
   body.acessorios .accessories-right,
+  body.acessorios .accessory-section,
   body.acessorios .accessories-list,
   body.acessorios .accessories-calc-panel {
     height: auto !important;
+    min-height: 0 !important;
     max-height: none !important;
     overflow: visible !important;
   }
 }
-
