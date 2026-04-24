@@ -2324,52 +2324,77 @@ body.items-fight .barragem-header::after {
   background: linear-gradient(135deg, #9b5cff, #5a2bd6);
 }
 
-.weapon-section {
+body.armas .weapon-section {
   display: none;
 }
 
-.weapon-section.active {
-  display: block;
+body.armas .weapon-section.active {
+  display: flex;
+  flex-direction: column;
 }
-/* ===== ARMAS - FIX TABS / ALTURA / SCROLL ===== */
+/* ===== ARMAS - TABS COM SCROLL INTERNO CORRETO ===== */
 @media (min-width: 1101px) {
+  body.armas {
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.armas .topbar {
+    flex-shrink: 0;
+  }
+
   body.armas main.page {
+    flex: 1 !important;
+    min-height: 0 !important;
     height: auto !important;
-    min-height: calc(100vh - 76px) !important;
-    padding-bottom: 60px !important;
-    overflow: visible !important;
+    overflow: hidden !important;
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   body.armas .weapons-page {
-    height: auto !important;
+    flex: 1 !important;
     min-height: 0 !important;
+    height: auto !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 28px !important;
+    gap: 20px !important;
+  }
+
+  body.armas .weapons-hero {
+    flex-shrink: 0 !important;
+    margin-bottom: 0 !important;
   }
 
   body.armas .weapons-layout {
-    height: 560px !important;
-    min-height: 560px !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 24px !important;
     align-items: stretch !important;
-    overflow: visible !important;
+    overflow: hidden !important;
   }
 
   body.armas .weapons-left,
   body.armas .weapons-right {
     min-height: 0 !important;
-    height: 100% !important;
+    height: auto !important;
     overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
   }
 
   body.armas .weapon-section {
-    height: 100% !important;
+    display: none !important;
+    flex: 1 !important;
     min-height: 0 !important;
+    height: auto !important;
     overflow: hidden !important;
   }
 
@@ -2378,18 +2403,27 @@ body.items-fight .barragem-header::after {
     flex-direction: column !important;
   }
 
+  body.armas .weapon-section-head,
+  body.armas .weapon-section-tag,
+  body.armas .weapon-section h2 {
+    flex-shrink: 0 !important;
+  }
+
   body.armas .weapons-list {
     flex: 1 !important;
     min-height: 0 !important;
     overflow-y: auto !important;
+    overflow-x: hidden !important;
     padding-right: 8px !important;
-    padding-bottom: 16px !important;
+    padding-bottom: 18px !important;
   }
 
   body.armas .weapon-calc-panel {
-    height: 100% !important;
+    flex: 1 !important;
     min-height: 0 !important;
+    height: auto !important;
     overflow-y: auto !important;
+    overflow-x: hidden !important;
     padding-bottom: 28px !important;
   }
 
