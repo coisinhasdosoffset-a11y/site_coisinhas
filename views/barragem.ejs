@@ -240,38 +240,35 @@
     const grossTotal = document.getElementById('grossTotal');
     const finalTotal = document.getElementById('finalTotal');
     const percentInput = document.getElementById('percentInput');
-    const clearBtn = document.getElementById('clearBarragemBtn');
     const saveBtn = document.getElementById('saveBarragemBtn');
+    const clearBtn = document.getElementById('clearBarragemBtn');
     const saveMessage = document.getElementById('saveMessage');
     const filter = document.getElementById('barragemFilter');
 
-    const formatMoney = (value) => new Intl.NumberFormat('pt-PT').format(Number(value || 0)) + '€';
+    const formatMoney = value => new Intl.NumberFormat('pt-PT').format(Number(value || 0)) + '€';
 
-    function escapeHtml(value) {
-      return String(value)
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
-    }
-
-    function getTotals() {
-      const gross = Object.values(items).reduce((sum, item) => sum + item.price * item.qty, 0);
-      const percent = Math.min(100, Math.max(0, Number(percentInput.value || 0)));
-      const final = gross - (gross * percent / 100);
-      return { gross, percent, final };
+    function findItemTypeByName(name) {
+      const card = document.querySelector(`.loot-card[data-name="${CSS.escape(name)}"]`);
+      return card ? card.dataset.type : 'Guardado';
     }
 
     function updateTotals() {
-      Object.values(items).forEach((item) => {
-        const totalEl = calcItems.querySelector(`[data-total-for="${CSS.escape(item.name)}"]`);
-        if (totalEl) totalEl.textContent = formatMoney(item.price * item.qty);
+      let gross = 0;
+
+      Object.values(items).forEach(item => {
+        gross += Number(item.price || 0) * Number(item.qty || 0);
+
+        const totalEl = document.querySelector(`[data-total-for="${CSS.escape(item.name)}"]`);
+        if (totalEl) {
+          totalEl.textContent = formatMoney(Number(item.price || 0) * Number(item.qty || 0));
+        }
       });
 
-      const totals = getTotals();
-      grossTotal.textContent = formatMoney(totals.gross);
-      finalTotal.textContent = formatMoney(totals.final);
+      const percent = Number(percentInput.value || 0);
+      const final = gross - (gross * percent / 100);
+
+      grossTotal.textContent = formatMoney(gross);
+      finalTotal.textContent = formatMoney(final);
     }
 
     function renderItems() {
@@ -288,21 +285,21 @@
         return;
       }
 
-      calcItems.innerHTML = values.map((item) => `
-        <div class="calc-item" data-calc-item="${escapeHtml(item.name)}">
+      calcItems.innerHTML = values.map(item => `
+        <div class="calc-item" data-calc-item="${item.name}">
           <div class="calc-item-top">
             <div>
-              <h3>${escapeHtml(item.name)}</h3>
-              <p>${escapeHtml(item.type)} • ${formatMoney(item.price)}</p>
+              <h3>${item.name}</h3>
+              <p>${item.type} • ${formatMoney(item.price)}</p>
             </div>
-            <strong class="calc-item-total" data-total-for="${escapeHtml(item.name)}">
-              ${formatMoney(item.price * item.qty)}
+            <strong class="calc-item-total" data-total-for="${item.name}">
+              ${formatMoney(Number(item.price || 0) * Number(item.qty || 0))}
             </strong>
           </div>
 
           <div class="calc-item-controls">
-            <input class="qty-input" type="number" min="1" value="${item.qty}" data-name="${escapeHtml(item.name)}" />
-            <button type="button" class="remove-btn" data-name="${escapeHtml(item.name)}">Remover</button>
+            <input class="qty-input" type="number" min="1" value="${item.qty}" data-name="${item.name}">
+            <button type="button" class="remove-btn" data-name="${item.name}">Remover</button>
           </div>
         </div>
       `).join('');
@@ -310,74 +307,83 @@
       updateTotals();
     }
 
-    document.addEventListener('click', (event) => {
-      const addBtn = event.target.closest('.add-item-btn');
+    const savedItems = window.BARRAGEM_CALCULOS || [];
+
+    if (Array.isArray(savedItems) && savedItems.length > 0) {
+      savedItems.forEach(item => {
+        items[item.nome_item] = {
+          name: item.nome_item,
+          type: findItemTypeByName(item.nome_item),
+          price: Number(item.valor_unitario || 0),
+          qty: Number(item.quantidade || 1)
+        };
+      });
+
+      percentInput.value = Number(savedItems[0].percentagem || 0);
+      renderItems();
+    }
+
+    document.addEventListener('click', e => {
+      const addBtn = e.target.closest('.add-item-btn');
+
       if (addBtn) {
         const card = addBtn.closest('.loot-card');
         const name = card.dataset.name;
-        const type = card.dataset.type;
-        const price = Number(card.dataset.price || 0);
 
         if (!items[name]) {
-          items[name] = { name, type, price, qty: 1 };
+          items[name] = {
+            name,
+            type: card.dataset.type,
+            price: Number(card.dataset.price),
+            qty: 1
+          };
+
           renderItems();
         } else {
           items[name].qty += 1;
-          const input = calcItems.querySelector(`.qty-input[data-name="${CSS.escape(name)}"]`);
+
+          const input = document.querySelector(`.qty-input[data-name="${CSS.escape(name)}"]`);
           if (input) input.value = items[name].qty;
+
           updateTotals();
         }
+
+        saveMessage.textContent = '';
       }
 
-      const removeBtn = event.target.closest('.remove-btn');
+      const removeBtn = e.target.closest('.remove-btn');
+
       if (removeBtn) {
         delete items[removeBtn.dataset.name];
         renderItems();
+        saveMessage.textContent = '';
       }
     });
 
-    calcItems.addEventListener('input', (event) => {
-      if (!event.target.classList.contains('qty-input')) return;
+    calcItems.addEventListener('input', e => {
+      if (!e.target.classList.contains('qty-input')) return;
 
-      const name = event.target.dataset.name;
-      if (!items[name]) return;
+      const name = e.target.dataset.name;
+      const value = Number(e.target.value || 1);
 
-      const rawValue = event.target.value;
-      const qty = rawValue === '' ? 0 : Number(rawValue);
-      items[name].qty = Math.max(0, qty);
+      items[name].qty = Math.max(1, value);
       updateTotals();
+      saveMessage.textContent = '';
     });
 
-    calcItems.addEventListener('blur', (event) => {
-      if (!event.target.classList.contains('qty-input')) return;
-
-      const name = event.target.dataset.name;
-      if (!items[name]) return;
-
-      if (!event.target.value || Number(event.target.value) < 1) {
-        event.target.value = 1;
-        items[name].qty = 1;
-        updateTotals();
-      }
-    }, true);
-
-    percentInput.addEventListener('input', updateTotals);
-
-    clearBtn.addEventListener('click', () => {
-      Object.keys(items).forEach((key) => delete items[key]);
-      percentInput.value = 0;
-      renderItems();
+    percentInput.addEventListener('input', () => {
+      updateTotals();
       saveMessage.textContent = '';
     });
 
     saveBtn.addEventListener('click', async () => {
-      const totals = getTotals();
       const payload = {
-        modulo: 'barragem',
-        items: Object.values(items),
-        percentagem: totals.percent,
-        totalBruto: totals.gross,
-        totalFinal: totals.final
+        percentagem: Number(percentInput.value || 0),
+        items: Object.values(items).map(item => ({
+          nome: item.name,
+          valor: Number(item.price || 0),
+          quantidade: Number(item.qty || 0)
+        }))
       };
 
       if (!payload.items.length) {
@@ -388,29 +394,54 @@
       saveMessage.textContent = 'A guardar...';
 
       try {
-        const response = await fetch('/barragem/guardar', {
+        const res = await fetch('/barragem/save', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(payload)
         });
 
-        if (!response.ok) throw new Error('Erro ao guardar');
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+          throw new Error(data.message || 'Erro ao guardar.');
+        }
 
         saveMessage.textContent = 'Guardado com sucesso.';
-      } catch (error) {
-        localStorage.setItem('barragem_ultimo_calculo', JSON.stringify(payload));
-        saveMessage.textContent = 'Guardado localmente. Falta confirmar a rota POST /barragem/guardar no backend.';
+      } catch (err) {
+        console.error(err);
+        saveMessage.textContent = 'Erro ao guardar.';
       }
     });
 
-    filter.addEventListener('change', () => {
-      const selected = filter.value;
+    clearBtn.addEventListener('click', async () => {
+      Object.keys(items).forEach(key => delete items[key]);
+      percentInput.value = 0;
+      renderItems();
 
-      document.querySelectorAll('.loot-card').forEach((card) => {
-        const type = card.dataset.type || '';
-        card.style.display = selected === 'Todos' || type.includes(selected) ? '' : 'none';
-      });
+      try {
+        await fetch('/barragem/clear', { method: 'POST' });
+        saveMessage.textContent = 'Limpo com sucesso.';
+      } catch (err) {
+        console.error(err);
+        saveMessage.textContent = 'Erro ao limpar.';
+      }
     });
+
+    if (filter) {
+      filter.addEventListener('change', () => {
+        const selected = filter.value;
+
+        document.querySelectorAll('.loot-card').forEach(card => {
+          const type = card.dataset.type || '';
+          card.style.display =
+            selected === 'Todos' || type.includes(selected)
+              ? ''
+              : 'none';
+        });
+      });
+    }
   });
 </script>
 
