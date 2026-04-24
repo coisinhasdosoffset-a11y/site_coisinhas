@@ -3036,3 +3036,44 @@ body.acessorios .accessory-section h2 {
   border-color: rgba(0,140,255,0.55) !important;
   box-shadow: 0 10px 24px rgba(0,140,255,0.24) !important;
 }
+
+/* ===== ACESSÓRIOS - FILTROS AZUL/CINZENTO FINAL ===== */
+.accessories-mini-panel .accessory-filter-btn,
+.accessories-mini-panel .accessory-filter-btn[data-filter],
+.accessories-mini-panel .accessory-filter-btn[data-filter="Pistola"],
+.accessories-mini-panel .accessory-filter-btn[data-filter="SMG"],
+.accessories-mini-panel .accessory-filter-btn[data-filter="Rifle"],
+.accessories-mini-panel .accessory-filter-btn[data-filter="Shotgun"] {
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  min-height: 46px !important;
+  padding: 12px 14px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  font-weight: 800 !important;
+  text-align: left !important;
+  transition: 0.22s ease !important;
+  box-shadow: none !important;
+}
+
+.accessories-mini-panel .accessory-filter-btn:hover,
+.accessories-mini-panel .accessory-filter-btn[data-filter]:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+  transform: translateY(-1px) !important;
+}
+
+.accessories-mini-panel .accessory-filter-btn.active,
+.accessories-mini-panel .accessory-filter-btn.active[data-filter],
+.accessories-mini-panel .accessory-filter-btn.active[data-filter="Pistola"],
+.accessories-mini-panel .accessory-filter-btn.active[data-filter="SMG"],
+.accessories-mini-panel .accessory-filter-btn.active[data-filter="Rifle"],
+.accessories-mini-panel .accessory-filter-btn.active[data-filter="Shotgun"] {
+  background: linear-gradient(135deg, #009dff, #0047cc) !important;
+  border-color: rgba(0, 140, 255, 0.55) !important;
+  box-shadow: 0 10px 24px rgba(0, 140, 255, 0.24) !important;
+  color: #ffffff !important;
+}
