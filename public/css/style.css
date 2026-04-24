@@ -2809,10 +2809,20 @@ body.acessorios .accessory-card-info p {
   body.acessorios .accessories-hero {
     flex-shrink: 0 !important;
   }
+  
+  body.acessorios .accessory-card {
+    min-height: 130px !important;
+    flex-shrink: 0 !important;
+  }
 
+  body.acessorios .accessories-list {
+    padding-bottom: 30px !important;
+    gap: 16px !important;
+  }
+  
   body.acessorios .accessories-layout {
-    height: 720px !important;
-    min-height: 720px !important;
+    height: calc(100vh - 260px) !important;
+    min-height: 600px !important;
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 24px !important;
