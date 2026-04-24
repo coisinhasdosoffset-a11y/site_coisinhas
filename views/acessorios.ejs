@@ -14,10 +14,10 @@
     <div class="accessories-hero-side">
       <div class="accessories-mini-panel glass">
         <strong>Filtro por arma</strong>
-        <button type="button" class="accessory-tab-btn active" data-categoria="Pistola">Pistola</button>
-        <button type="button" class="accessory-tab-btn" data-categoria="SMG">SMG</button>
-        <button type="button" class="accessory-tab-btn" data-categoria="Rifle">Rifle</button>
-        <button type="button" class="accessory-tab-btn" data-categoria="Shotgun">Shotgun</button>
+        <span>Pistola</span>
+        <span>SMG</span>
+        <span>Rifle</span>
+        <span>Shotgun</span>
       </div>
     </div>
   </div>
@@ -27,8 +27,8 @@
       <section class="accessory-section glass">
         <div class="accessory-section-head">
           <div>
-            <span class="accessory-section-tag">Catálogo</span>
-            <h2>Acessórios disponíveis</h2>
+            <span class="accessory-section-tag">Secção 3</span>
+            <h2>Acessórios</h2>
           </div>
 
           <div class="filter-box accessories-filter-box">
@@ -55,7 +55,7 @@
         </div>
 
         <div class="accessories-list" id="accessories-list">
-          <div class="accessory-group-title pistola-title" data-categoria-title="Pistola">Pistola</div>
+          <div class="accessory-group-title pistola-title">Pistola</div>
 
           <div class="accessory-card glass accessory-item" data-categoria="Pistola" data-armas="Fajuta|Revolver" data-nome="Compensator" data-recursos='{"dinheiroSujo":1500,"aluminio":2,"plastico":0,"aco":2,"restos":0}'>
             <div class="accessory-card-info">
@@ -112,7 +112,7 @@
             </div>
           </div>
 
-          <div class="accessory-group-title smg-title" data-categoria-title="SMG">SMG</div>
+          <div class="accessory-group-title smg-title">SMG</div>
 
           <div class="accessory-card glass accessory-item" data-categoria="SMG" data-armas="Uzi|PDW|Thompson|P90" data-nome="Extended Clip" data-recursos='{"dinheiroSujo":6000,"aluminio":7,"plastico":7,"aco":0,"restos":0}'>
             <div class="accessory-card-info">
@@ -180,7 +180,7 @@
             </div>
           </div>
 
-          <div class="accessory-group-title rifle-title" data-categoria-title="Rifle">Rifle</div>
+          <div class="accessory-group-title rifle-title">Rifle</div>
 
           <div class="accessory-card glass accessory-item" data-categoria="Rifle" data-armas="AK|Famas|TAR" data-nome="Extended Clip" data-recursos='{"dinheiroSujo":10000,"aluminio":12,"plastico":12,"aco":0,"restos":0}'>
             <div class="accessory-card-info">
@@ -248,7 +248,7 @@
             </div>
           </div>
 
-          <div class="accessory-group-title shotgun-title" data-categoria-title="Shotgun">Shotgun</div>
+          <div class="accessory-group-title shotgun-title">Shotgun</div>
 
           <div class="accessory-card glass accessory-item" data-categoria="Shotgun" data-armas="Combat Shotgun" data-nome="Flashlight" data-recursos='{"dinheiroSujo":1000,"aluminio":0,"plastico":0,"aco":0,"restos":1}'>
             <div class="accessory-card-info">
@@ -331,9 +331,6 @@
   const accClearBtn = document.getElementById('acc-clear-btn');
   const accSaveMessage = document.getElementById('acc-save-message');
   const acessorioArmaFilter = document.getElementById('acessorio-arma-filter');
-  const accessoryTabButtons = document.querySelectorAll('.accessory-tab-btn');
-  const accessoryGroupTitles = document.querySelectorAll('[data-categoria-title]');
-  let categoriaAtiva = 'Pistola';
 
   const accTotalDinheiro = document.getElementById('acc-total-dinheiro');
   const accTotalAluminio = document.getElementById('acc-total-aluminio');
@@ -403,13 +400,7 @@
 
         if (limpo !== '') {
           selecionados[key].quantidade = parseInt(limpo, 10);
-          const recursosEl = document.querySelector(`[data-recursos-for="${CSS.escape(key)}"]`);
-          if (recursosEl) {
-            recursosEl.textContent = textoRecursosAcessorios(selecionados[key].recursos, selecionados[key].quantidade);
-          }
-          const totalEl = document.querySelector(`[data-acc-total-for="${CSS.escape(key)}"]`);
-          if (totalEl) totalEl.textContent = `${selecionados[key].quantidade}x`;
-          atualizarResumoAcessorios();
+          renderCalcAcessorios();
         }
       });
 
@@ -417,14 +408,7 @@
         const key = e.target.dataset.key;
         if (!e.target.value || Number(e.target.value) < 1) {
           selecionados[key].quantidade = 1;
-          e.target.value = 1;
-          const recursosEl = document.querySelector(`[data-recursos-for="${CSS.escape(key)}"]`);
-          if (recursosEl) {
-            recursosEl.textContent = textoRecursosAcessorios(selecionados[key].recursos, selecionados[key].quantidade);
-          }
-          const totalEl = document.querySelector(`[data-acc-total-for="${CSS.escape(key)}"]`);
-          if (totalEl) totalEl.textContent = `${selecionados[key].quantidade}x`;
-          atualizarResumoAcessorios();
+          renderCalcAcessorios();
         }
       });
     });
@@ -456,10 +440,10 @@
               <h3>${item.nome}</h3>
               <p>${item.categoria}</p>
             </div>
-            <div class="calc-item-total" data-acc-total-for="${item.nome}__${item.categoria}">${item.quantidade}x</div>
+            <div class="calc-item-total">${item.quantidade}x</div>
           </div>
 
-          <p style="margin-bottom: 12px; color: #d7d7d7;" data-recursos-for="${item.nome}__${item.categoria}">
+          <p style="margin-bottom: 12px; color: #d7d7d7;">
             ${textoRecursosAcessorios(item.recursos, item.quantidade)}
           </p>
 
@@ -515,36 +499,19 @@
     });
   });
 
-  function aplicarFiltrosAcessorios() {
-    const arma = acessorioArmaFilter.value;
+  acessorioArmaFilter.addEventListener('change', () => {
+    const valor = acessorioArmaFilter.value;
 
     accessoryItems.forEach(card => {
-      const categoria = card.dataset.categoria;
       const armas = card.dataset.armas.split('|').map(item => item.trim());
-      const passaCategoria = categoria === categoriaAtiva;
-      const passaArma = arma === 'all' || armas.includes(arma);
 
-      card.style.display = passaCategoria && passaArma ? 'flex' : 'none';
-    });
-
-    accessoryGroupTitles.forEach(title => {
-      title.style.display = title.dataset.categoriaTitle === categoriaAtiva ? 'block' : 'none';
-    });
-  }
-
-  accessoryTabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      categoriaAtiva = button.dataset.categoria;
-
-      accessoryTabButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-
-      acessorioArmaFilter.value = 'all';
-      aplicarFiltrosAcessorios();
+      if (valor === 'all' || armas.includes(valor)) {
+        card.style.display = 'flex';
+      } else {
+        card.style.display = 'none';
+      }
     });
   });
-
-  acessorioArmaFilter.addEventListener('change', aplicarFiltrosAcessorios);
 
   accSaveBtn.addEventListener('click', async () => {
     const items = Object.values(selecionados);
@@ -599,7 +566,6 @@
     });
   }
 
-  aplicarFiltrosAcessorios();
   renderCalcAcessorios();
 </script>
 
