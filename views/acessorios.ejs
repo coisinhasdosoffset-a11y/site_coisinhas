@@ -571,61 +571,124 @@
 
 
 
+
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const filterButtons = document.querySelectorAll('.accessory-filter-btn');
   const accessoryCards = document.querySelectorAll('.accessory-card');
   const groupTitles = document.querySelectorAll('.accessory-group-title');
-  const filterSelect = document.querySelector('.accessories-filter-box select, #accessoryFilter, #accessoryFilterSelect, #accessoryWeaponFilter, #acessorioFilter, #acessoriosFilter');
+  const weaponSelect = document.querySelector('.accessories-filter-box select');
 
   function norm(value) {
     return String(value || '').trim().toLowerCase();
   }
 
-  function cardCategory(card) {
-    return card.dataset.categoria || card.dataset.category || card.dataset.weapon || card.dataset.type || '';
+  function getCategory(card) {
+    return card.dataset.categoria || card.dataset.category || card.dataset.type || '';
   }
 
-  function applyAccessoryFilter(selected) {
-    const selectedNorm = norm(selected);
+  function getWeaponText(card) {
+    const text = card.innerText || '';
+    return norm(text);
+  }
 
-    filterButtons.forEach(button => {
-      button.classList.toggle('active', norm(button.dataset.filter) === selectedNorm);
-    });
+  function getActiveCategory() {
+    const activeButton = document.querySelector('.accessory-filter-btn.active');
+    return activeButton ? activeButton.dataset.filter : 'Pistola';
+  }
 
-    if (filterSelect) {
-      Array.from(filterSelect.options).forEach(option => {
-        if (norm(option.value) === selectedNorm || norm(option.textContent) === selectedNorm) {
-          filterSelect.value = option.value;
+  function getSelectedWeapon() {
+    if (!weaponSelect) return 'Todas';
+    const selectedOption = weaponSelect.options[weaponSelect.selectedIndex];
+    return selectedOption ? selectedOption.textContent.trim() : weaponSelect.value;
+  }
+
+  function updateWeaponOptions(category) {
+    if (!weaponSelect) return;
+
+    const current = weaponSelect.value;
+    const options = Array.from(weaponSelect.options);
+
+    options.forEach(option => {
+      const text = norm(option.textContent);
+      const value = norm(option.value);
+
+      if (text === 'todas' || value === 'todas') {
+        option.hidden = false;
+        option.disabled = false;
+        return;
+      }
+
+      let hasMatch = false;
+
+      accessoryCards.forEach(card => {
+        const cardCategory = norm(getCategory(card));
+        const cardText = getWeaponText(card);
+
+        if (cardCategory === norm(category) && cardText.includes(text)) {
+          hasMatch = true;
         }
       });
+
+      option.hidden = !hasMatch;
+      option.disabled = !hasMatch;
+    });
+
+    const selected = weaponSelect.options[weaponSelect.selectedIndex];
+
+    if (!selected || selected.disabled || selected.hidden) {
+      const todas = options.find(option => norm(option.textContent) === 'todas' || norm(option.value) === 'todas');
+      if (todas) {
+        weaponSelect.value = todas.value;
+      } else {
+        const firstAvailable = options.find(option => !option.disabled && !option.hidden);
+        if (firstAvailable) weaponSelect.value = firstAvailable.value;
+      }
+    } else {
+      weaponSelect.value = current;
     }
+  }
+
+  function applyFilters() {
+    const category = getActiveCategory();
+    const weapon = getSelectedWeapon();
+
+    updateWeaponOptions(category);
+
+    const categoryNorm = norm(category);
+    const weaponNorm = norm(weapon);
+    const allWeapons = weaponNorm === 'todas' || weaponNorm === 'todos' || weaponNorm === '';
 
     accessoryCards.forEach(card => {
-      const category = norm(cardCategory(card));
-      card.style.display = category === selectedNorm ? 'flex' : 'none';
+      const cardCategory = norm(getCategory(card));
+      const cardText = getWeaponText(card);
+
+      const matchesCategory = cardCategory === categoryNorm;
+      const matchesWeapon = allWeapons || cardText.includes(weaponNorm);
+
+      card.style.display = matchesCategory && matchesWeapon ? 'flex' : 'none';
     });
 
     groupTitles.forEach(title => {
-      title.style.display = norm(title.textContent) === selectedNorm ? 'block' : 'none';
+      const titleNorm = norm(title.textContent);
+      title.style.display = titleNorm === categoryNorm ? 'block' : 'none';
     });
   }
 
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
-      applyAccessoryFilter(button.dataset.filter);
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      applyFilters();
     });
   });
 
-  if (filterSelect) {
-    filterSelect.addEventListener('change', () => {
-      const selectedText = filterSelect.options[filterSelect.selectedIndex]?.textContent || filterSelect.value;
-      applyAccessoryFilter(selectedText === 'Todas' ? 'Pistola' : selectedText);
-    });
+  if (weaponSelect) {
+    weaponSelect.addEventListener('change', applyFilters);
   }
 
-  const active = document.querySelector('.accessory-filter-btn.active') || document.querySelector('.accessory-filter-btn');
-  if (active) applyAccessoryFilter(active.dataset.filter);
+  applyFilters();
 });
 </script>
 
