@@ -122,84 +122,160 @@
 
 <!-- SCRIPT -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+  window.CURRENT_MODULE = 'barragem';
+  window.BARRAGEM_CALCULOS = <%- JSON.stringify(calculos || []) %>;
 
-  const items = {};
-  const calcItems = document.getElementById('calcItems');
-  const grossTotal = document.getElementById('grossTotal');
-  const finalTotal = document.getElementById('finalTotal');
-  const percentInput = document.getElementById('percentInput');
-  const filter = document.getElementById('barragemFilter');
+  document.addEventListener('DOMContentLoaded', () => {
+    const items = {};
+    const calcItems = document.getElementById('calcItems');
+    const grossTotal = document.getElementById('grossTotal');
+    const finalTotal = document.getElementById('finalTotal');
+    const percentInput = document.getElementById('percentInput');
+    const clearBtn = document.getElementById('clearBarragemBtn');
+    const saveBtn = document.getElementById('saveBarragemBtn');
+    const saveMessage = document.getElementById('saveMessage');
+    const filter = document.getElementById('barragemFilter');
 
-  const format = v => new Intl.NumberFormat('pt-PT').format(v) + '€';
+    const formatMoney = value => new Intl.NumberFormat('pt-PT').format(value) + '€';
 
-  function updateTotals() {
-    let total = 0;
-    Object.values(items).forEach(i => total += i.price * i.qty);
+    function updateTotals() {
+      let gross = 0;
 
-    const percent = Number(percentInput.value || 0);
-    const final = total - (total * percent / 100);
+      Object.values(items).forEach(item => {
+        gross += item.price * item.qty;
+        const totalEl = document.querySelector(`[data-total-for="${CSS.escape(item.name)}"]`);
+        if (totalEl) totalEl.textContent = formatMoney(item.price * item.qty);
+      });
 
-    grossTotal.textContent = format(total);
-    finalTotal.textContent = format(final);
-  }
+      const percent = Number(percentInput.value || 0);
+      const final = gross - (gross * percent / 100);
 
-  function render() {
-    const list = Object.values(items);
-    calcItems.innerHTML = '';
-
-    if (!list.length) {
-      calcItems.innerHTML = `
-        <div class="empty-calc">
-          <span class="empty-dot"></span>
-          Ainda não tens itens adicionados.
-        </div>`;
-      updateTotals();
-      return;
+      grossTotal.textContent = formatMoney(gross);
+      finalTotal.textContent = formatMoney(final);
     }
 
-    list.forEach(i => {
-      calcItems.innerHTML += `
-        <div class="calc-item">
-          <strong>${i.name}</strong> (${i.qty}) - ${format(i.price * i.qty)}
-        </div>`;
-    });
+    function renderItems() {
+      const values = Object.values(items);
 
-    updateTotals();
-  }
-
-  document.addEventListener('click', e => {
-
-    if (e.target.classList.contains('add-item-btn')) {
-      const card = e.target.closest('.loot-card');
-      const name = card.dataset.name;
-
-      if (!items[name]) {
-        items[name] = {
-          name,
-          type: card.dataset.type,
-          price: Number(card.dataset.price),
-          qty: 1
-        };
-      } else {
-        items[name].qty++;
+      if (!values.length) {
+        calcItems.innerHTML = `
+          <div class="empty-calc">
+            <span class="empty-dot"></span>
+            Ainda não tens itens adicionados.
+          </div>
+        `;
+        updateTotals();
+        return;
       }
 
-      render();
+      calcItems.innerHTML = values.map(item => `
+        <div class="calc-item" data-calc-item="${item.name}">
+          <div class="calc-item-top">
+            <div>
+              <h3>${item.name}</h3>
+              <p>${item.type} • ${formatMoney(item.price)}</p>
+            </div>
+            <strong class="calc-item-total" data-total-for="${item.name}">
+              ${formatMoney(item.price * item.qty)}
+            </strong>
+          </div>
+
+          <div class="calc-item-controls">
+            <input class="qty-input" type="number" min="1" value="${item.qty}" data-name="${item.name}">
+            <button type="button" class="remove-btn" data-name="${item.name}">Remover</button>
+          </div>
+        </div>
+      `).join('');
+
+      updateTotals();
+    }
+
+    document.addEventListener('click', e => {
+      const addBtn = e.target.closest('.add-item-btn');
+
+      if (addBtn) {
+        const card = addBtn.closest('.loot-card');
+        const name = card.dataset.name;
+
+        if (!items[name]) {
+          items[name] = {
+            name,
+            type: card.dataset.type,
+            price: Number(card.dataset.price),
+            qty: 1
+          };
+          renderItems();
+        } else {
+          items[name].qty += 1;
+
+          const input = document.querySelector(`.qty-input[data-name="${CSS.escape(name)}"]`);
+          if (input) input.value = items[name].qty;
+
+          updateTotals();
+        }
+      }
+
+      const removeBtn = e.target.closest('.remove-btn');
+
+      if (removeBtn) {
+        delete items[removeBtn.dataset.name];
+        renderItems();
+      }
+    });
+
+    calcItems.addEventListener('input', e => {
+      if (!e.target.classList.contains('qty-input')) return;
+
+      const name = e.target.dataset.name;
+      items[name].qty = Math.max(1, Number(e.target.value || 1));
+
+      updateTotals();
+    });
+
+    percentInput.addEventListener('input', updateTotals);
+
+    clearBtn.addEventListener('click', () => {
+      Object.keys(items).forEach(key => delete items[key]);
+      percentInput.value = 0;
+      renderItems();
+    });
+
+    saveBtn.addEventListener('click', async () => {
+      const payload = {
+        modulo: 'barragem',
+        items: Object.values(items),
+        percentagem: Number(percentInput.value || 0),
+        totalBruto: Number(grossTotal.textContent.replace(/\D/g, '') || 0),
+        totalFinal: Number(finalTotal.textContent.replace(/\D/g, '') || 0)
+      };
+
+      saveMessage.textContent = 'A guardar...';
+
+      try {
+        const res = await fetch('/barragem/guardar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (!res.ok) throw new Error();
+
+        saveMessage.textContent = 'Guardado com sucesso.';
+      } catch {
+        saveMessage.textContent = 'Erro ao guardar. Confirma se existe a rota POST /barragem/guardar.';
+      }
+    });
+
+    if (filter) {
+      filter.addEventListener('change', () => {
+        const selected = filter.value;
+
+        document.querySelectorAll('.loot-card').forEach(card => {
+          const type = card.dataset.type || '';
+          card.style.display = selected === 'Todos' || type.includes(selected) ? '' : 'none';
+        });
+      });
     }
   });
-
-  filter.addEventListener('change', () => {
-    const val = filter.value;
-
-    document.querySelectorAll('.loot-card').forEach(card => {
-      const type = card.dataset.type;
-      card.style.display =
-        val === 'Todos' || type.includes(val) ? '' : 'none';
-    });
-  });
-
-});
 </script>
-
 <%- include('partials/footer') %>
