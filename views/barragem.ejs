@@ -231,8 +231,135 @@
 </section>
 
 <script>
-  window.CURRENT_MODULE = 'barragem';
-  window.BARRAGEM_CALCULOS = <%- JSON.stringify(calculos || []) %>;
+  const barragemItems = {};
+  const calcItems = document.getElementById('calcItems');
+  const grossTotal = document.getElementById('grossTotal');
+  const finalTotal = document.getElementById('finalTotal');
+  const percentInput = document.getElementById('percentInput');
+  const clearBarragemBtn = document.getElementById('clearBarragemBtn');
+  const barragemFilter = document.getElementById('barragemFilter');
+
+  const formatMoney = (value) => {
+    return new Intl.NumberFormat('pt-PT').format(value) + '€';
+  };
+
+  function updateBarragemTotals() {
+    let gross = 0;
+
+    Object.values(barragemItems).forEach(item => {
+      gross += item.price * item.qty;
+    });
+
+    const percent = Number(percentInput?.value || 0);
+    const final = gross - (gross * percent / 100);
+
+    grossTotal.textContent = formatMoney(gross);
+    finalTotal.textContent = formatMoney(final);
+  }
+
+  function renderBarragemItems() {
+    calcItems.innerHTML = '';
+
+    const items = Object.values(barragemItems);
+
+    if (!items.length) {
+      calcItems.innerHTML = `
+        <div class="empty-calc">
+          <span class="empty-dot"></span>
+          Ainda não tens itens adicionados.
+        </div>
+      `;
+      updateBarragemTotals();
+      return;
+    }
+
+    items.forEach(item => {
+      const row = document.createElement('div');
+      row.className = 'calc-item';
+      row.innerHTML = `
+        <div class="calc-item-top">
+          <div>
+            <h3>${item.name}</h3>
+            <p>${item.type} • ${formatMoney(item.price)}</p>
+          </div>
+          <strong class="calc-item-total">${formatMoney(item.price * item.qty)}</strong>
+        </div>
+
+        <div class="calc-item-controls">
+          <input type="number" min="1" value="${item.qty}" data-name="${item.name}" class="qty-input">
+          <button type="button" class="remove-btn" data-name="${item.name}">Remover</button>
+        </div>
+      `;
+
+      calcItems.appendChild(row);
+    });
+
+    updateBarragemTotals();
+  }
+
+  document.querySelectorAll('.add-item-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.loot-card');
+
+      const name = card.dataset.name;
+      const type = card.dataset.type;
+      const price = Number(card.dataset.price);
+
+      if (!barragemItems[name]) {
+        barragemItems[name] = {
+          name,
+          type,
+          price,
+          qty: 1
+        };
+      } else {
+        barragemItems[name].qty += 1;
+      }
+
+      renderBarragemItems();
+    });
+  });
+
+  calcItems.addEventListener('input', (e) => {
+    if (!e.target.classList.contains('qty-input')) return;
+
+    const name = e.target.dataset.name;
+    const qty = Math.max(1, Number(e.target.value || 1));
+
+    barragemItems[name].qty = qty;
+    renderBarragemItems();
+  });
+
+  calcItems.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('remove-btn')) return;
+
+    const name = e.target.dataset.name;
+    delete barragemItems[name];
+
+    renderBarragemItems();
+  });
+
+  percentInput?.addEventListener('input', updateBarragemTotals);
+
+  clearBarragemBtn?.addEventListener('click', () => {
+    Object.keys(barragemItems).forEach(key => delete barragemItems[key]);
+    percentInput.value = 0;
+    renderBarragemItems();
+  });
+
+  barragemFilter?.addEventListener('change', () => {
+    const selected = barragemFilter.value;
+
+    document.querySelectorAll('.loot-card').forEach(card => {
+      const type = card.dataset.type || '';
+
+      if (selected === 'Todos' || type.includes(selected)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
 </script>
 
 <%- include('partials/footer') %>
