@@ -2550,3 +2550,132 @@ body.armas .weapon-section.active {
     flex-shrink: 0 !important;
   }
 }
+
+/* ===== ACESSÓRIOS - FIX FINAL VISUAL / SCROLL / CARDS ===== */
+.accessories-mini-panel .accessory-tab-btn {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-height: 44px !important;
+  padding: 11px 14px !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+}
+
+.accessories-mini-panel .accessory-tab-btn:hover {
+  background: rgba(255, 255, 255, 0.10) !important;
+  transform: translateY(-1px) !important;
+}
+
+.accessories-mini-panel .accessory-tab-btn.active {
+  background: linear-gradient(135deg, #009dff, #0047cc) !important;
+  border-color: rgba(120, 200, 255, 0.32) !important;
+  box-shadow: 0 10px 24px rgba(0, 140, 255, 0.22) !important;
+}
+
+@media (min-width: 1101px) {
+  body.acessorios {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    display: block !important;
+  }
+
+  body.acessorios main.page {
+    height: auto !important;
+    min-height: calc(100vh - 76px) !important;
+    overflow: visible !important;
+    display: block !important;
+    padding-top: 18px !important;
+    padding-bottom: 48px !important;
+  }
+
+  body.acessorios .accessories-page {
+    height: auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+  }
+
+  body.acessorios .accessories-hero {
+    flex-shrink: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  body.acessorios .accessories-layout {
+    height: clamp(520px, calc(100vh - 330px), 680px) !important;
+    min-height: 520px !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+    align-items: stretch !important;
+    overflow: visible !important;
+  }
+
+  body.acessorios .accessories-left,
+  body.acessorios .accessories-right {
+    min-height: 0 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  body.acessorios .accessory-section {
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  body.acessorios .accessory-section-head {
+    flex-shrink: 0 !important;
+    margin-bottom: 18px !important;
+  }
+
+  body.acessorios .accessories-list {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 8px !important;
+    padding-bottom: 18px !important;
+  }
+
+  body.acessorios .accessory-card {
+    min-height: 104px !important;
+    height: auto !important;
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    padding: 20px !important;
+    align-items: center !important;
+  }
+
+  body.acessorios .accessory-group-title {
+    flex: 0 0 auto !important;
+    flex-shrink: 0 !important;
+    margin-top: 6px !important;
+  }
+
+  body.acessorios .accessories-calc-panel {
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-bottom: 28px !important;
+  }
+}
