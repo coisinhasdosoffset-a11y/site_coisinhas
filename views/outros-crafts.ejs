@@ -5,10 +5,7 @@
     <div class="other-crafts-hero-text">
       <span class="other-crafts-badge">Módulo • Outros Crafts</span>
       <h1>Outros Crafts</h1>
-      <p>
-        Escolhe uma área de craft para veres apenas o que precisas. Este menu está preparado
-        para no futuro adicionares mais categorias sem misturar tudo na mesma lista.
-      </p>
+      <p>Escolhe Minas ou Pesca, adiciona itens, ajusta quantidades e calcula automaticamente os valores para Civil ou Parceria.</p>
     </div>
 
     <div class="other-crafts-menu glass">
@@ -16,26 +13,17 @@
 
       <button type="button" class="other-craft-tab active" data-craft="minas">
         <span class="craft-tab-icon">⛏</span>
-        <span>
-          <b>Minas</b>
-          <small>Materiais e recursos de mineração</small>
-        </span>
+        <span><b>Minas</b><small>Itens, recursos e processos</small></span>
       </button>
 
       <button type="button" class="other-craft-tab" data-craft="pesca">
         <span class="craft-tab-icon">🎣</span>
-        <span>
-          <b>Pesca</b>
-          <small>Iscos, peixe e crafts de pesca</small>
-        </span>
+        <span><b>Pesca</b><small>Peixes, ilegal e material</small></span>
       </button>
 
       <button type="button" class="other-craft-tab craft-tab-disabled" disabled>
         <span class="craft-tab-icon">＋</span>
-        <span>
-          <b>Nova área</b>
-          <small>Preparado para adicionares depois</small>
-        </span>
+        <span><b>Nova área</b><small>Preparado para adicionares depois</small></span>
       </button>
     </div>
   </div>
@@ -47,59 +35,28 @@
           <div>
             <span class="craft-section-tag">Secção 1</span>
             <h2>Minas</h2>
-            <p>Crafts relacionados com mineração e transformação de materiais.</p>
+            <p>Seleciona o tipo de preço e adiciona os itens que queres calcular.</p>
+          </div>
+
+          <div class="other-filter-box">
+            <label for="minasPriceMode">Preço</label>
+            <select id="minasPriceMode" class="other-price-mode" data-scope="minas">
+              <option value="civil">Civil</option>
+              <option value="parceria">Parceria</option>
+            </select>
           </div>
         </div>
 
-        <div class="craft-list">
-          <div class="craft-card glass reveal-card" data-name="Pedra Processada" data-type="Minas" data-cost="Pedra Bruta x5" data-result="Pedra Processada x1">
-            <div class="craft-card-info">
-              <span class="craft-type">Minas</span>
-              <h3>Pedra Processada</h3>
-              <p>Transforma pedra bruta num material pronto para outros crafts.</p>
-            </div>
-            <div class="craft-card-side">
-              <strong>Pedra x5</strong>
-              <button type="button" class="other-craft-add-btn">Adicionar</button>
-            </div>
-          </div>
-
-          <div class="craft-card glass reveal-card" data-name="Ferro Fundido" data-type="Minas" data-cost="Minério de Ferro x4" data-result="Ferro Fundido x1">
-            <div class="craft-card-info">
-              <span class="craft-type">Minas</span>
-              <h3>Ferro Fundido</h3>
-              <p>Processa minério de ferro para uso em receitas mais avançadas.</p>
-            </div>
-            <div class="craft-card-side">
-              <strong>Ferro x4</strong>
-              <button type="button" class="other-craft-add-btn">Adicionar</button>
-            </div>
-          </div>
-
-          <div class="craft-card glass reveal-card" data-name="Cobre Refinado" data-type="Minas" data-cost="Minério de Cobre x4" data-result="Cobre Refinado x1">
-            <div class="craft-card-info">
-              <span class="craft-type">Minas</span>
-              <h3>Cobre Refinado</h3>
-              <p>Refina cobre para componentes e receitas especiais.</p>
-            </div>
-            <div class="craft-card-side">
-              <strong>Cobre x4</strong>
-              <button type="button" class="other-craft-add-btn">Adicionar</button>
-            </div>
-          </div>
-
-          <div class="craft-card glass reveal-card" data-name="Barra de Aço" data-type="Minas" data-cost="Ferro Fundido x2 + Carvão x1" data-result="Barra de Aço x1">
-            <div class="craft-card-info">
-              <span class="craft-type">Minas</span>
-              <h3>Barra de Aço</h3>
-              <p>Material avançado para crafts mais pesados.</p>
-            </div>
-            <div class="craft-card-side">
-              <strong>Aço x1</strong>
-              <button type="button" class="other-craft-add-btn">Adicionar</button>
-            </div>
-          </div>
+        <div class="craft-info-panel">
+          <strong>Processos das Minas</strong>
+          <span>Lingote de prata → Prata</span>
+          <span>Lingote de cobre → Cobre</span>
+          <span>Areia → Vidro</span>
+          <span>Minério/Pedra dura → Enxofre e Níquel</span>
+          <span>Pólvora/Pó preto → Pólvora</span>
         </div>
+
+        <div class="craft-list" id="minasList"></div>
       </div>
 
       <div class="craft-section glass" data-craft-section="pesca">
@@ -107,74 +64,49 @@
           <div>
             <span class="craft-section-tag">Secção 2</span>
             <h2>Pesca</h2>
-            <p>Crafts relacionados com pesca, iscos e preparação de peixe.</p>
+            <p>Peixes legais, ilegais, items ilegais e materiais de pesca.</p>
+          </div>
+
+          <div class="other-filter-stack">
+            <div class="other-filter-box">
+              <label for="pescaPriceMode">Preço</label>
+              <select id="pescaPriceMode" class="other-price-mode" data-scope="pesca">
+                <option value="civil">Civil</option>
+                <option value="parceria">Parceria</option>
+              </select>
+            </div>
+
+            <div class="other-filter-box">
+              <label for="pescaCategoryFilter">Categoria</label>
+              <select id="pescaCategoryFilter">
+                <option value="todos">Todos</option>
+                <option value="Peixe">Peixe</option>
+                <option value="Peixe Ilegal">Peixe Ilegal</option>
+                <option value="Item Ilegal">Item Ilegal</option>
+                <option value="Material">Material</option>
+              </select>
+            </div>
           </div>
         </div>
 
-        <div class="craft-list">
-          <div class="craft-card glass reveal-card" data-name="Isca Simples" data-type="Pesca" data-cost="Minhoca x2" data-result="Isca Simples x1">
-            <div class="craft-card-info">
-              <span class="craft-type">Pesca</span>
-              <h3>Isca Simples</h3>
-              <p>Isca básica para começar a pescar.</p>
-            </div>
-            <div class="craft-card-side">
-              <strong>Minhoca x2</strong>
-              <button type="button" class="other-craft-add-btn">Adicionar</button>
-            </div>
-          </div>
-
-          <div class="craft-card glass reveal-card" data-name="Isca Premium" data-type="Pesca" data-cost="Isca Simples x2 + Sardinha x1" data-result="Isca Premium x1">
-            <div class="craft-card-info">
-              <span class="craft-type">Pesca</span>
-              <h3>Isca Premium</h3>
-              <p>Aumenta a qualidade das capturas.</p>
-            </div>
-            <div class="craft-card-side">
-              <strong>Isca x2</strong>
-              <button type="button" class="other-craft-add-btn">Adicionar</button>
-            </div>
-          </div>
-
-          <div class="craft-card glass reveal-card" data-name="Peixe Preparado" data-type="Pesca" data-cost="Peixe x3" data-result="Peixe Preparado x1">
-            <div class="craft-card-info">
-              <span class="craft-type">Pesca</span>
-              <h3>Peixe Preparado</h3>
-              <p>Prepara peixe para venda ou uso em outros crafts.</p>
-            </div>
-            <div class="craft-card-side">
-              <strong>Peixe x3</strong>
-              <button type="button" class="other-craft-add-btn">Adicionar</button>
-            </div>
-          </div>
-
-          <div class="craft-card glass reveal-card" data-name="Caixa de Pesca" data-type="Pesca" data-cost="Peixe Preparado x5 + Isca Premium x2" data-result="Caixa de Pesca x1">
-            <div class="craft-card-info">
-              <span class="craft-type">Pesca</span>
-              <h3>Caixa de Pesca</h3>
-              <p>Pacote final para vender ou guardar materiais de pesca.</p>
-            </div>
-            <div class="craft-card-side">
-              <strong>Caixa x1</strong>
-              <button type="button" class="other-craft-add-btn">Adicionar</button>
-            </div>
-          </div>
-        </div>
+        <div class="craft-list" id="pescaList"></div>
       </div>
     </div>
 
     <div class="other-crafts-right">
       <div class="other-crafts-summary glass">
         <span class="hub-small-badge other-summary-badge">Resumo</span>
-        <h2>Craft selecionado</h2>
-        <p class="section-subtext" style="text-align:left; max-width:none;">
-          Adiciona crafts da esquerda para criares uma lista rápida.
-        </p>
+        <h2>Cálculo atual</h2>
+        <p class="section-subtext" style="text-align:left; max-width:none;">Adiciona itens da esquerda e ajusta as quantidades aqui.</p>
 
         <div class="other-summary-list" id="otherCraftSummary">
-          <div class="empty-calc">
-            <span class="empty-dot"></span>
-            Ainda não adicionaste nenhum craft.
+          <div class="empty-calc"><span class="empty-dot"></span>Ainda não adicionaste nenhum item.</div>
+        </div>
+
+        <div class="other-total-box">
+          <div class="summary-row">
+            <span>Total</span>
+            <strong id="otherCraftTotal">0€</strong>
           </div>
         </div>
 
@@ -188,85 +120,221 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+  const DATA = {
+    minas: [
+      { name: 'Pack safiras', type: 'Minas', civil: 21600, parceria: 23040, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Diamantes', type: 'Minas', civil: 13500, parceria: 14400, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Barras ouro', type: 'Minas', civil: 11250, parceria: 12000, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Anel diamantes', type: 'Minas', civil: 3750, parceria: 4000, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Relógio', type: 'Minas', civil: 2250, parceria: 2400, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Corrente ouro 10k', type: 'Minas', civil: 1500, parceria: 1600, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Correntes', type: 'Minas', civil: 750, parceria: 800, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Safira', type: 'Minas', civil: 1080, parceria: 1152, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Pepita', type: 'Minas', civil: 300, parceria: 320, desc: 'Preço Civil ou Parceria.' }
+    ],
+    pesca: [
+      { group: 'Peixe' },
+      { name: 'Robalo Pequeno', type: 'Peixe', civil: 2880, parceria: 3168, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Garoupa Pequena', type: 'Peixe', civil: 3520, parceria: 3872, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Atum Pequeno', type: 'Peixe', civil: 9600, parceria: 10560, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Robalo Grande', type: 'Peixe', civil: 4800, parceria: 5280, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Garupa Grande', type: 'Peixe', civil: 7520, parceria: 8272, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Atum Grande', type: 'Peixe', civil: 24000, parceria: 26400, desc: 'Preço Civil ou Parceria.' },
+
+      { group: 'Peixe Ilegal' },
+      { name: 'Raia', type: 'Peixe Ilegal', civil: 3510, parceria: 4037, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Polvo', type: 'Peixe Ilegal', civil: 4550, parceria: 5233, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Tubarão Branco', type: 'Peixe Ilegal', civil: 9100, parceria: 10465, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Tubarão Martelo', type: 'Peixe Ilegal', civil: 10400, parceria: 11960, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Orca', type: 'Peixe Ilegal', civil: 65000, parceria: 74750, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Baleia', type: 'Peixe Ilegal', civil: 650000, parceria: 747500, desc: 'Preço Civil ou Parceria.' },
+
+      { group: 'Item Ilegal' },
+      { name: 'Pacote Ilegal', type: 'Item Ilegal', civil: 5860, parceria: 5860, desc: 'Preço único.' },
+      { name: 'Diário De Bordo', type: 'Item Ilegal', civil: 7800, parceria: 7800, desc: 'Preço único.' },
+      { name: 'Baú De Especiarias', type: 'Item Ilegal', civil: 10400, parceria: 10400, desc: 'Preço único.' },
+      { name: 'Bomba 2.ª Guerra', type: 'Item Ilegal', civil: 16900, parceria: 16900, desc: 'Preço único.' },
+      { name: 'Adaga Templária', type: 'Item Ilegal', civil: 28600, parceria: 28600, desc: 'Preço único.' },
+      { name: 'Idolo Inca', type: 'Item Ilegal', civil: 260000, parceria: 260000, desc: 'Preço único.' },
+
+      { group: 'Material' },
+      { name: 'Licença de Pesca', type: 'Material', civil: 50000, parceria: 50000, desc: 'Segunda via: 10.000€.' },
+      { name: 'Minhoca', type: 'Material', civil: 400, parceria: 300, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Armadilha', type: 'Material', civil: 75000, parceria: 45000, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Cana de Pesca', type: 'Material', civil: 80000, parceria: 48000, desc: 'Preço Civil ou Parceria.' },
+      { name: 'Pager', type: 'Material', civil: 40000, parceria: 24000, desc: 'Preço Civil ou Parceria.' }
+    ]
+  };
+
+  const selectedItems = new Map();
   const tabs = document.querySelectorAll('.other-craft-tab:not(.craft-tab-disabled)');
   const sections = document.querySelectorAll('[data-craft-section]');
+  const priceModes = document.querySelectorAll('.other-price-mode');
+  const pescaCategoryFilter = document.getElementById('pescaCategoryFilter');
   const summary = document.getElementById('otherCraftSummary');
+  const totalEl = document.getElementById('otherCraftTotal');
   const clearBtn = document.getElementById('clearOtherCrafts');
 
-  const selectedCrafts = new Map();
+  function formatMoney(value) {
+    return new Intl.NumberFormat('pt-PT').format(Math.round(Number(value || 0))) + '€';
+  }
+
+  function getMode(scope) {
+    const select = document.querySelector(`.other-price-mode[data-scope="${scope}"]`);
+    return select ? select.value : 'civil';
+  }
+
+  function priceFor(item) {
+    const mode = getMode(item.scope);
+    return Number(item.prices[mode] || item.prices.civil || 0);
+  }
+
+  function groupClass(group) {
+    if (group === 'Peixe') return 'pesca-legal-title';
+    if (group === 'Peixe Ilegal') return 'pesca-ilegal-title';
+    if (group === 'Item Ilegal') return 'pesca-items-title';
+    return 'pesca-material-title';
+  }
+
+  function renderLists() {
+    document.getElementById('minasList').innerHTML = DATA.minas.map(item => renderCard({ ...item, scope: 'minas' })).join('');
+
+    document.getElementById('pescaList').innerHTML = DATA.pesca.map(item => {
+      if (item.group) return `<div class="craft-group-title ${groupClass(item.group)}" data-group-title="${item.group}">${item.group === 'Item Ilegal' ? 'Items Ilegais' : item.group}</div>`;
+      return renderCard({ ...item, scope: 'pesca' });
+    }).join('');
+
+    document.querySelectorAll('.other-craft-add-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const card = button.closest('.craft-card');
+        const name = card.dataset.name;
+        const current = selectedItems.get(name);
+
+        selectedItems.set(name, {
+          name,
+          type: card.dataset.type,
+          scope: card.dataset.scope,
+          prices: {
+            civil: Number(card.dataset.civil || 0),
+            parceria: Number(card.dataset.parceria || card.dataset.civil || 0)
+          },
+          qty: current ? current.qty + 1 : 1
+        });
+
+        card.classList.remove('craft-added-pulse');
+        void card.offsetWidth;
+        card.classList.add('craft-added-pulse');
+
+        renderSummary();
+      });
+    });
+
+    updateVisiblePrices();
+    applyPescaFilter();
+  }
+
+  function renderCard(item) {
+    return `
+      <div class="craft-card glass reveal-card" data-scope="${item.scope}" data-category="${item.type}" data-name="${item.name}" data-type="${item.type}" data-civil="${item.civil}" data-parceria="${item.parceria}">
+        <div class="craft-card-info">
+          <span class="craft-type">${item.type}</span>
+          <h3>${item.name}</h3>
+          <p>${item.desc}</p>
+        </div>
+        <div class="craft-card-side">
+          <strong class="craft-price">${formatMoney(item.civil)}</strong>
+          <button type="button" class="other-craft-add-btn">Adicionar</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function updateVisiblePrices() {
+    document.querySelectorAll('.craft-card').forEach(card => {
+      const scope = card.dataset.scope;
+      const mode = getMode(scope);
+      const priceEl = card.querySelector('.craft-price');
+      if (priceEl) priceEl.textContent = formatMoney(card.dataset[mode] || card.dataset.civil);
+    });
+  }
+
+  function applyPescaFilter() {
+    if (!pescaCategoryFilter) return;
+    const selected = pescaCategoryFilter.value;
+
+    document.querySelectorAll('[data-craft-section="pesca"] .craft-card').forEach(card => {
+      card.style.display = selected === 'todos' || card.dataset.category === selected ? 'flex' : 'none';
+    });
+
+    document.querySelectorAll('[data-craft-section="pesca"] [data-group-title]').forEach(title => {
+      title.style.display = selected === 'todos' || title.dataset.groupTitle === selected ? 'block' : 'none';
+    });
+  }
 
   function setActiveCraft(craft) {
     tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.craft === craft));
-
-    sections.forEach(section => {
-      const isActive = section.dataset.craftSection === craft;
-      section.classList.toggle('active', isActive);
-    });
+    sections.forEach(section => section.classList.toggle('active', section.dataset.craftSection === craft));
   }
 
   function renderSummary() {
-    if (!summary) return;
+    const items = Array.from(selectedItems.values());
 
-    if (selectedCrafts.size === 0) {
-      summary.innerHTML = `
-        <div class="empty-calc">
-          <span class="empty-dot"></span>
-          Ainda não adicionaste nenhum craft.
-        </div>
-      `;
+    if (items.length === 0) {
+      summary.innerHTML = `<div class="empty-calc"><span class="empty-dot"></span>Ainda não adicionaste nenhum item.</div>`;
+      totalEl.textContent = '0€';
       return;
     }
 
-    summary.innerHTML = Array.from(selectedCrafts.values()).map(item => `
-      <div class="other-summary-item">
-        <div>
-          <h3>${item.name}</h3>
-          <p>${item.type}</p>
-          <small><b>Custo:</b> ${item.cost}</small>
-          <small><b>Resultado:</b> ${item.result}</small>
+    let total = 0;
+
+    summary.innerHTML = items.map(item => {
+      const unit = priceFor(item);
+      const lineTotal = unit * item.qty;
+      total += lineTotal;
+
+      return `
+        <div class="other-summary-item">
+          <div class="other-summary-top">
+            <div>
+              <h3>${item.name}</h3>
+              <p>${item.type} • ${formatMoney(unit)} unidade</p>
+            </div>
+            <strong>${formatMoney(lineTotal)}</strong>
+          </div>
+          <div class="calc-item-controls">
+            <input type="number" min="1" value="${item.qty}" data-qty-name="${item.name}">
+            <button type="button" class="remove-btn" data-remove-name="${item.name}">Remover</button>
+          </div>
         </div>
-        <strong>${item.qty}x</strong>
-      </div>
-    `).join('');
-  }
+      `;
+    }).join('');
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      setActiveCraft(tab.dataset.craft);
-    });
-  });
+    totalEl.textContent = formatMoney(total);
 
-  document.querySelectorAll('.other-craft-add-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      const card = button.closest('.craft-card');
-      if (!card) return;
-
-      const name = card.dataset.name;
-      const current = selectedCrafts.get(name);
-
-      selectedCrafts.set(name, {
-        name,
-        type: card.dataset.type,
-        cost: card.dataset.cost,
-        result: card.dataset.result,
-        qty: current ? current.qty + 1 : 1
+    summary.querySelectorAll('[data-qty-name]').forEach(input => {
+      input.addEventListener('input', () => {
+        const item = selectedItems.get(input.dataset.qtyName);
+        if (!item) return;
+        item.qty = Math.max(1, Number(input.value || 1));
+        selectedItems.set(item.name, item);
+        renderSummary();
       });
-
-      card.classList.remove('craft-added-pulse');
-      void card.offsetWidth;
-      card.classList.add('craft-added-pulse');
-
-      renderSummary();
     });
-  });
 
-  if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      selectedCrafts.clear();
-      renderSummary();
+    summary.querySelectorAll('[data-remove-name]').forEach(button => {
+      button.addEventListener('click', () => {
+        selectedItems.delete(button.dataset.removeName);
+        renderSummary();
+      });
     });
   }
 
+  tabs.forEach(tab => tab.addEventListener('click', () => setActiveCraft(tab.dataset.craft)));
+  priceModes.forEach(select => select.addEventListener('change', () => { updateVisiblePrices(); renderSummary(); }));
+  if (pescaCategoryFilter) pescaCategoryFilter.addEventListener('change', applyPescaFilter);
+  if (clearBtn) clearBtn.addEventListener('click', () => { selectedItems.clear(); renderSummary(); });
+
+  renderLists();
   setActiveCraft('minas');
   renderSummary();
 });
