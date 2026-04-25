@@ -4679,3 +4679,68 @@ body.outros-crafts .btn-primary{
   background:linear-gradient(135deg,#3b82f6,#2563eb);
   box-shadow:0 0 12px rgba(59,130,246,0.3);
 }
+
+
+
+/* ===== FIX OUTROS CRAFTS CORES + TAMANHO ===== */
+
+body.outros-crafts {
+  --oc-blue: #3b82f6;
+  --oc-blue-dark: #2563eb;
+}
+
+/* BOTÕES */
+body.outros-crafts .add-item-btn,
+body.outros-crafts .weapon-add-btn,
+body.outros-crafts .accessory-add-btn,
+body.outros-crafts .btn-primary {
+  background: linear-gradient(135deg, var(--oc-blue), var(--oc-blue-dark)) !important;
+  border-color: rgba(59,130,246,0.4) !important;
+  box-shadow: 0 0 14px rgba(59,130,246,0.35) !important;
+}
+
+/* FILTROS */
+body.outros-crafts select,
+body.outros-crafts .filter-box select {
+  border-color: rgba(59,130,246,0.35) !important;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.15) inset;
+}
+
+/* BADGES / TAGS */
+body.outros-crafts .barragem-tag,
+body.outros-crafts .mini-panel-badge {
+  background: linear-gradient(135deg, var(--oc-blue), var(--oc-blue-dark)) !important;
+  border-color: rgba(59,130,246,0.4) !important;
+}
+
+/* TAMANHO GERAL */
+@media (min-width:1101px){
+
+  body.outros-crafts .minas-split-layout{
+    height:1050px !important;
+  }
+
+  body.outros-crafts .minas-input-column,
+  body.outros-crafts .minas-result-column{
+    grid-template-rows:480px 1fr !important;
+  }
+
+  body.outros-crafts .process-panel,
+  body.outros-crafts .process-results-panel{
+    height:480px !important;
+  }
+
+  body.outros-crafts .minas-sale-input-panel,
+  body.outros-crafts .minas-sale-result-panel{
+    height:560px !important;
+  }
+
+  body.outros-crafts .process-input-card{
+    height:60px !important;
+  }
+
+  body.outros-crafts .minas-sale-input-panel .craft-card{
+    height:115px !important;
+    flex:0 0 115px !important;
+  }
+}
