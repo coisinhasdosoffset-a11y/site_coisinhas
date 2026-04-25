@@ -4351,3 +4351,91 @@ body.carregadores .carregadores-right {
     justify-self: stretch !important;
   }
 }
+
+/* ===== OUTROS CRAFTS - COMPACTAR CALCULADORA 1 ===== */
+
+/* A Calculadora 1 estava a herdar alturas antigas. Isto força linhas compactas. */
+.process-panel .process-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  overflow-y: auto !important;
+  padding-right: 8px !important;
+}
+
+.process-panel .process-input-card {
+  min-height: 64px !important;
+  height: 64px !important;
+  max-height: 64px !important;
+  flex: 0 0 64px !important;
+  padding: 12px 14px !important;
+  border-radius: 16px !important;
+  display: grid !important;
+  grid-template-columns: 1fr 130px !important;
+  align-items: center !important;
+  gap: 14px !important;
+}
+
+.process-panel .process-input-card label {
+  font-size: 1rem !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.process-panel .process-input-card input {
+  width: 130px !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  padding: 10px 12px !important;
+  margin: 0 !important;
+  justify-self: end !important;
+  border-radius: 12px !important;
+}
+
+/* também reduz um pouco o painel esquerdo para ficar mais elegante */
+@media (min-width: 1101px) {
+  body.outros-crafts .minas-input-column {
+    grid-template-rows: 0.58fr 1.42fr !important;
+  }
+
+  body.outros-crafts .process-panel {
+    min-height: 360px !important;
+  }
+
+  body.outros-crafts .minas-sale-input-panel {
+    min-height: 0 !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  .process-panel .process-input-card {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+  }
+
+  .process-panel .process-input-card input {
+    width: 100% !important;
+    justify-self: stretch !important;
+  }
+}
+
+
+/* ===== CALCULADORA 2 SCROLL FIX ===== */
+
+.minas-sale-input-panel .craft-list {
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.minas-sale-input-panel .craft-card {
+  height: 110px;
+  min-height: 110px;
+  flex: 0 0 110px;
+}
