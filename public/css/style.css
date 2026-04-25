@@ -4097,3 +4097,115 @@ body.carregadores .carregadores-right {
     width: 100%;
   }
 }
+
+/* ===== OUTROS CRAFTS - PROCESSOS FIX + VENDA MAIS LARGA ===== */
+
+/* mais espaço vertical na página */
+@media (min-width: 1101px) {
+  body.outros-crafts .craft-section {
+    min-height: 760px !important;
+  }
+
+  body.outros-crafts .other-crafts-two-panels {
+    min-height: 640px !important;
+    grid-template-columns: 0.95fr 1.25fr !important;
+  }
+
+  body.outros-crafts .process-panel,
+  body.outros-crafts .sale-panel {
+    height: 640px !important;
+    min-height: 640px !important;
+    max-height: 640px !important;
+  }
+
+  body.outros-crafts .sale-layout {
+    grid-template-columns: 1.12fr 1fr !important;
+    gap: 22px !important;
+  }
+
+  body.outros-crafts .craft-card {
+    min-height: 132px !important;
+    height: 132px !important;
+    flex: 0 0 132px !important;
+  }
+}
+
+/* inputs dos processos mais legíveis */
+.process-input-card {
+  grid-template-columns: 1fr 140px 130px !important;
+}
+
+.process-input-card input {
+  background: rgba(0, 0, 0, 0.28) !important;
+}
+
+/* resultados da primeira calculadora */
+.process-result-list {
+  gap: 12px !important;
+}
+
+.process-result-row {
+  grid-template-columns: 1fr 145px 130px !important;
+  gap: 16px !important;
+  padding: 14px !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 16px !important;
+  background: rgba(255,255,255,0.04) !important;
+}
+
+.process-output,
+.process-invoice {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+.process-output span,
+.process-invoice span {
+  color: #cfcfcf;
+  font-size: 0.82rem;
+}
+
+.process-output b,
+.process-invoice b {
+  color: #ffb36b;
+  font-size: 1.05rem;
+}
+
+/* melhora a calculadora 2 para não ficar esmagada */
+.sale-panel .craft-card {
+  padding: 18px 20px !important;
+}
+
+.sale-panel .craft-card-info h3 {
+  font-size: 1.08rem !important;
+}
+
+.sale-panel .craft-card-info p {
+  line-height: 1.45 !important;
+}
+
+.sale-panel .craft-card-side {
+  min-width: 128px !important;
+}
+
+.sale-panel .other-summary-item {
+  padding: 18px !important;
+}
+
+.sale-panel .other-summary-top {
+  align-items: flex-start !important;
+}
+
+@media (max-width: 1100px) {
+  .process-input-card,
+  .process-result-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .process-output,
+  .process-invoice {
+    align-items: flex-start;
+  }
+}
