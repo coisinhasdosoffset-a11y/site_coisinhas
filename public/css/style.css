@@ -5110,3 +5110,61 @@ body.outros-crafts .craft-price {
     flex: 0 0 112px !important;
   }
 }
+
+
+/* ===== PESCA FIX (SCROLL + TAMANHO IGUAL ARMAS) ===== */
+@media (min-width: 1101px) {
+  body.pesca {
+    height: 100dvh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.pesca .topbar {
+    flex-shrink: 0;
+  }
+
+  body.pesca main.page {
+    flex: 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    overflow: hidden !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.pesca .pesca-page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  body.pesca .pesca-layout {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    overflow: hidden;
+  }
+
+  body.pesca .pesca-left,
+  body.pesca .pesca-right {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  body.pesca .pesca-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+
+  body.pesca .pesca-calc {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 8px;
+  }
+}
