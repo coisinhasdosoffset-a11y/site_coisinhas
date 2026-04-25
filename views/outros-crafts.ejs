@@ -46,7 +46,7 @@
         <div>
           <span class="craft-section-tag">Secção 1</span>
           <h2>Minas</h2>
-          <p>Primeiro calcula os processos das minas. Depois, se quiseres, adiciona itens à calculadora de venda.</p>
+          <p>Na esquerda colocas as quantidades e adicionas vendas. Na direita vês todos os resultados.</p>
         </div>
 
         <div class="other-filter-box">
@@ -59,65 +59,77 @@
         </div>
       </div>
 
-      <div class="other-crafts-two-panels">
-        <div class="process-panel glass">
-          <div class="mini-panel-head">
-            <span class="mini-panel-badge">Calculadora 1</span>
-            <h3>Processos das Minas</h3>
-            <p>Indica quanto tens processado e o sistema calcula a fatura individual e total.</p>
+      <div class="minas-split-layout">
+        <div class="minas-input-column">
+          <div class="process-panel glass">
+            <div class="mini-panel-head">
+              <span class="mini-panel-badge">Calculadora 1</span>
+              <h3>Processos</h3>
+              <p>Coloca a quantidade processada de cada recurso.</p>
+            </div>
+
+            <div class="process-grid" id="processInputs"></div>
           </div>
 
-          <div class="process-grid" id="processInputs"></div>
+          <div class="sale-panel glass minas-sale-input-panel">
+            <div class="mini-panel-head">
+              <span class="mini-panel-badge">Calculadora 2</span>
+              <h3>Venda de itens</h3>
+              <p>Adiciona os itens que queres vender.</p>
+            </div>
 
-          <div class="process-results">
+            <div class="craft-list" id="minasSaleList"></div>
+          </div>
+        </div>
+
+        <div class="minas-result-column">
+          <div class="process-results-panel glass">
+            <div class="mini-panel-head">
+              <span class="mini-panel-badge">Resultado 1</span>
+              <h3>Resultado dos processos</h3>
+              <p>Quantidade final depois da percentagem retirada e valor da fatura.</p>
+            </div>
+
             <div class="process-result-head">
-              <strong>Resultado dos processos</strong>
+              <strong>Tipo selecionado</strong>
               <span id="processModeLabel">Civil / Sem equipa</span>
             </div>
 
             <div class="process-result-list" id="processResults"></div>
 
             <div class="summary-row process-total-row">
-              <span>Total processos</span>
+              <span>Total fatura</span>
               <strong id="processTotal">0€</strong>
             </div>
           </div>
-        </div>
 
-        <div class="sale-panel glass">
-          <div class="mini-panel-head">
-            <span class="mini-panel-badge">Calculadora 2</span>
-            <h3>Venda de itens</h3>
-            <p>Adiciona itens, ajusta quantidades e calcula o total conforme o tipo selecionado.</p>
-          </div>
-
-          <div class="sale-layout">
-            <div class="sale-list-wrap">
-              <div class="craft-list" id="minasSaleList"></div>
+          <div class="sale-panel glass minas-sale-result-panel">
+            <div class="mini-panel-head">
+              <span class="mini-panel-badge">Resultado 2</span>
+              <h3>Resultado da venda</h3>
+              <p>Quantidades, valores por unidade e total da venda.</p>
             </div>
 
-            <div class="sale-summary-wrap">
-              <div class="other-summary-list" id="minasSaleSummary">
-                <div class="empty-calc">
-                  <span class="empty-dot"></span>
-                  Ainda não adicionaste nenhum item.
-                </div>
+            <div class="other-summary-list" id="minasSaleSummary">
+              <div class="empty-calc">
+                <span class="empty-dot"></span>
+                Ainda não adicionaste nenhum item.
               </div>
-
-              <div class="other-total-box">
-                <div class="summary-row">
-                  <span>Total venda</span>
-                  <strong id="minasSaleTotal">0€</strong>
-                </div>
-              </div>
-
-              <div class="other-summary-actions">
-                <button type="button" class="btn btn-primary" data-save="minas">Guardar</button>
-                <button type="button" class="btn btn-secondary" data-clear="minas">Limpar</button>
-              </div>
-
-              <div class="save-message" id="minasSaveMessage"></div>
             </div>
+
+            <div class="other-total-box">
+              <div class="summary-row">
+                <span>Total venda</span>
+                <strong id="minasSaleTotal">0€</strong>
+              </div>
+            </div>
+
+            <div class="other-summary-actions">
+              <button type="button" class="btn btn-primary" data-save="minas">Guardar</button>
+              <button type="button" class="btn btn-secondary" data-clear="minas">Limpar</button>
+            </div>
+
+            <div class="save-message" id="minasSaveMessage"></div>
           </div>
         </div>
       </div>
@@ -359,7 +371,6 @@ document.addEventListener('DOMContentLoaded', () => {
     processInputs.innerHTML = PROCESS_RESOURCES.map(resource => `
       <div class="process-input-card">
         <label for="process_${resource.key}">${resource.name}</label>
-        <span>${resource.output}</span>
         <input id="process_${resource.key}" data-process-input="${resource.key}" type="number" min="0" value="0">
       </div>
     `).join('');
@@ -574,9 +585,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('[data-clear]').forEach(button => {
     button.addEventListener('click', () => {
-      selected[button.dataset.clear].clear();
-      localStorage.removeItem(`outrosCrafts_${button.dataset.clear}`);
-      renderSummary(button.dataset.clear);
+      const scope = button.dataset.clear;
+      selected[scope].clear();
+      localStorage.removeItem(`outrosCrafts_${scope}`);
+
+      if (scope === 'minas') {
+        document.querySelectorAll('[data-process-input]').forEach(input => {
+          input.value = 0;
+        });
+        calculateProcesses();
+      }
+
+      renderSummary(scope);
     });
   });
 
