@@ -46,7 +46,7 @@
         <div>
           <span class="craft-section-tag">Secção 1</span>
           <h2>Minas</h2>
-          <p>Primeiro calcula os processos. Depois, se quiseres, adiciona itens à calculadora de venda.</p>
+          <p>Primeiro calcula os processos das minas. Depois, se quiseres, adiciona itens à calculadora de venda.</p>
         </div>
 
         <div class="other-filter-box">
@@ -206,13 +206,6 @@ document.addEventListener('DOMContentLoaded', () => {
       output: 'Enxofre e Níquel',
       invoice: { civil: 0, equipa: 0, parceria: 0 },
       percent: { civil: 35, equipa: 35, parceria: 35 }
-    },
-    {
-      key: 'polvora',
-      name: 'Pólvora/Pó preto',
-      output: 'Pólvora',
-      invoice: { civil: 0, equipa: 0, parceria: 0 },
-      percent: { civil: 15, equipa: 10, parceria: 5 }
     },
     {
       key: 'cobre',
@@ -385,10 +378,11 @@ document.addEventListener('DOMContentLoaded', () => {
     processResults.innerHTML = PROCESS_RESOURCES.map(resource => {
       const input = document.querySelector(`[data-process-input="${resource.key}"]`);
       const qty = Number(input?.value || 0);
-      const percent = resource.percent[currentMode] || 0;
-      const invoiceUnit = resource.invoice[currentMode] || 0;
-      const kept = Math.max(0, Math.floor(qty * (100 - percent) / 100));
-      const removed = Math.max(0, qty - kept);
+      const percent = Number(resource.percent[currentMode] || 0);
+      const invoiceUnit = Number(resource.invoice[currentMode] || 0);
+
+      const finalQty = Math.max(0, Math.floor(qty * (100 - percent) / 100));
+      const removedQty = Math.max(0, qty - finalQty);
       const lineTotal = qty * invoiceUnit;
 
       total += lineTotal;
@@ -397,10 +391,18 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="process-result-row">
           <div>
             <strong>${resource.name}</strong>
-            <small>${qty} un. • retira ${percent}% (${removed}) • fica ${kept}</small>
+            <small>Inserido: ${qty} • Retira: ${percent}% (${removedQty})</small>
           </div>
-          <span>${money(invoiceUnit)} / un.</span>
-          <b>${money(lineTotal)}</b>
+
+          <div class="process-output">
+            <span>${resource.output}</span>
+            <b>${finalQty}</b>
+          </div>
+
+          <div class="process-invoice">
+            <span>Fatura</span>
+            <b>${money(lineTotal)}</b>
+          </div>
         </div>
       `;
     }).join('');
