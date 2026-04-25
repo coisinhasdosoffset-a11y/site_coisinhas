@@ -4896,3 +4896,105 @@ body.outros-crafts .craft-price {
     grid-template-columns: 1fr !important;
   }
 }
+
+/* ===== OUTROS CRAFTS - DEVOLVE SCROLL DA PÁGINA ===== */
+/* Mantém o layout tipo Armas, mas permite scroll vertical da página. */
+
+@media (min-width: 1101px) {
+  body.outros-crafts {
+    height: auto !important;
+    min-height: 100vh !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    display: block !important;
+  }
+
+  body.outros-crafts main.page {
+    height: auto !important;
+    min-height: calc(100vh - 76px) !important;
+    overflow: visible !important;
+    display: block !important;
+    padding-top: 18px !important;
+    padding-bottom: 80px !important;
+  }
+
+  body.outros-crafts .other-crafts-page {
+    height: auto !important;
+    min-height: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    overflow: visible !important;
+  }
+
+  body.outros-crafts .other-crafts-workspace {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  body.outros-crafts .craft-section.active {
+    display: flex !important;
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 760px !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  body.outros-crafts .minas-split-layout {
+    height: auto !important;
+    min-height: 620px !important;
+    max-height: none !important;
+    overflow: visible !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+    align-items: start !important;
+  }
+
+  body.outros-crafts .minas-input-column,
+  body.outros-crafts .minas-result-column {
+    height: auto !important;
+    min-height: 620px !important;
+    max-height: none !important;
+    display: grid !important;
+    grid-template-rows: 300px 430px !important;
+    gap: 24px !important;
+    overflow: visible !important;
+  }
+
+  body.outros-crafts .process-panel,
+  body.outros-crafts .process-results-panel {
+    height: 300px !important;
+    min-height: 300px !important;
+    max-height: 300px !important;
+    overflow: hidden !important;
+  }
+
+  body.outros-crafts .minas-sale-input-panel,
+  body.outros-crafts .minas-sale-result-panel {
+    height: 430px !important;
+    min-height: 430px !important;
+    max-height: 430px !important;
+    overflow: hidden !important;
+  }
+
+  body.outros-crafts .process-grid,
+  body.outros-crafts .process-result-list,
+  body.outros-crafts .minas-sale-input-panel .craft-list,
+  body.outros-crafts .minas-sale-result-panel .other-summary-list {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 8px !important;
+  }
+
+  body.outros-crafts .minas-sale-input-panel .craft-card {
+    min-height: 112px !important;
+    height: 112px !important;
+    flex: 0 0 112px !important;
+  }
+}
