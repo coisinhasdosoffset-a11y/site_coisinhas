@@ -4592,3 +4592,90 @@ body.carregadores .carregadores-right {
 .minas-sale-input-panel .craft-list {
   max-height: none !important;
 }
+
+
+
+/* ===== OUTROS CRAFTS (AZUL - LAYOUT FINAL) ===== */
+
+body.outros-crafts .minas-split-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  height:900px;
+}
+
+body.outros-crafts .minas-input-column,
+body.outros-crafts .minas-result-column{
+  display:grid;
+  grid-template-rows:420px 1fr;
+  gap:24px;
+}
+
+/* PROCESSOS */
+body.outros-crafts .process-panel,
+body.outros-crafts .process-results-panel{
+  height:420px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+body.outros-crafts .process-grid{
+  flex:1;
+  overflow-y:auto;
+  padding-right:8px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+body.outros-crafts .process-input-card{
+  height:52px;
+  display:grid;
+  grid-template-columns:1fr 110px;
+  align-items:center;
+  padding:8px 10px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.03);
+}
+
+body.outros-crafts .process-input-card input{
+  height:36px;
+}
+
+/* RESULTADOS */
+body.outros-crafts .process-result-list{
+  flex:1;
+  overflow-y:auto;
+  padding-right:8px;
+}
+
+/* VENDAS */
+body.outros-crafts .minas-sale-input-panel,
+body.outros-crafts .minas-sale-result-panel{
+  height:480px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+body.outros-crafts .minas-sale-input-panel .craft-list{
+  flex:1;
+  overflow-y:auto;
+  padding-right:8px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+body.outros-crafts .minas-sale-input-panel .craft-card{
+  height:100px;
+  flex:0 0 100px;
+}
+
+/* COR AZUL */
+body.outros-crafts .mini-panel-badge,
+body.outros-crafts .btn-primary{
+  background:linear-gradient(135deg,#3b82f6,#2563eb);
+  box-shadow:0 0 12px rgba(59,130,246,0.3);
+}
