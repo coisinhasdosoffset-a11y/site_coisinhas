@@ -3208,3 +3208,18 @@ body.acessorios .accessory-section h2 {
     overflow: visible !important;
   }
 }
+/* IGUALAR ALTURA DAS COLUNAS */
+body.carregadores .carregadores-layout {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px;
+  align-items: stretch !important; /* 🔥 isto é a chave */
+}
+
+/* cada coluna ocupa toda a altura */
+body.carregadores .carregadores-left,
+body.carregadores .carregadores-right {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
