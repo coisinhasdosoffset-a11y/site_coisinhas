@@ -5168,3 +5168,66 @@ body.outros-crafts .craft-price {
     padding-right: 8px;
   }
 }
+
+/* ===== OUTROS CRAFTS PESCA - SCROLL REAL FIX ===== */
+/* A pesca está dentro do body.outros-crafts, não no body.pesca. */
+
+@media (min-width: 1101px) {
+  body.outros-crafts [data-craft-section="pesca"].craft-section.active {
+    height: auto !important;
+    min-height: 760px !important;
+    overflow: visible !important;
+  }
+
+  body.outros-crafts [data-craft-section="pesca"] .other-crafts-two-panels {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+    align-items: stretch !important;
+    height: 560px !important;
+    min-height: 560px !important;
+    max-height: 560px !important;
+    overflow: hidden !important;
+  }
+
+  body.outros-crafts [data-craft-section="pesca"] .sale-panel {
+    height: 560px !important;
+    min-height: 560px !important;
+    max-height: 560px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  body.outros-crafts [data-craft-section="pesca"] .mini-panel-head {
+    flex: 0 0 auto !important;
+  }
+
+  body.outros-crafts #pescaSaleList,
+  body.outros-crafts #pescaSaleSummary {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 8px !important;
+    padding-bottom: 12px !important;
+  }
+
+  body.outros-crafts #pescaSaleList .craft-card {
+    min-height: 112px !important;
+    height: 112px !important;
+    max-height: 112px !important;
+    flex: 0 0 112px !important;
+  }
+
+  body.outros-crafts #pescaSaleSummary .other-summary-item {
+    flex-shrink: 0 !important;
+  }
+
+  body.outros-crafts [data-craft-section="pesca"] .other-total-box,
+  body.outros-crafts [data-craft-section="pesca"] .other-summary-actions,
+  body.outros-crafts [data-craft-section="pesca"] .save-message {
+    flex: 0 0 auto !important;
+  }
+}
