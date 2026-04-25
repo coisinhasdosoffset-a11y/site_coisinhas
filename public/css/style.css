@@ -4439,3 +4439,156 @@ body.carregadores .carregadores-right {
   min-height: 110px;
   flex: 0 0 110px;
 }
+
+/* ===== OUTROS CRAFTS - ALTURAS FINAIS MINAS ===== */
+
+/*
+  Minas:
+  - Processos e Resultado processos têm a mesma altura.
+  - Vendas e Resultado vendas têm a mesma altura.
+  - A lista de vendas ocupa o máximo do painel e só depois faz scroll.
+*/
+
+@media (min-width: 1101px) {
+  body.outros-crafts .craft-section[data-craft-section="minas"] {
+    min-height: 860px !important;
+  }
+
+  body.outros-crafts .minas-split-layout {
+    min-height: 720px !important;
+    height: 720px !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+    align-items: stretch !important;
+  }
+
+  body.outros-crafts .minas-input-column,
+  body.outros-crafts .minas-result-column {
+    height: 720px !important;
+    min-height: 720px !important;
+    max-height: 720px !important;
+    display: grid !important;
+    grid-template-rows: 330px 1fr !important;
+    gap: 24px !important;
+    overflow: hidden !important;
+  }
+
+  /* Primeira linha: Processos = Resultado processos */
+  body.outros-crafts .process-panel,
+  body.outros-crafts .process-results-panel {
+    height: 330px !important;
+    min-height: 330px !important;
+    max-height: 330px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  /* Segunda linha: Vendas = Resultado vendas */
+  body.outros-crafts .minas-sale-input-panel,
+  body.outros-crafts .minas-sale-result-panel {
+    height: 366px !important;
+    min-height: 366px !important;
+    max-height: 366px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+  }
+
+  body.outros-crafts .process-panel .mini-panel-head,
+  body.outros-crafts .process-results-panel .mini-panel-head,
+  body.outros-crafts .minas-sale-input-panel .mini-panel-head,
+  body.outros-crafts .minas-sale-result-panel .mini-panel-head {
+    flex: 0 0 auto !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* Processos compactos dentro do mesmo tamanho do resultado */
+  body.outros-crafts .process-panel .process-grid {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 8px !important;
+    gap: 10px !important;
+  }
+
+  body.outros-crafts .process-panel .process-input-card {
+    min-height: 54px !important;
+    height: 54px !important;
+    max-height: 54px !important;
+    flex: 0 0 54px !important;
+    padding: 10px 12px !important;
+  }
+
+  body.outros-crafts .process-panel .process-input-card input {
+    height: 38px !important;
+    min-height: 38px !important;
+  }
+
+  body.outros-crafts .process-results-panel .process-result-list {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 8px !important;
+  }
+
+  body.outros-crafts .process-result-row {
+    padding: 10px 12px !important;
+    min-height: 58px !important;
+  }
+
+  /* Vendas: ocupa todo o painel até ao máximo, depois scroll */
+  body.outros-crafts .minas-sale-input-panel .craft-list {
+    flex: 1 1 auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 8px !important;
+    padding-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  body.outros-crafts .minas-sale-input-panel .craft-card {
+    min-height: 98px !important;
+    height: 98px !important;
+    max-height: 98px !important;
+    flex: 0 0 98px !important;
+    padding: 16px 18px !important;
+  }
+
+  body.outros-crafts .minas-sale-input-panel .craft-card-info h3 {
+    font-size: 1.05rem !important;
+    margin-bottom: 5px !important;
+  }
+
+  body.outros-crafts .minas-sale-input-panel .craft-card-info p {
+    font-size: 0.92rem !important;
+    line-height: 1.35 !important;
+  }
+
+  body.outros-crafts .minas-sale-result-panel .other-summary-list {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: 8px !important;
+  }
+
+  body.outros-crafts .minas-sale-result-panel .other-total-box,
+  body.outros-crafts .minas-sale-result-panel .other-summary-actions,
+  body.outros-crafts .minas-sale-result-panel .save-message {
+    flex: 0 0 auto !important;
+  }
+}
+
+/* remove a regra anterior que limitava a lista a 420px */
+.minas-sale-input-panel .craft-list {
+  max-height: none !important;
+}
